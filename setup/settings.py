@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crm",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -73,7 +73,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = "crm.Lawyer"
+AUTH_USER_MODEL = "users.Users"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
