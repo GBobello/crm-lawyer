@@ -17,7 +17,6 @@ DEBUG = config("DEBUG", cast=bool, default=False)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -27,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "usuarios",
 ]
 
 MIDDLEWARE = [
@@ -72,6 +72,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = "usuarios.Lawyer"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

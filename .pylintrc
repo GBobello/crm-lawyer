@@ -11,6 +11,11 @@ disable=
       E0015, # unrecognized-option
       E0401, # import-error
       C0415, # Import outside toplevel
+      W0613, # unused-argument
+      W0611, # Unused admin imported from django.contrib
+      C0301, # Line too long (107/100)
+      C0103, # Module name "0001_initial" doesn't conform to snake_case naming style (invalid-name)
+
 
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
