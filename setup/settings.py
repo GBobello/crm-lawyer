@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users",
+    "customers",
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,10 @@ STATIC_ROOT = os.path.join("static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+LOGOUT_REDIRECT_URL = "login"  # Após logout, redireciona para a página de login
+LOGIN_REDIRECT_URL = "user-list"  # Após login, redireciona para a lista de usuários
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

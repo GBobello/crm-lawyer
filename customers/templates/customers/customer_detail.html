@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block 'content' %}
+<h1>Detalhes do Cliente</h1>
+<p><strong>Nome:</strong> {{ customer.nome }}</p>
+<p><strong>Email:</strong> {{ customer.email }}</p>
+<p><strong>Telefone:</strong> {{ customer.telefone }}</p>
+<p><strong>Endereço:</strong> {{ customer.endereco }}</p>
+<p><strong>CPF:</strong> {{ customer.cpf }}</p>
+<p><strong>Tipo de Pessoa:</strong> {{ customer.get_tipo_pessoa_display }}</p>
+<p><strong>Data de Nascimento:</strong> {{ customer.data_nascimento }}</p>
+<p><strong>Cidade:</strong> {{ customer.cidade }}</p>
+<p><strong>Estado:</strong> {{ customer.estado }}</p>
+<a href="{% url 'customer-update' customer.pk %}">Editar</a>
+<a href="{% url 'customer-delete' customer.pk %}">Excluir</a>
+<a href="{% url 'customer-list' %}">Voltar à Lista</a>
+{% endblock %}

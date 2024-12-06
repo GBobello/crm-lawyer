@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block 'content' %}
+<h1>Detalhes do Usuário</h1>
+<p>Nome: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Telefone: {{ user.telefone }}</p>
+<p>OAB: {{ user.oab }}</p>
+<p>Seccional: {{ user.seccional_oab }}</p>
+<p>Estado Civil: {{ user.estado_civil }}</p>
+<p>Especialidade: {{ user.especialidade }}</p>
+<p>Endereço: {{ user.endereco }}</p>
+<p>Nacionalidade: {{ user.nacionalidade }}</p>
+<img src="{{ user.foto.url }}" alt="Foto do Usuário" />
+
+<a href="{% url 'user-update' user.pk %}">Editar</a>
+<a href="{% url 'user-delete' user.pk %}">Excluir</a>
+<a href="{% url 'user-list' %}">Voltar</a>
+{% endblock %}
