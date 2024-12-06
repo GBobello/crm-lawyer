@@ -1,3 +1,14 @@
 .no-underline {
     text-decoration: none !important;
 }
+
+/* 
+label,
+span {
+    color: white;
+} */
+
+p>input,
+p>select {
+    color: black;
+}
