@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block 'content' %}
 <h1>{% if object %}Editar Task{% else %}Nova Task{% endif %}</h1>
 
 <form method="post">
@@ -8,5 +8,5 @@
   </button>
 </form>
 
-<a href="{% url 'task_list' %}" class="btn btn-secondary">Voltar</a>
+<a href="{% url 'task-list' %}" class="btn btn-secondary">Voltar</a>
 {% endblock %}

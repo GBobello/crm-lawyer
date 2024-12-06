@@ -40,7 +40,7 @@ class TaskCreateView(CreateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
-    success_url = reverse_lazy("task_list")
+    success_url = reverse_lazy("task-list")
 
     def form_valid(self, form):
         form.instance.usuario = (
@@ -54,7 +54,7 @@ class TaskUpdateView(UpdateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
-    success_url = reverse_lazy("task_list")
+    success_url = reverse_lazy("task-list")
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -66,7 +66,7 @@ class TaskUpdateView(UpdateView):
 class TaskDeleteView(DeleteView):
     model = Tasks
     template_name = "tasks/task_confirm_delete.html"
-    success_url = reverse_lazy("task_list")
+    success_url = reverse_lazy("task-list")
 
     def get_queryset(self):
         if self.request.user.is_superuser:
