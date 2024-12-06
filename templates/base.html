@@ -5,18 +5,17 @@
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'general/css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'general/css/general.css' %}" />
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     {% block 'head' %}{% endblock %}
 
@@ -25,76 +24,84 @@
   <body id="body">
     <div
       id="container"
-      class="min-h-screen bg-gradient-to-tl from-zinc-950 to-slate-900 text-white"
-    >
+      class="min-h-screen bg-gradient-to-tl from-zinc-950 to-slate-900 text-white">
+
       <header
         id="header"
-        class="flex items-center backdrop-blur-sm bg-white/5 h-14 w-[100%]"
-      >
+        class="flex items-center backdrop-blur-sm bg-white/5 h-14 w-[100%]">
         <button
           class="lg:hidden mx-4 md:hidden hover:text-gray-100 text-gray-400"
-          onclick="toggleSidebar()"
-        >        
-        <div id="toggle-x" class="hidden">
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          >
-          <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-        </div>
+          onclick="toggleSidebar()">
+          <div id="toggle-x" class="hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
 
-        <div id="toggle-hambuguer" class="flex">
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          >
-          <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-          />
-        </svg>
-        </div>
-        
+          <div id="toggle-hambuguer" class="flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </div>
+
         </button>
       </header>
 
-      <div
-        id="sidebar"
-        class="md:flex min-h-screen backdrop-blur-sm bg-white/5 md:w-16 md:hover:w-64 w-0 transition-all duration-300"
-      > 
-        <ul class="text-white">
-          <li><i class="fa fa-home text-white" aria-hidden="true"></i><span>Teste</span></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-        
+      <div class="flex" id="pagina">
 
-          
-        <!-- <p class="hover:text-gray-100 text-gray-400">TEtse</p> -->
+        <nav
+          id="sidebar"
+          class="md:flex min-h-screen backdrop-blur-sm bg-white/5 md:w-20 md:hover:w-64 w-0 transition-all duration-300
+          overflow-x-auto">
+          <ul class="font-medium space-y-4 text-2xl w-full group">
 
+            <li class="hover:bg-gray-700 ">
+              <a href="#"
+                class="no-underline flex w-full items-center text-white rounded-lg text-gray-700 px-4 py-2 ">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span
+                  class="ms-3 text-xl hidden group-hover:block ">Dashboard</span>
+              </a>
+            </li>
+
+          </ul>
+
+        </nav>
+
+        <div
+          id="conteudo"
+          class="h-100 bg-gray-900 p-4">
+
+          {% block 'content' %}{% endblock %}
+
+        </div>
 
       </div>
+
     </div>
-    
 
     <script src="{% static 'general/js/base.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
