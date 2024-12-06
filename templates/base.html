@@ -71,34 +71,62 @@
           class="md:flex min-h-screen backdrop-blur-sm bg-white/5 w-64 transition-all duration-300 overflow-x-auto ">
           <ul
             class="font-medium text-1xl w-full py-4 justify-content-center items-center group">
+
             <li
               class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-house"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Dashboard</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Dashboard</span>
               </a>
             </li>
             <!-- space -->
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-users"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Pessoas</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Pessoas
+                </span>
               </a>
+              <ul class="slide-menu open hidden">
+
+                <li class>
+                  <a class="slide-item"
+                    href>
+                    Constituintes
+                  </a>
+                </li>
+                <li class>
+                  <a class="slide-item"
+                    href>
+                    Usuários
+                  </a>
+                </li>
+                <li class>
+                  <a class="slide-item"
+                    href>
+                    Profissionais
+                  </a>
+                </li>
+                <li class><a class="slide-item"
+                    href>
+                    Fornecedores
+                  </a>
+                </li>
+              </ul>
             </li>
             <!-- space -->
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-folder-plus"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Cadastros</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Cadastros</span>
               </a>
             </li>
             <!-- space -->
@@ -106,41 +134,44 @@
               class="hover:bg-gray-700 transition-all duration-300 ">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 min-w-12 items-center text-white rounded-lg text-gray-700 px-4 py-2 ">
+                class="no-underline flex w-full min-h-12 min-w-12 items-center text-white rounded-lg px-4 py-2 ">
                 <i class="fa-solid fa-dollar-sign "></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Financeiro</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Financeiro</span>
               </a>
             </li>
             <!-- space -->
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Caixas</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Caixas</span>
               </a>
             </li>
             <!-- space -->
-            <li class="hover:bg-gray-700 transition-all duration-300">
+            <li
+              class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-calendar-days"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Tarefas /
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Tarefas
+                  /
                   Agenda</span>
               </a>
             </li>
             <!-- space -->
-            <li class="hover:bg-gray-700 transition-all duration-300">
+            <li
+              class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-file-circle-plus"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Abertura
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Abertura
                   de Contratos</span>
               </a>
             </li>
@@ -148,10 +179,10 @@
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-file-pen"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Gerar
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Gerar
                   Contrato</span>
               </a>
             </li>
@@ -159,20 +190,20 @@
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-scale-balanced"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Processos</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos</span>
               </a>
             </li>
             <!-- space -->
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-scale-unbalanced"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Processos
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos
                   Andamento</span>
               </a>
             </li>
@@ -180,10 +211,10 @@
             <li class="hover:bg-gray-700 transition-all duration-300">
               <a
                 href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg text-gray-700 px-4 py-2">
+                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-calendar"></i>
                 <span
-                  class="nav-item-name ms-3 text-xl group-hover:block">Audiências</span>
+                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Audiências</span>
               </a>
             </li>
             <!-- space -->
