@@ -50,3 +50,8 @@ class Users(AbstractUser):
     nacionalidade = models.CharField(max_length=255)
     estado_civil = models.CharField(max_length=255, choices=OPTIONS_ESTADO_CIVIL)
     seccional_oab = models.CharField(max_length=2, choices=OPTIONS_SECCTIONAL_OAB)
+
+    class Meta:
+        db_table = "users"
+        verbose_name = "User"
+        verbose_name_plural = "Users"

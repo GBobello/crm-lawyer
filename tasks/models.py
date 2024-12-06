@@ -1,0 +1,33 @@
+from django.db import models
+from django.conf import settings
+
+
+class Tasks(models.Model):
+    STATUS_CHOICES = [
+        ("agendada", "Agendada"),
+        ("concluida", "Concluída"),
+        ("cancelada", "Cancelada"),
+    ]
+
+    PRIORIDADE_CHOICES = [
+        ("baixa", "Baixa"),
+        ("media", "Média"),
+        ("alta", "Alta"),
+    ]
+
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="tasks",
+    )
+    data = models.DateField()
+    hora = models.TimeField()
+    hora_mensagem = models.TimeField()
+    descricao = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Agendada")
+    prioridade = models.CharField(max_length=5, choices=PRIORIDADE_CHOICES)
+
+    class Meta:
+        db_table = "tasks"
+        verbose_name = "Task"
+        verbose_name_plural = "Tasks"

@@ -68,3 +68,8 @@ class Customer(models.Model):
     estado_civil = models.CharField(
         max_length=255, choices=OPTIONS_ESTADO_CIVIL, null=True, blank=True
     )
+
+    class Meta:
+        db_table = "customers"
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"
