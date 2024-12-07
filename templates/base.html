@@ -31,7 +31,9 @@
 
       <header
         id="header"
-        class="flex items-center backdrop-blur-sm bg-white/5 h-14 w-[100%]">
+        class="flex items-center justify-between 
+              backdrop-blur-sm bg-white/5 
+              h-14 w-[100%]">
         <button
           class="mx-4 hover:text-gray-100 text-gray-400"
           onclick="toggleSidebar()">
@@ -65,6 +67,58 @@
             </svg>
           </div>
         </button>
+
+        <div class="flex items-center">
+          <div class="flex items-center ms-3">
+            <div>
+              <button type="button"
+                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full"
+                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  alt="user photo">
+              </button>
+            </div>
+            <div
+              class="z-50  my-4 text-base list-none  divide-y rounded shadow bg-gray-700 divide-gray-600"
+              id="dropdown-user">
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                  Neil Sims
+                </p>
+                <p
+                  class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                  role="none">
+                  neil.sims@flowbite.com
+                </p>
+              </div>
+              <ul class="py-1" role="none">
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Dashboard</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Settings</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Earnings</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </header>
 
       <div class="flex" id="pagina">
@@ -107,25 +161,26 @@
               <ul
                 class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0 group-hover:block">
                 <li class="slide-item">
-                  <a class="slide-item-link"
-                    href>
+                  <a class="slide-item-link w-full block"
+                    href="{% url 'customer-list' %}">
                     Constituintes
+
                   </a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link"
-                    href>
+                  <a class="slide-item-link w-full block"
+                    href="{% url 'user-list' %}">
                     Usuários
                   </a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link"
+                  <a class="slide-item-link w-full block"
                     href>
                     Profissionais
                   </a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link"
+                  <a class="slide-item-link w-full block"
                     href>
                     Fornecedores
                   </a>
@@ -146,17 +201,21 @@
 
               <ul
                 class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
-                <li class="slide-item"><a class="slide-item-link" href="#">
+                <li class="slide-item"><a class="slide-item-link w-full block"
+                    href="#">
                     Formas
                     Pgto</a></li>
-                <li class="slide-item"><a class="slide-item-link"
+                <li class="slide-item"><a class="slide-item-link w-full block"
                     href="#">Frequências</a></li>
-                <li class="slide-item"><a class="slide-item-link" href="#">
+                <li class="slide-item"><a class="slide-item-link w-full block"
+                    href="#">
                     Cargos</a></li>
-                <li class="slide-item"><a class="slide-item-link" href="#">
+                <li class="slide-item"><a class="slide-item-link w-full block"
+                    href="#">
                     Serviços
                     Prestados</a></li>
-                <li class="slide-item"><a class="slide-item-link" href="#">
+                <li class="slide-item"><a class="slide-item-link w-full block"
+                    href="#">
                     Modelos de
                     Contratos</a></li>
               </ul>
@@ -176,10 +235,10 @@
               <ul
                 class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
                 <li class="slide-item">
-                  <a href="#" class="slide-item-link">Receber</a>
+                  <a href="#" class="slide-item-link w-full block">Receber</a>
                 </li>
                 <li class="slide-item">
-                  <a href="#" class="slide-item-link">Despesas</a>
+                  <a href="#" class="slide-item-link w-full block">Despesas</a>
                 </li>
               </ul>
             </li>
@@ -198,16 +257,16 @@
               <ul
                 class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
                 <li class="slide-item">
-                  <a class="slide-item-link">Financeiro</a>
+                  <a class="slide-item-link w-full block">Financeiro</a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link">Sintético Receber</a>
+                  <a class="slide-item-link w-full block">Sintético Receber</a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link">Balanço Anual</a>
+                  <a class="slide-item-link w-full block">Balanço Anual</a>
                 </li>
                 <li class="slide-item">
-                  <a class="slide-item-link">Inadimplementes</a>
+                  <a class="slide-item-link w-full block">Inadimplementes</a>
                 </li>
 
               </ul>
