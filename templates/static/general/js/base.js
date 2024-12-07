@@ -4,15 +4,26 @@ function toggleSidebar() {
   const toggle_hambuguer = document.getElementById("toggle-hambuguer");
   const nav_item_name_list = document.querySelectorAll("span.nav-item-name");
 
-  sidebar.classList.toggle("w-64");
-  sidebar.classList.toggle("md:hover:w-64");
-  sidebar.classList.toggle("w-20");
+  sidebar.classList.toggle("sidebar-switch");
 
-  toggle_x.classList.toggle("hidden");
-  toggle_hambuguer.classList.toggle("hidden");
+  if (sidebar.classList.contains("sidebar-switch")) {
+    toggle_x.classList.remove("hidden");
+    toggle_hambuguer.classList.add("hidden");
+    //Mobile
+    sidebar.classList.remove("hidden");
+    //Pc
+    sidebar.classList.add("md:w-20");
+  } else {
+    toggle_x.classList.add("hidden");
+    toggle_hambuguer.classList.remove("hidden");
+    //Mobile
+    sidebar.classList.add("hidden");
+    //Pc\
+    sidebar.classList.remove("md:w-20");
+  }
 
   nav_item_name_list.forEach(nav_item_name => {
-    nav_item_name.classList.toggle("hidden");
+    nav_item_name.classList.toggle("md:hidden");
   });
 
 }

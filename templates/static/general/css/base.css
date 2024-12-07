@@ -1,12 +1,14 @@
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+
 .no-underline {
     text-decoration: none !important;
 }
-
-/* 
-label,
-span {
-    color: white;
-} */
 
 p>input,
 p>select {

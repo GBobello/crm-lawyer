@@ -23,7 +23,7 @@
 
     <title>{% block 'title' %}{% endblock %}</title>
   </head>
-  <body id="body">
+  <body id="body" class>
     <div
       id="container"
       class="min-h-screen bg-gradient-to-tl from-zinc-950 to-slate-900 text-white">
@@ -69,7 +69,10 @@
       <div class="flex" id="pagina">
         <nav
           id="sidebar"
-          class="md:flex min-h-screen backdrop-blur-sm bg-white/5 w-64 transition-all duration-300 overflow-x-auto ">
+          class="h-screen backdrop-blur-sm bg-white/5 transition-all duration-300
+                 w-64 fixed hidden
+                 md:w-64 md:block md:relative md:hover:w-64
+                 overflow-x-auto ">
           <ul
             class="font-medium text-1xl w-full py-4 justify-content-center items-center group">
 
@@ -222,7 +225,7 @@
           </ul>
         </nav>
 
-        <div id="conteudo" class="h-100 bg-gray-900 p-4">
+        <div id="conteudo" class="h-300 bg-gray-900 p-4 overflow-auto">
           {% block 'content' %}{% endblock %}
         </div>
       </div>
