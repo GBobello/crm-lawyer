@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block 'content' %}
+{% extends "users.html" %} 
+
+{% block 'content' %}
 <h1>Lista de Usuários</h1>
 {% if request.user.is_superuser %}
 <a href="{% url 'user-create' %}">Criar Novo Usuário</a>

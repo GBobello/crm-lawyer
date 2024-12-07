@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block 'content' %}
+{% extends "users.html" %}
+
+{% block 'content' %}
 <h1>{% if user.pk %}Editar Usuário{% else %}Criar Usuário{% endif %}</h1>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %} {{ form.as_p }}

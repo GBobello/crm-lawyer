@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block 'content' %}
+{% extends 'tasks.html' %} 
+
+{% block 'content' %}
 <h1>{% if object %}Editar Task{% else %}Nova Task{% endif %}</h1>
 
 <form method="post">

@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from decouple import config, Csv
 from dj_database_url import parse as db_url
@@ -17,6 +18,9 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", cast=bool, default=False)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
+
+# Adicionar a pasta "apps" ao PYTHONPATH
+sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 # Application definition
 

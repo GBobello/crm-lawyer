@@ -16,6 +16,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'general/css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'general/css/general.css' %}" />
+    <link rel="shortcut icon" href="{% static 'general/img/favicon.png' %}" type="image/x-icon">
 
     <script src="https://cdn.tailwindcss.com"></script>
     {% block 'head' %}{% endblock %}
@@ -154,7 +155,7 @@
             <li
               class="hover:bg-gray-700 transition-all duration-300">
               <a
-                href="{% url 'customer-list' %}"
+                href="{% url 'task-list' %}"
                 class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
                 <i class="fa-solid fa-calendar-days"></i>
                 <span

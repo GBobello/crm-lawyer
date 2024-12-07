@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block 'content' %}
+{% extends "customers.html" %} 
+
+
+{% block 'content' %}
 <h1>{% if customer.pk %}Editar Cliente{% else %}Criar Cliente{% endif %}</h1>
 <form method="post" id="customer-form">
   {% csrf_token %} {{ form.as_p }}
