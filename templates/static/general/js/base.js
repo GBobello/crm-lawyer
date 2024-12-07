@@ -27,7 +27,7 @@ function toggleSidebar() {
     nav_item_name.classList.toggle("md:hidden");
   });
   toggleIcons.forEach(toggleIcon => {
-    toggleIcon.classList.toggle("hidden");
+    toggleIcon.classList.toggle("md:hidden");
   });
 
 }
