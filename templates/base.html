@@ -24,15 +24,16 @@
 
     <title>{% block 'title' %}{% endblock %}</title>
   </head>
+
   <body id="body" class>
-    <div
-      id="container"
-      class="min-h-screen bg-gradient-to-tl from-zinc-950 to-slate-900 text-white">
+    <div id="body"
+      class="absolute bg-gradient-to-tl from-zinc-800 to-slate-900 text-white w-full min-h-screen">
 
       <header
         id="header"
-        class="flex items-center justify-between 
-              backdrop-blur-sm bg-white/5 
+        class="fixed top-0 z-50 
+              flex items-center justify-between 
+              backdrop-blur-sm bg-white/5 border-b
               h-14 w-[100%]">
         <button
           class="mx-4 hover:text-gray-100 text-gray-400"
@@ -72,8 +73,9 @@
           <div class="flex items-center ms-3">
             <div>
               <button type="button"
-                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                class="flex text-sm bg-gray-800 mr-4 rounded-full focus:ring-4 focus:ring-[--var(--main-color)]dark:focus:ring-gray-600"
+                aria-expanded="false" data-dropdown-toggle="dropdown-user"
+                onclick="toggleHidden('dropdown-user')">
                 <span class="sr-only">Open user menu</span>
                 <img class="w-8 h-8 rounded-full"
                   src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
@@ -81,38 +83,36 @@
               </button>
             </div>
             <div
-              class="z-50  my-4 text-base list-none  divide-y rounded shadow bg-gray-700 divide-gray-600"
+              class="absolute hidden top-10 right-2 z-50 my-4 text-base divide-y rounded backdrop-blur-sm bg-white/5 "
               id="dropdown-user">
               <div class="px-4 py-3" role="none">
                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  Neil Sims
+                  Usuário teste
                 </p>
                 <p
                   class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                   role="none">
-                  neil.sims@flowbite.com
+                  usuario.teste@email.com
                 </p>
               </div>
               <ul class="py-1" role="none">
                 <li>
                   <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Dashboard</a>
+                    class="no-underline block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem"><i class="fa fa-user mr-2"
+                      aria-hidden="true"></i>Perfil</a>
                 </li>
                 <li>
                   <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Settings</a>
+                    class="no-underline block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem"><i class="fa fa-cog mr-2"
+                      aria-hidden="true"></i>Settings</a>
                 </li>
                 <li>
                   <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Earnings</a>
-                </li>
-                <li>
-                  <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Sign out</a>
+                    class="no-underline block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem"><i class="fa fa-sign-out mr-2"
+                      aria-hidden="true"></i>Sign out</a>
                 </li>
               </ul>
             </div>
@@ -121,241 +121,244 @@
 
       </header>
 
-      <div class="flex" id="pagina">
-
-        <nav
-          id="sidebar"
-          class="h-screen backdrop-blur-sm bg-white/5 
-                 w-64 fixed hidden
-                 md:w-64 md:block md:relative md:hover:w-64
+      <aside
+        id="sidebar"
+        class=" fixed left-0 top-14 z-40 -translate-x-full transition-transform sm:translate-x-0
+                h-screen backdrop-blur-sm bg-white/5 
+                 w-64 fixed
+                 sm:block sm:hover:w-64
                  transition-all ease-in-out duration-600
                  last:mb-8
                  overflow-x-auto group ">
-          <ul
-            class="font-medium text-1xl w-full py-4 justify-content-center items-center ">
+        <ul
+          class="font-medium text-1xl w-full py-4 justify-content-center items-center ">
 
-            <li
-              class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-house"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Dashboard</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li class="navdropdown-submenu"
-              onclick="toggleSubMenu(this)">
-              <a
-                class="no-underline flex w-full min-h-12 items-center text-white px-4 py-2
+          <li
+            class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-house"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Dashboard</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li class="navdropdown-submenu"
+            onclick="toggleSubMenu(this)">
+            <a
+              class="no-underline flex w-full min-h-12 items-center text-white px-4 py-2
                        relative
                        hover:bg-gray-700">
-                <i class="fa-solid fa-users"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Pessoas
-                </span>
-                <i id="toggle-icon"
-                  class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
-              </a>
-              <ul
-                class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0 group-hover:block">
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block"
-                    href="{% url 'customer-list' %}">
-                    Constituintes
+              <i class="fa-solid fa-users"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Pessoas
+              </span>
+              <i id="toggle-icon"
+                class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
+            </a>
+            <ul
+              class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0 group-hover:block">
+              <li class="slide-item">
+                <a class="slide-item-link w-full block"
+                  href="{% url 'customer-list' %}">
+                  Constituintes
 
-                  </a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block"
-                    href="{% url 'user-list' %}">
-                    Usuários
-                  </a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block"
-                    href>
-                    Profissionais
-                  </a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block"
-                    href>
-                    Fornecedores
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- space -->
-            <li class="navdropdown-submenu"
-              onclick="toggleSubMenu(this)">
-              <a
-                class="no-underline hover:bg-gray-700 flex w-full min-h-12 items-center text-white px-4 py-2">
-                <i class="fa-solid fa-folder-plus"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Cadastros</span>
-                <i id="toggle-icon"
-                  class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
-              </a>
+                </a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block"
+                  href="{% url 'user-list' %}">
+                  Usuários
+                </a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block"
+                  href>
+                  Profissionais
+                </a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block"
+                  href>
+                  Fornecedores
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- space -->
+          <li class="navdropdown-submenu"
+            onclick="toggleSubMenu(this)">
+            <a
+              class="no-underline hover:bg-gray-700 flex w-full min-h-12 items-center text-white px-4 py-2">
+              <i class="fa-solid fa-folder-plus"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Cadastros</span>
+              <i id="toggle-icon"
+                class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
+            </a>
 
-              <ul
-                class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
-                <li class="slide-item"><a class="slide-item-link w-full block"
-                    href="#">
-                    Formas
-                    Pgto</a></li>
-                <li class="slide-item"><a class="slide-item-link w-full block"
-                    href="#">Frequências</a></li>
-                <li class="slide-item"><a class="slide-item-link w-full block"
-                    href="#">
-                    Cargos</a></li>
-                <li class="slide-item"><a class="slide-item-link w-full block"
-                    href="#">
-                    Serviços
-                    Prestados</a></li>
-                <li class="slide-item"><a class="slide-item-link w-full block"
-                    href="#">
-                    Modelos de
-                    Contratos</a></li>
-              </ul>
-            </li>
-            <!-- space -->
-            <li class="navdropdown-submenu"
-              onclick="toggleSubMenu(this)">
-              <a
-                class="no-underline hover:bg-gray-700 flex w-full min-h-12 min-w-12 items-center text-white px-4 py-2 ">
-                <i class="ml-1 fa-solid fa-dollar-sign"></i>
-                <span
-                  class="nav-item-name ml-2 ms-3 text-md whitespace-nowrap group-hover:block">Financeiro</span>
-                <i id="toggle-icon"
-                  class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
-              </a>
+            <ul
+              class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
+              <li class="slide-item"><a class="slide-item-link w-full block"
+                  href="#">
+                  Formas
+                  Pgto</a></li>
+              <li class="slide-item"><a class="slide-item-link w-full block"
+                  href="#">Frequências</a></li>
+              <li class="slide-item"><a class="slide-item-link w-full block"
+                  href="#">
+                  Cargos</a></li>
+              <li class="slide-item"><a class="slide-item-link w-full block"
+                  href="#">
+                  Serviços
+                  Prestados</a></li>
+              <li class="slide-item"><a class="slide-item-link w-full block"
+                  href="#">
+                  Modelos de
+                  Contratos</a></li>
+            </ul>
+          </li>
+          <!-- space -->
+          <li class="navdropdown-submenu"
+            onclick="toggleSubMenu(this)">
+            <a
+              class="no-underline hover:bg-gray-700 flex w-full min-h-12 min-w-12 items-center text-white px-4 py-2 ">
+              <i class="ml-1 fa-solid fa-dollar-sign"></i>
+              <span
+                class="nav-item-name ml-2 ms-3 text-md whitespace-nowrap group-hover:block">Financeiro</span>
+              <i id="toggle-icon"
+                class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
+            </a>
 
-              <ul
-                class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
-                <li class="slide-item">
-                  <a href="#" class="slide-item-link w-full block">Receber</a>
-                </li>
-                <li class="slide-item">
-                  <a href="#" class="slide-item-link w-full block">Despesas</a>
-                </li>
-              </ul>
-            </li>
-            <!-- space -->
-            <li class="navdropdown-submenu"
-              onclick="toggleSubMenu(this)">
-              <a
-                class="no-underline hover:bg-gray-700 flex w-full min-h-12 min-w-12 items-center text-white px-4 py-2 ">
-                <i class="ml-1 fa-solid fa-file-text"></i>
-                <span
-                  class="nav-item-name ml-2 ms-3 text-md whitespace-nowrap group-hover:block">Relatórios</span>
-                <i id="toggle-icon"
-                  class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
-              </a>
+            <ul
+              class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
+              <li class="slide-item">
+                <a href="#" class="slide-item-link w-full block">Receber</a>
+              </li>
+              <li class="slide-item">
+                <a href="#" class="slide-item-link w-full block">Despesas</a>
+              </li>
+            </ul>
+          </li>
+          <!-- space -->
+          <li class="navdropdown-submenu"
+            onclick="toggleSubMenu(this)">
+            <a
+              class="no-underline hover:bg-gray-700 flex w-full min-h-12 min-w-12 items-center text-white px-4 py-2 ">
+              <i class="ml-1 fa-solid fa-file-text"></i>
+              <span
+                class="nav-item-name ml-2 ms-3 text-md whitespace-nowrap group-hover:block">Relatórios</span>
+              <i id="toggle-icon"
+                class="toggle-icon group-hover:block fa-solid fa-chevron-up absolute right-4 transition-all duration-600"></i>
+            </a>
 
-              <ul
-                class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block">Financeiro</a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block">Sintético Receber</a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block">Balanço Anual</a>
-                </li>
-                <li class="slide-item">
-                  <a class="slide-item-link w-full block">Inadimplementes</a>
-                </li>
+            <ul
+              class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0">
+              <li class="slide-item">
+                <a class="slide-item-link w-full block">Financeiro</a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block">Sintético Receber</a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block">Balanço Anual</a>
+              </li>
+              <li class="slide-item">
+                <a class="slide-item-link w-full block">Inadimplementes</a>
+              </li>
 
-              </ul>
-            </li>
-            <!-- space -->
-            <li class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Caixas</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li
-              class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'task-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-calendar-days"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Tarefas
-                  /
-                  Agenda</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li
-              class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-file-circle-plus"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Abertura
-                  de Contratos</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-file-pen"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Gerar
-                  Contrato</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-scale-balanced"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-scale-unbalanced"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos
-                  Andamento</span>
-              </a>
-            </li>
-            <!-- space -->
-            <li class="hover:bg-gray-700 ">
-              <a
-                href="{% url 'customer-list' %}"
-                class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
-                <i class="fa-solid fa-calendar"></i>
-                <span
-                  class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Audiências</span>
-              </a>
-            </li>
-            <!-- space -->
-          </ul>
-        </nav>
+            </ul>
+          </li>
+          <!-- space -->
+          <li class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Caixas</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li
+            class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'task-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-calendar-days"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Tarefas
+                /
+                Agenda</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li
+            class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-file-circle-plus"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Abertura
+                de Contratos</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-file-pen"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Gerar
+                Contrato</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-scale-unbalanced"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Processos
+                Andamento</span>
+            </a>
+          </li>
+          <!-- space -->
+          <li class="hover:bg-gray-700 ">
+            <a
+              href="{% url 'customer-list' %}"
+              class="no-underline flex w-full min-h-12 items-center text-white rounded-lg px-4 py-2">
+              <i class="fa-solid fa-calendar"></i>
+              <span
+                class="nav-item-name ms-3 text-md whitespace-nowrap group-hover:block">Audiências</span>
+            </a>
+          </li>
+          <!-- space -->
+        </ul>
+      </aside>
 
-        <div id="conteudo" class="h-300 bg-gray-900 p-4 overflow-auto">
-          {% block 'content' %}{% endblock %}
-        </div>
+      <div id="conteudo"
+        class="mt-14 p-4
+               bg-gray-900  
+               sm:ml-64">
+        {% block 'content' %}{% endblock %}
+
       </div>
+
     </div>
 
     <script src="{% static 'general/js/base.js' %}"></script>
