@@ -50,6 +50,8 @@ class UserEditForm(UserChangeForm):
             "especialidade",
             "foto",
             "nacionalidade",
+            "is_active",
+            "is_superuser",
         ]
 
     def clean(self):
