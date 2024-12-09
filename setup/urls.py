@@ -3,6 +3,9 @@ from django.urls import path
 from django.urls.conf import include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.base import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     # Login e Logout
@@ -18,3 +21,5 @@ urlpatterns = [
     path("clientes/", include("customers.urls")),
     path("tarefas/", include("tasks.urls")),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -333,7 +333,7 @@
   <div class="relative w-full max-w-2xl max-h-full">
     <!-- Modal content -->
     <form method="post" enctype="multipart/form-data" onsubmit="EnviarEditUser(event)"
-          class="relative bg-white rounded-lg shadow dark:bg-gray-700" >
+          class="relative bg-white rounded-lg shadow dark:bg-gray-700" action="{{user.id}}/editar/" >
           {% csrf_token %}
       <!-- Modal header -->
       <div
@@ -355,8 +355,8 @@
         </button>
       </div>
 
-      <div id="edit-modal-user-msg-{{user.id}}" class="mt-2 mx-6 flex items-baseline justify-between border-2 border-dashed border-red-300 px-6 py-2 text-sm text-gray-400 hidden" >
-        <div id="edit-modal-user-erroslist-{{user.id}}">
+      <div id="edit-modal-user-msg" class="mt-2 mx-6 flex items-baseline justify-between border-2 border-dashed border-red-300 px-6 py-2 text-sm text-gray-400 hidden" >
+        <div id="edit-modal-user-erroslist">
                    
         </div>       
       </div>
