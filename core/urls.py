@@ -20,6 +20,7 @@ urlpatterns = [
     path("usuarios/", include("users.urls")),
     path("clientes/", include("customers.urls")),
     path("tarefas/", include("tasks.urls")),
+    path("fornecedores/", include("suppliers.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

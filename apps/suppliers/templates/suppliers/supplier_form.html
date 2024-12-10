@@ -1,0 +1,14 @@
+{% extends 'suppliers.html' %}
+
+{% block 'content' %}
+<h1>{% if object %}Editar Fornecedor{% else %}Novo Fornecedor{% endif %}</h1>
+
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">
+    {% if object %}Atualizar{% else %}Salvar{% endif %}
+  </button>
+</form>
+
+<a href="{% url 'supplier-list' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

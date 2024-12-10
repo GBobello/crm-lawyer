@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
     CreateView,
@@ -10,14 +11,14 @@ from .models import Customer
 
 
 # Listagem dos clientes
-class CustomerListView(ListView):
+class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = "customers/customer_list.html"
     context_object_name = "customers"
 
 
 # Criação de um cliente
-class CustomerCreateView(CreateView):
+class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer
     template_name = "customers/customer_form.html"
     fields = [
@@ -41,7 +42,7 @@ class CustomerCreateView(CreateView):
 
 
 # Atualização de um cliente
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
     template_name = "customers/customer_form.html"
     fields = [
@@ -65,14 +66,14 @@ class CustomerUpdateView(UpdateView):
 
 
 # Exclusão de um cliente
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     model = Customer
     template_name = "customers/customer_confirm_delete.html"
     success_url = reverse_lazy("customer-list")
 
 
 # Detalhes de um cliente
-class CustomerDetailView(DetailView):
+class CustomerDetailView(LoginRequiredMixin, DetailView):
     model = Customer
     template_name = "customers/customer_detail.html"
     context_object_name = "customer"

@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -11,7 +12,7 @@ from .models import Tasks
 
 
 # Listar Tasks
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     model = Tasks
     template_name = "tasks/task_list.html"
     context_object_name = "tasks"
@@ -25,7 +26,7 @@ class TaskListView(ListView):
 
 
 # Detalhes de uma Task
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Tasks
     template_name = "tasks/task_detail.html"
 
@@ -36,7 +37,7 @@ class TaskDetailView(DetailView):
 
 
 # Criar Nova Task
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
@@ -50,7 +51,7 @@ class TaskCreateView(CreateView):
 
 
 # Editar Task
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
@@ -63,7 +64,7 @@ class TaskUpdateView(UpdateView):
 
 
 # Deletar Task
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Tasks
     template_name = "tasks/task_confirm_delete.html"
     success_url = reverse_lazy("task-list")
