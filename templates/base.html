@@ -109,11 +109,16 @@
                     role="menuitem"><i class="fa fa-cog mr-2"
                       aria-hidden="true"></i>Settings</a>
                 </li>
-                <li>
-                  <a href="{% url 'logout' %}"
-                    class="no-underline block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
-                    role="menuitem"><i class="fa fa-sign-out mr-2"
-                      aria-hidden="true"></i>Sign out</a>
+                <li>                  
+                  <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">
+                      <a 
+                      class="no-underline block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
+                      role="menuitem"><i class="fa fa-sign-out mr-2"
+                        aria-hidden="true"></i>Sign out</a>
+                    </button>
+                  </form>
                 </li>
               </ul>
             </div>

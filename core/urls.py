@@ -14,7 +14,7 @@ urlpatterns = [
         RedirectView.as_view(url="/login/", permanent=False),
         name="redirect_view",
     ),
-    path("", include("finances.urls")),
+    path("financeiro/", include("finances.urls")),
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("admin/", admin.site.urls),
