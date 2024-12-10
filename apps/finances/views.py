@@ -7,19 +7,17 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from .models import Supplier
-
-# from .forms import SupplierForm
+from .models import Suppliers
 
 
 class SupplierListView(LoginRequiredMixin, ListView):
-    model = Supplier
+    model = Suppliers
     template_name = "suppliers/supplier_list.html"
     context_object_name = "suppliers"
 
 
 class SupplierCreateView(LoginRequiredMixin, CreateView):
-    model = Supplier
+    model = Suppliers
     # form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
     fields = [
@@ -32,7 +30,7 @@ class SupplierCreateView(LoginRequiredMixin, CreateView):
 
 
 class SupplierUpdateView(LoginRequiredMixin, UpdateView):
-    model = Supplier
+    model = Suppliers
     # form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
     fields = [
@@ -45,12 +43,12 @@ class SupplierUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class SupplierDeleteView(LoginRequiredMixin, DeleteView):
-    model = Supplier
+    model = Suppliers
     template_name = "suppliers/supplier_confirm_delete.html"
     success_url = reverse_lazy("supplier-list")
 
 
 class SupplierDetailView(LoginRequiredMixin, DetailView):
-    model = Supplier
+    model = Suppliers
     template_name = "suppliers/supplier_detail.html"
     context_object_name = "supplier"
