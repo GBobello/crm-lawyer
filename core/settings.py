@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "livesync",
     "django.contrib.staticfiles",
     "users",
     "customers",
@@ -44,9 +45,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "livesync.core.middleware.DjangoLiveSyncMiddleware",
 ]
 
-ROOT_URLCONF = "setup.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -64,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "setup.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
