@@ -20,7 +20,7 @@ def validate_document(value):
     value = re.sub(r"[\s]", "", value)
 
     if re.match(
-        r"^([0-9]{3}?[0-9]{3}?[0-9]{3}?[0-9]{2})$|^([0-9]{2}?[0-9]{3}?[0-9]{3}?[0-9]{6})$",
+        r"^([0-9]{11})$|^([0-9]{14})$",
         value,
     ):
         raise validators.ValidationError(_("Documento inválido."))
