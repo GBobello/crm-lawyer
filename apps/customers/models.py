@@ -1,4 +1,6 @@
+from utils import utils
 from django.db import models
+from .validators import validate_document, validate_phone
 
 
 class Customer(models.Model):
@@ -48,10 +50,12 @@ class Customer(models.Model):
 
     nome = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, null=True, blank=True)
-    telefone = models.CharField(max_length=20, null=True, blank=True)
+    telefone = models.CharField(
+        max_length=20, null=True, blank=True, validators=[validate_phone]
+    )
     data_cad = models.DateTimeField(auto_now_add=True)
     endereco = models.CharField(max_length=255, null=True, blank=True)
-    cpf = models.CharField(max_length=14)
+    documento = models.CharField(max_length=18, validators=[validate_document])
     tipo_pessoa = models.CharField(max_length=255, choices=OPTIONS_TIPO_PESSOA)
     data_nascimento = models.DateField(null=True, blank=True)
     numero = models.CharField(max_length=10, null=True, blank=True)
@@ -68,6 +72,17 @@ class Customer(models.Model):
     estado_civil = models.CharField(
         max_length=255, choices=OPTIONS_ESTADO_CIVIL, null=True, blank=True
     )
+
+    def save(self, *args, **kwargs):
+        self.documento = utils.remove_special_characters(self.documento)
+        self.telefone = utils.remove_special_characters(self.telefone)
+
+        if len(self.documento) == 11:
+            self.tipo_pessoa = "fisica"
+        else:
+            self.tipo_pessoa = "juridica"
+
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = "customers"

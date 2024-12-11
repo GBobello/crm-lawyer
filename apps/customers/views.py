@@ -8,6 +8,8 @@ from django.views.generic import (
     DetailView,
 )
 from .models import Customer
+from .forms import CustomerForm
+from django.shortcuts import get_object_or_404
 
 
 # Listagem dos clientes
@@ -20,48 +22,16 @@ class CustomerListView(LoginRequiredMixin, ListView):
 # Criação de um cliente
 class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer
+    form_class = CustomerForm
     template_name = "customers/customer_form.html"
-    fields = [
-        "nome",
-        "email",
-        "telefone",
-        "endereco",
-        "cpf",
-        "tipo_pessoa",
-        "data_nascimento",
-        "numero",
-        "rg",
-        "complemento",
-        "genitor",
-        "genitora",
-        "profissao",
-        "nacionalidade",
-        "estado_civil",
-    ]
     success_url = reverse_lazy("customer-list")
 
 
 # Atualização de um cliente
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
+    form_class = CustomerForm
     template_name = "customers/customer_form.html"
-    fields = [
-        "nome",
-        "email",
-        "telefone",
-        "endereco",
-        "cpf",
-        "tipo_pessoa",
-        "data_nascimento",
-        "numero",
-        "rg",
-        "complemento",
-        "genitor",
-        "genitora",
-        "profissao",
-        "nacionalidade",
-        "estado_civil",
-    ]
     success_url = reverse_lazy("customer-list")
 
 

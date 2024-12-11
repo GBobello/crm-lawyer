@@ -1,5 +1,7 @@
+from utils import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from .validators import validate_phone
 
 
 class Users(AbstractUser):
@@ -43,13 +45,18 @@ class Users(AbstractUser):
     )
 
     endereco = models.CharField(max_length=255)
-    telefone = models.CharField(max_length=20)
+    telefone = models.CharField(max_length=20, validators=[validate_phone])
     oab = models.CharField(max_length=20)
     especialidade = models.CharField(max_length=255)
     foto = models.ImageField(upload_to="fotos/", null=True, blank=True)
     nacionalidade = models.CharField(max_length=255)
     estado_civil = models.CharField(max_length=255, choices=OPTIONS_ESTADO_CIVIL)
     seccional_oab = models.CharField(max_length=2, choices=OPTIONS_SECCTIONAL_OAB)
+
+    def save(self, *args, **kwargs):
+        self.telefone = utils.remove_special_characters(self.telefone)
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         db_table = "users"

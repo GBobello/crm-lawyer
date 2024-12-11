@@ -44,9 +44,8 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("task-list")
 
     def form_valid(self, form):
-        form.instance.usuario = (
-            self.request.user
-        )  # Define o usuário atual como dono da task
+        if not self.request.user.is_superuser:
+            form.instance.usuario = self.request.user
         return super().form_valid(form)
 
 
@@ -56,6 +55,11 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     template_name = "tasks/task_form.html"
     success_url = reverse_lazy("task-list")
+
+    def form_valid(self, form):
+        if not self.request.user.is_superuser:
+            form.instance.usuario = self.request.user
+        return super().form_valid(form)
 
     def get_queryset(self):
         if self.request.user.is_superuser:

@@ -20,7 +20,7 @@ class Tasks(models.Model):
         on_delete=models.CASCADE,
         related_name="tasks",
     )
-    data = models.DateField()
+    data = models.DateField(null=False, blank=False)
     hora = models.TimeField()
     hora_mensagem = models.TimeField()
     descricao = models.TextField()

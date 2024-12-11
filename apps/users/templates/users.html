@@ -1,14 +1,5 @@
-{% extends 'base.html' %}
-{%load static%}
-
-{% block 'head' %}
+{% extends 'base.html' %} {%load static%} {% block 'head' %}
 <link rel="stylesheet" href="{% static 'users/css/users.css' %}" />
-{% endblock %}
-
-{% block 'title' %}
-Usuários
-{% endblock %}
-
-{% block 'scripts' %}
+{% endblock %} {% block 'title' %} Usuários {% endblock %} {% block 'scripts' %}
 <script src="{% static 'users/js/users.js' %}"></script>
 {% endblock %}
