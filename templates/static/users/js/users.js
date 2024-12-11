@@ -97,3 +97,62 @@ function FiltrarTabela(element) {
     }
   }
 }
+
+function CloseModal(element) {
+  const target = document.getElementById(element.attributes.getNamedItem("data-modal-target").value);
+
+  let event = new KeyboardEvent('keydown', {
+    key: 'Escape', // A tecla que você quer simular
+    code: 'Escape',
+    keyCode: 27, // Código da tecla
+    charCode: 0,
+    bubbles: true
+  });
+
+  // Dispara o evento no elemento selecionado
+  target.dispatchEvent(event);
+}
+
+function SendForm(event, element) {
+  const form = $(element);
+  const url = form.attr("action");
+  const method = form.attr("method");
+  const data = form.serialize();
+
+  event.preventDefault();
+
+  $.ajax({
+    url: url,
+    method: method,
+    data: data,
+    success: function (response) {
+      // Verifica se existem elementos <ul class="errorlist">
+      const errorLists = $(response).find("ul.errorlist");
+      if (errorLists.length > 0) {
+        console.log(response.message);
+      } else {
+        location.reload();
+      }
+    },
+    error: function (response) {
+      console.log(response.message);
+      alert("Erro ao tentar enviar o o formulário");
+    },
+  });
+}
+
+function LoadPageInModal(element) {
+  const modalContentTarget = document.getElementById(element.attributes.getNamedItem("data-modal-target").value + '-content');
+
+  $.ajax({
+    url: element.attributes.getNamedItem("data-url").value,
+    method: "GET",
+    success: function (response) {
+      modalContentTarget.innerHTML = response;
+      // initModals();
+    },
+    error: function (response) {
+      console.log("Erro carregando pagina no modal" + response.message);
+    },
+  });
+}
