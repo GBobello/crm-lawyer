@@ -9,7 +9,6 @@ from django.views.generic import (
 )
 from .models import Customer
 from .forms import CustomerForm
-from django.shortcuts import get_object_or_404
 
 
 # Listagem dos clientes

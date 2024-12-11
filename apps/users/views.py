@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.contrib import messages
-from .models import Users
-from .forms import UserCreateForm, UserEditForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from .models import Users
+from .forms import UserCreateForm, UserEditForm
 
 
 # Mixin para restringir ações apenas para superusuários
