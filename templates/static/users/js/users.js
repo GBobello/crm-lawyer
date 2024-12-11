@@ -126,11 +126,11 @@ function SendForm(event, element) {
     method: method,
     data: data,
     success: function (response) {
-      // Verifica se existem elementos <ul class="errorlist">
-      const errorLists = $(response).find("ul.errorlist");
-      if (errorLists.length > 0) {
+      if (!response.status) {
         console.log(response.message);
+        form.html(response);
       } else {
+        console.log(response.message)
         location.reload();
       }
     },

@@ -1,14 +1,13 @@
 {% load tailwind_filters %}
-
-
 <!-- Modal content -->
 <form method="post" enctype="multipart/form-data" onsubmit="SendForm(event,this)"
-  class="relative rounded-lg shadow bg-gray-100" action="{% url 'user-create'%}">
+  class="relative rounded-lg shadow bg-gray-100"
+  action="{%if object.pk %}{% url 'user-update' pk=object.pk %}{% else %}{% url 'user-create'%}{%endif%}">
   {% csrf_token %}
   <!-- Modal header -->
   <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
     <h3 class="text-xl font-semibold text-zinc-700">
-      {% if user.pk %}Editar Usuário {{user.pk}} {% else %}Criar Usuário{% endif %}
+      {% if object.pk %}Editar Usuário {{object.pk}} {% else %}Criar Usuário{% endif %}
     </h3>
     <button type="button" onclick="CloseModal(this)"
       class="bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"

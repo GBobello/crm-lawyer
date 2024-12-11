@@ -45,20 +45,21 @@
         <div class="flex items-center ms-3">
           <div>
             <button type="button"
-              class="flex text-sm bg-gray-800 mr-4 rounded-full focus:ring-4 focus:ring-[--var(--main-color)]"
+              class="flex text-sm bg-gray-800 mr-8 rounded-full focus:ring-4 focus:ring-[--var(--main-color)]"
               aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleHidden('dropdown-user')">
               <span class="sr-only">Abrir menu do usuário</span>
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                alt="user photo">
+              <img class="w-8 h-8 rounded-full"
+                src="{% if user.foto == '' %}{% static 'general/img/perfil.png' %}{% else %}/media/{{ user.foto }}{% endif %}"
+                alt="{{ user.username }}">
             </button>
           </div>
           <div class="hidden my-2 text-base divide-y rounded backdrop-blur-sm bg-white/5 " id="dropdown-user">
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-300 " role="none">
-                Usuário teste
+                {{user.username}}
               </p>
               <p class="text-sm font-medium text-gray-300 truncate" role="none">
-                usuario.teste@email.com
+                {{user.email}}
               </p>
             </div>
             <ul class="py-1" role="none">
@@ -70,14 +71,15 @@
               <li>
                 <a href="#"
                   class="no-underline block px-4 py-2 text-gray-300 text-sm hover:bg-gray-600 hover:text-white"
-                  role="menuitem"><i class="fa fa-cog mr-2" aria-hidden="true"></i>Settings</a>
+                  role="menuitem"><i class="fa fa-cog mr-2" aria-hidden="true"></i>Configurações</a>
               </li>
               <li>
-                <form action="{% url 'logout' %}" method="post">
+                <form action="{% url 'logout' %}" method="post"
+                  class="text-gray-300 hover:bg-gray-600 hover:text-white ">
                   {% csrf_token %}
                   <button type="submit">
-                    <a class="no-underline block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
-                      role="menuitem"><i class="fa fa-sign-out mr-2" aria-hidden="true"></i>Sign out</a>
+                    <a class="no-underline block px-4 py-2 text-sm" role="menuitem"><i class="fa fa-sign-out mr-2"
+                        aria-hidden="true"></i>Logout</a>
                   </button>
                 </form>
               </li>
@@ -277,6 +279,39 @@
                sm:ml-64">
       {% block 'content' %}{% endblock %}
 
+      <!-- Notificações toast -->
+      <div class="absolute top-0 right-0 p-8 w-[30rem]">
+        {% if messages %}
+        {% for message in messages %}
+
+        <div id="toast-success{{forloop.counter0}}"
+          class="flex items-center w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+          role="alert">
+          <div
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="sr-only">Check icon</span>
+          </div>
+          <div class="ms-3 text-sm font-normal">{{ message }}</div>
+          <button type="button"
+            class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            data-dismiss-target="#toast-success{{forloop.counter0}}" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+      </div>
+
     </div>
 
   </div>
@@ -287,13 +322,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   {% block 'scripts' %}{% endblock %}
-
-
-  {% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-success">{{ message }}</div>
-  {% endfor %}
-  {% endif %}
 
 </body>
 

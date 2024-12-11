@@ -20,7 +20,7 @@ class UserMessageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Aqui você pode definir a mensagem que deseja passar como resposta JSON
         response_data = {
-            "message": "Bem-vindo à página de mensagens do usuário!",
+            "message": "Operação concluída com sucesso!",
             "status": "success",
         }
         # Retorna a resposta JSON
@@ -64,7 +64,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Users
     form_class = UserEditForm
     template_name = "users/user_form.html"
-    success_url = reverse_lazy("user-list")
+    success_url = reverse_lazy("user-message")
 
     def test_func(self):
         # Permitir apenas superusuários ou o próprio usuário
@@ -77,14 +77,17 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         password1 = form.cleaned_data.get("password1")
         if password1:
             self.object.set_password(password1)  # Atualiza a senha
-        return super().form_valid(form)
+
+        response = super().form_valid(form)
+        messages.success(self.request, "Usuário atualizado com sucesso!")
+        return response
 
 
 # Excluir usuários: Apenas superusuários podem acessar
 class UserDeleteView(LoginRequiredMixin, SuperUserRequiredMixin, DetailView):
     model = Users
     template_name = "users/user_confirm_delete.html"
-    success_url = reverse_lazy("user-list")
+    success_url = reverse_lazy("user-message")
 
 
 # Detalhes do usuário: Superusuários podem acessar todos; usuários comuns podem acessar apenas seus próprios registros

@@ -21,11 +21,7 @@ class UserCreateForm(UserCreationForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
 
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("As senhas não coincidem.")
         return cleaned_data
 
 
@@ -61,5 +57,5 @@ class UserEditForm(UserChangeForm):
 
         if password1 or password2:  # Se algum campo de senha foi preenchido
             if password1 != password2:
-                raise forms.ValidationError("As senhas não coincidem.")
+                self.add_error("password2", "As senhas não coincidem.")
         return cleaned_data
