@@ -50,6 +50,8 @@ class UserCreateView(LoginRequiredMixin, SuperUserRequiredMixin, CreateView):
 
     def form_valid(self, form):
         # Chama o método da superclasse para salvar o objeto
+        form.instance.is_active = True  # Mater assim até ajustar
+
         response = super().form_valid(form)
         # Adiciona uma mensagem de sucesso
         messages.success(self.request, "Usuário criado com sucesso!")
@@ -71,6 +73,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         # Verifica se há uma nova senha no formulário
+        form.instance.is_active = True  # Mater assim até ajustar
         password1 = form.cleaned_data.get("password1")
         if password1:
             self.object.set_password(password1)  # Atualiza a senha
