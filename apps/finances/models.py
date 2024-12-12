@@ -34,3 +34,13 @@ class Suppliers(models.Model):
         db_table = "suppliers"
         verbose_name = "Supplier"
         verbose_name_plural = "Suppliers"
+
+
+class PaymentMethods(models.Model):
+    nome = models.CharField(max_length=255)
+    taxa = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    class Meta:
+        db_table = "formas_pgto"
+        verbose_name = "Forma de Pagamento"
+        verbose_name_plural = "Formas de Pagamento"

@@ -1,0 +1,9 @@
+{% extends "paymentmethods.html" %} {% block 'content' %}
+<h1>Excluir Fornecedor</h1>
+<p>Tem certeza de que deseja excluir {{ paymentmethod.nome }}?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar</button>
+</form>
+<a href="{% url 'paymentmethod-list' %}">Cancelar</a>
+{% endblock %}

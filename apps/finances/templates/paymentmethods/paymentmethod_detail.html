@@ -1,0 +1,8 @@
+{% extends "paymentmethods.html" %} {% block 'content' %}
+<h1>Detalhes do Fornecedor</h1>
+<p><strong>Nome:</strong> {{ paymentmethod.nome }}</p>
+<p><strong>Taxa:</strong> {{ paymentmethod.taxa }}</p>
+<a href="{% url 'paymentmethod-update' paymentmethod.pk %}">Editar</a>
+<a href="{% url 'paymentmethod-delete' paymentmethod.pk %}">Excluir</a>
+<a href="{% url 'paymentmethod-list' %}">Voltar à Lista</a>
+{% endblock %}

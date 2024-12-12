@@ -1,0 +1,15 @@
+{% extends "paymentmethods.html" %} {% block 'content' %}
+<h1>Formas de pagamento</h1>
+<a href="{% url 'paymentmethod-create' %}">Criar Nova Forma de Pagamento</a>
+<ul>
+  {% for methods in paymentmethod %}
+  <li>
+    <a href="{% url 'paymentmethod-detail' methods.pk %}">
+      {{ methods.nome }} - {{ methods.taxa }}
+    </a>
+    <a href="{% url 'paymentmethod-update' methods.pk %}">Editar</a>
+    <a href="{% url 'paymentmethod-delete' methods.pk %}">Excluir</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

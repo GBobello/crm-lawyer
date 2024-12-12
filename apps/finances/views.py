@@ -7,8 +7,8 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from .models import Suppliers
-from .forms import SupplierForm
+from .models import Suppliers, PaymentMethods
+from .forms import SupplierForm, PaymentMethodForm
 
 
 class SupplierListView(LoginRequiredMixin, ListView):
@@ -41,3 +41,35 @@ class SupplierDetailView(LoginRequiredMixin, DetailView):
     model = Suppliers
     template_name = "suppliers/supplier_detail.html"
     context_object_name = "supplier"
+
+
+class PaymentMethodListView(LoginRequiredMixin, ListView):
+    model = PaymentMethods
+    template_name = "paymentmethods/paymentmethod_list.html"
+    context_object_name = "paymentmethod"
+
+
+class PaymentMethodCreateView(LoginRequiredMixin, CreateView):
+    model = PaymentMethods
+    form_class = PaymentMethodForm
+    template_name = "paymentmethods/paymentmethod_form.html"
+    success_url = reverse_lazy("paymentmethod-list")
+
+
+class PaymentMethodUpdateView(LoginRequiredMixin, UpdateView):
+    model = PaymentMethods
+    form_class = PaymentMethodForm
+    template_name = "paymentmethods/paymentmethod_form.html"
+    success_url = reverse_lazy("paymentmethod-list")
+
+
+class PaymentMethodDeleteView(LoginRequiredMixin, DeleteView):
+    model = PaymentMethods
+    template_name = "paymentmethods/paymentmethod_confirm_delete.html"
+    success_url = reverse_lazy("paymentmethod-list")
+
+
+class PaymentMethodDetailView(LoginRequiredMixin, DetailView):
+    model = PaymentMethods
+    template_name = "paymentmethods/paymentmethod_detail.html"
+    context_object_name = "paymentmethod"
