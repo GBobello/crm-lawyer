@@ -8,6 +8,7 @@ from django.views.generic import (
     DetailView,
 )
 from .models import Suppliers
+from .forms import SupplierForm
 
 
 class SupplierListView(LoginRequiredMixin, ListView):
@@ -18,27 +19,15 @@ class SupplierListView(LoginRequiredMixin, ListView):
 
 class SupplierCreateView(LoginRequiredMixin, CreateView):
     model = Suppliers
-    # form_class = SupplierForm
+    form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
-    fields = [
-        "nome",
-        "cnpj",
-        "telefone",
-        "email",
-    ]
     success_url = reverse_lazy("supplier-list")
 
 
 class SupplierUpdateView(LoginRequiredMixin, UpdateView):
     model = Suppliers
-    # form_class = SupplierForm
+    form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
-    fields = [
-        "nome",
-        "cnpj",
-        "telefone",
-        "email",
-    ]
     success_url = reverse_lazy("supplier-list")
 
 

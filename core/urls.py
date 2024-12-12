@@ -21,6 +21,8 @@ urlpatterns = [
     path("usuarios/", include("users.urls")),
     path("clientes/", include("customers.urls")),
     path("tarefas/", include("tasks.urls")),
+    # Adicionando a rota para o aplicativo de finanças
+    path("", include("finances.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -55,7 +55,7 @@ class Customer(models.Model):
     )
     data_cad = models.DateTimeField(auto_now_add=True)
     endereco = models.CharField(max_length=255, null=True, blank=True)
-    documento = models.CharField(max_length=18, validators=[validate_document])
+    documento = models.CharField(max_length=14, validators=[validate_document])
     tipo_pessoa = models.CharField(max_length=255, choices=OPTIONS_TIPO_PESSOA)
     data_nascimento = models.DateField(null=True, blank=True)
     numero = models.CharField(max_length=10, null=True, blank=True)
