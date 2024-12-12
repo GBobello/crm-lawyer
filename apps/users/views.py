@@ -29,16 +29,28 @@ class UserMessageView(LoginRequiredMixin, View):
 
 # Listar usuários: Superusuários veem todos; usuários comuns veem apenas seus próprios registros
 class UserListView(LoginRequiredMixin, ListView):
+    paginate_by = 10
     model = Users
     template_name = "users/user_list.html"
     context_object_name = "users"
 
     def get_queryset(self):
         if self.request.user.is_superuser:
+            search = self.request.GET.get("search")
+            if search:
+                return Users.objects.filter(username__contains=search)
+
             return Users.objects.all()  # Superusuários veem todos os registros
         return Users.objects.filter(
             id=self.request.user.id
         )  # Usuários comuns veem apenas seus próprios registros
+
+    def get_template_names(self):
+        content = self.request.META.get("CONTENT_TYPE")
+        if content and "application/text" in content:
+            return ["users/user_list_table.html"]
+        else:
+            return [self.template_name]
 
 
 # Criar usuários: Apenas superusuários podem acessar
