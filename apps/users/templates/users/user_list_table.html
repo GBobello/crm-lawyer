@@ -1,9 +1,9 @@
 {%load static %}
-<div id="table-list" class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class=" flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 p-4 
+<div id="table-list" class="relative shadow-md sm:rounded-lg">
+    <div class=" flex items-center justify-center sm:justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 p-4 
            backdrop-blur-sm bg-white/5">
-        <div class="flex gap-2">
-            <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center border text-sm px-3 py-1.5 font-medium rounded-lg 
+        <div class="flex gap-4 sm:gap-2">
+            <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center border text-sm px-3 py-1.5 pl-6 font-medium rounded-lg 
                   hover:bg-gray-700 hover:border-gray-600 
                   focus:ring-4 focus:outline-none focus:ring-gray-700 
                   bg-gray-800 text-gray-400 border-gray-600 " type="button">
@@ -15,7 +15,7 @@
                 </svg>
             </button>
 
-            <button class="block text-white font-medium rounded-lg text-sm px-5 py-1.5 text-center
+            <button class="block text-white font-medium rounded-lg text-sm px-12 sm:px-5 py-1.5 text-center
                 focus:ring-4 focus:outline-none   
                 bg-green-600 hover:bg-green-700 focus:ring-green-800" type="button" onclick="LoadPageInModal(this)"
                 data-modal-target="view-modal" data-modal-show="view-modal" data-url="{% url 'user-create'%}">
@@ -49,19 +49,20 @@
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
             </div>
-            <input type="text" id="table-search" onkeyup="FiltrarTabela(this)" class="block pt-2 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500  
+            <input type="text" id="table-search" onkeyup="FiltrarTabela(this)" class="block pt-2 ps-10 text-sm border rounded-lg w-80   
                  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 data-url-page="" onsubmit="ReloadList(this)" placeholder="Buscar" {%if request.GET.search %}
                 value="{{request.GET.search }}" {% endif %} onkeydown="Search(event,this)">
         </div>
     </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-400">
+    <div class="overflow-x-scroll">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-400 overflow-x-auto">
         <thead class="text-xs uppercase bg-gray-700 text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
                     <div class="flex items-center">
                         <input id="checkbox-all-search" type="checkbox"
-                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                            class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                     </div>
                 </th>
@@ -79,9 +80,9 @@
                 </th>
             </tr>
         </thead>
-        <tbody id="table-body">
+        <tbody id="table-body" >
             {% for user in users %}
-            <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-50 hover:bg-gray-600">
+            <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 group">
                 <td class="w-4 p-4">
                     <div class="flex items-center">
                         <input id="checkbox-user-{{user.id}}" type="checkbox"
@@ -90,7 +91,7 @@
                     </div>
                 </td>
                 <!-- Nome -->
-                <th scope="row" class="flex items-center px-6 py-4 whitespace-nowrap text-white">
+                <td scope="row" class="flex items-center px-6 py-4 whitespace-nowrap text-white">
 
                     <img class="w-10 h-10 rounded-full ring-4 {% if user.is_active %} ring-green-500 {% else %} ring-red-500 {% endif %}"
                         src="{% if user.foto == '' %}{% static 'general/img/perfil.png' %}{% else %}/media/{{ user.foto }}{% endif %}"
@@ -99,12 +100,12 @@
 
                     <div class="ps-3">
                         <div class="text-base font-semibold">{{user.username}}</div>
-                        <div class="font-normal text-gray-500">{{user.email}}</div>
+                        <div class="font-normal text-gray-400 group-hover:text-gray-300">{{user.email}}</div>
                     </div>
-                </th>
+                </td>
                 <!-- Telefone -->
-                <td class="px-6 py-4">
-                    {{user.telefone}}
+                <td class="px-6 py-4 group-hover:text-gray-300">
+                    {{user.telefone_formatado}}
                 </td>
                 <!-- Nível -->
                 <td class="px-6 py-4">
@@ -117,37 +118,37 @@
                             class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-blue-900 text-blue-300">Escritório</span>
                         {% endif %}
                     </div>
-</div>
-</td>
-<td class="px-6 py-4">
-    <!-- Modal toggle -->
-    <div class="flex gap-2">
-        <a href="#" type="button" class="font-medium text-yellow-500 hover:underline" onclick="LoadPageInModal(this)"
-            data-modal-target="view-modal" data-modal-toggle="view-modal"
-            data-url="{% url 'user-update' pk=user.pk%}">Editar</a>
-        <a href="#" type="button" class="font-medium text-blue-500 hover:underline" data-modal-target="view-modal"
-            data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
-            data-url="{% url 'user-detail' pk=user.pk%}">Detalhes</a>
-        <a href="#" type="button" class="font-medium text-green-500 hover:underline">Permissões</a>
+                </td>
+                <!-- Ações -->
+                <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                        <button type="button" class="text-base font-medium text-yellow-50 px-2 py-1 rounded-md  bg-yellow-500 hover:bg-yellow-600 hover:text-white placeholder-shown:border-gray-500 " onclick="LoadPageInModal(this)"
+                            data-modal-target="view-modal" data-modal-toggle="view-modal"
+                            data-url="{% url 'user-update' pk=user.pk%}" placeholder="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
+                        <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
+                            data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
+                            data-url="{% url 'user-detail' pk=user.pk%}"><i class="fa-solid fa-circle-info"></i></button>
+                        <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     </div>
-</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
 </div>
 
-<nav class="flex justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
+<nav class="flex justify-center sm:justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
     <div>
         <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
-        <div class="flex items-center h-10 text-md">
+        <div class="flex items-center h-10 text-md ">
 
             <button {% if page_obj.has_previous %}data-url-page="?page=1" onclick="ReloadList(this)" {%endif%}
-                class=" bg-gray-800 px-4 py-2 rounded-s-lg border border-e-0 border-gray-700 text-center enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
+                class=" bg-gray-800 px-4 py-2 rounded-s-lg border border-e-0 border-gray-700 text-center disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
                 {% if not page_obj.has_previous %}disabled{% endif %}>&laquo</button>
             <button {% if page_obj.has_previous %}data-url-page="?page={{ page_obj.previous_page_number }}"
                 onclick="ReloadList(this)" {%endif%}
-                class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
+                class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
                 {% if not page_obj.has_previous %}disabled{% endif %}>
                 < </button>
 
@@ -164,12 +165,12 @@
 
                     <button {% if page_obj.has_next %} data-url-page="?page={{ page_obj.next_page_number }}"
                         onclick="ReloadList(this)" {%endif%}
-                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
+                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
                         {% if not page_obj.has_next %}disabled{%endif%}>></button>
 
                     <button {% if page_obj.has_next %}data-url-page="?page={{ page_obj.paginator.num_pages }}"
                         onclick="ReloadList(this)" {%endif%}
-                        class=" bg-gray-800 px-4 py-2  border rounded-e-lg border-gray-700 text-center enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
+                        class=" bg-gray-800 px-4 py-2  border rounded-e-lg border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
                         {% if not page_obj.has_next %}disabled{%endif%}>&raquo;</button>
 
 

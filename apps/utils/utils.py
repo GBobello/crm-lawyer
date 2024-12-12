@@ -57,3 +57,9 @@ def validate_document(value):
                         raise validators.ValidationError(_("Documento inválido."))
 
     return value
+
+
+def telefone_formatado(value: str) -> str:
+    # Usando uma expressão regular para formatar o telefone
+    value = re.sub(r"(\d{2})(\d{5})(\d{4})", r"(\1) \2-\3", value)
+    return value

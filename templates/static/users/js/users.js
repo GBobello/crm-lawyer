@@ -143,6 +143,7 @@ function SendForm(event, element) {
 
 function LoadPageInModal(element) {
   const modalContentTarget = document.getElementById(element.attributes.getNamedItem("data-modal-target").value + '-content');
+  // modalContentTarget.innerHTML = '<div class="transition-opacity duration-1000 opacity-0 group-hover:opacity-100 animate-bounce"><div class="m-auto h-20 w-20 border-8 border-gray-50 rounded-full border-t-[var(--main-color)] animate-spin "></div></div>';
 
   $.ajax({
     url: element.attributes.getNamedItem("data-url").value,
@@ -184,6 +185,8 @@ function ReloadList(element) {
     success: function (response) {
       console.log("Tabela recarregada por " + element.id);
       block_content.innerHTML = response;
+      initModals();
+      initDropdowns();
     },
     error: function (response) {
       console.log("Erro carregando pagina no modal" + response.message);

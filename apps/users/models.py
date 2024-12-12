@@ -53,6 +53,9 @@ class Users(AbstractUser):
     estado_civil = models.CharField(max_length=255, choices=OPTIONS_ESTADO_CIVIL)
     seccional_oab = models.CharField(max_length=2, choices=OPTIONS_SECCTIONAL_OAB)
 
+    def telefone_formatado(self):
+        return utils.telefone_formatado(self.telefone)
+
     def save(self, *args, **kwargs):
         self.telefone = utils.remove_special_characters(self.telefone)
 

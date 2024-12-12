@@ -1,5 +1,22 @@
 @import './normalize.css';
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@layer utilities {
+    .fade-in {
+        animation: fadeIn 1s ease-in-out 0.5s forwards;
+        /* Atraso de 0.5s */
+    }
+}
+
 * {
     list-style: none;
     margin: 0;
