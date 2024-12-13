@@ -92,7 +92,7 @@
 
     <aside id="sidebar" class=" fixed left-0 top-14 z-40 -translate-x-full sm:translate-x-0
                 h-screen backdrop-blur-sm bg-white/5 
-                 w-64 fixed
+                 w-64 
                  sm:block sm:hover:w-64
                  transition-all ease-in-out duration-600
                  last:mb-8
@@ -279,6 +279,11 @@
                sm:ml-64">
 
       <div id="block-content">
+       
+        <div class="container py-8 px-2">
+          <h1 class="text-3xl font-semibold"> {% block 'title-body' %}{% endblock %}</h1>
+        </div>     
+        
         {% block 'content' %}{% endblock %}
       </div>
 
