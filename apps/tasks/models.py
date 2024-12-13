@@ -18,7 +18,7 @@ class Tasks(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="tasks",
+        related_name="usuario",
     )
     data = models.DateField(null=False, blank=False)
     hora = models.TimeField()
