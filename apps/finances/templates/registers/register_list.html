@@ -1,0 +1,15 @@
+{% extends "registers.html" %} {% block 'content' %}
+<h1>Caixas</h1>
+<a href="{% url 'register-create' %}">Criar Novo Caixa</a>
+<ul>
+  {% for i in register %}
+  <li>
+    <a href="{% url 'register-detail' i.pk %}">
+      {{ i.data_abertura }} - {{ i.usuario_abertura }} - {{ i.obs }}
+    </a>
+    <a href="{% url 'register-update' i.pk %}">Editar</a>
+    <a href="{% url 'register-delete' i.pk %}">Excluir</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

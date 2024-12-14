@@ -1,0 +1,9 @@
+{% extends "registers.html" %} {% block 'content' %}
+<h1>Excluir Caixa</h1>
+<p>Tem certeza de que deseja excluir?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar</button>
+</form>
+<a href="{% url 'register-list' %}">Cancelar</a>
+{% endblock %}

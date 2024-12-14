@@ -1,0 +1,9 @@
+{% extends "frequencies.html" %} {% block 'content' %}
+<h1>Excluir Frequência</h1>
+<p>Tem certeza de que deseja excluir?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar</button>
+</form>
+<a href="{% url 'frequency-list' %}">Cancelar</a>
+{% endblock %}

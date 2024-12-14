@@ -1,0 +1,8 @@
+{% extends "frequencies.html" %} {% block 'content' %}
+<h1>Detalhes da Frequência</h1>
+<p><strong>Frequência:</strong> {{ frequency.frequency }}</p>
+<p><strong>Valor Abertura:</strong> {{ frequency.days }}</p>
+<a href="{% url 'frequency-update' frequency.pk %}">Editar</a>
+<a href="{% url 'frequency-delete' frequency.pk %}">Excluir</a>
+<a href="{% url 'frequency-list' %}">Voltar à Lista</a>
+{% endblock %}

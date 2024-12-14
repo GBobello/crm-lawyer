@@ -7,8 +7,8 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from .models import Suppliers, PaymentMethods
-from .forms import SupplierForm, PaymentMethodForm
+from .models import Suppliers, PaymentMethods, Registers, Frequencies
+from .forms import SupplierForm, PaymentMethodForm, RegisterForm, FrequencyForm
 
 
 class SupplierListView(LoginRequiredMixin, ListView):
@@ -73,3 +73,67 @@ class PaymentMethodDetailView(LoginRequiredMixin, DetailView):
     model = PaymentMethods
     template_name = "paymentmethods/paymentmethod_detail.html"
     context_object_name = "paymentmethod"
+
+
+class RegisterListView(LoginRequiredMixin, ListView):
+    model = Registers
+    template_name = "registers/register_list.html"
+    context_object_name = "register"
+
+
+class RegisterCreateView(LoginRequiredMixin, CreateView):
+    model = Registers
+    form_class = RegisterForm
+    template_name = "registers/register_form.html"
+    success_url = reverse_lazy("register-list")
+
+
+class RegisterUpdateView(LoginRequiredMixin, UpdateView):
+    model = Registers
+    form_class = RegisterForm
+    template_name = "registers/register_form.html"
+    success_url = reverse_lazy("register-list")
+
+
+class RegisterDeleteView(LoginRequiredMixin, DeleteView):
+    model = Registers
+    template_name = "registers/register_confirm_delete.html"
+    success_url = reverse_lazy("register-list")
+
+
+class RegisterDetailView(LoginRequiredMixin, DetailView):
+    model = Registers
+    template_name = "registers/register_detail.html"
+    context_object_name = "Register"
+
+
+class FrequencyListView(LoginRequiredMixin, ListView):
+    model = Frequencies
+    template_name = "frequencies/frequency_list.html"
+    context_object_name = "frequency"
+
+
+class FrequencyCreateView(LoginRequiredMixin, CreateView):
+    model = Frequencies
+    form_class = FrequencyForm
+    template_name = "frequencies/frequency_form.html"
+    success_url = reverse_lazy("frequency-list")
+
+
+class FrequencyUpdateView(LoginRequiredMixin, UpdateView):
+    model = Frequencies
+    form_class = FrequencyForm
+    template_name = "frequencies/frequency_form.html"
+    success_url = reverse_lazy("frequency-list")
+
+
+class FrequencyDeleteView(LoginRequiredMixin, DeleteView):
+    model = Frequencies
+    template_name = "frequencies/frequency_confirm_delete.html"
+    success_url = reverse_lazy("frequency-list")
+
+
+class FrequencyDetailView(LoginRequiredMixin, DetailView):
+    model = Frequencies
+    template_name = "frequencies/frequency_detail.html"
+    context_object_name = "frequency"

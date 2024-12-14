@@ -10,9 +10,20 @@ from .views import (
     PaymentMethodUpdateView,
     PaymentMethodDeleteView,
     PaymentMethodDetailView,
+    RegisterListView,
+    RegisterCreateView,
+    RegisterUpdateView,
+    RegisterDeleteView,
+    RegisterDetailView,
+    FrequencyListView,
+    FrequencyCreateView,
+    FrequencyUpdateView,
+    FrequencyDeleteView,
+    FrequencyDetailView,
 )
 
 urlpatterns = [
+    # suppliers
     path("fornecedores/", SupplierListView.as_view(), name="supplier-list"),
     path("fornecedores/inserir/", SupplierCreateView.as_view(), name="supplier-create"),
     path(
@@ -28,6 +39,21 @@ urlpatterns = [
         SupplierDeleteView.as_view(),
         name="supplier-delete",
     ),
+    #  registers
+    path("caixa/", RegisterListView.as_view(), name="register-list"),
+    path("caixa/inserir/", RegisterCreateView.as_view(), name="register-create"),
+    path("caixa/<int:pk>/", RegisterDetailView.as_view(), name="register-detail"),
+    path(
+        "caixa/<int:pk>/editar/",
+        RegisterUpdateView.as_view(),
+        name="register-update",
+    ),
+    path(
+        "caixa/<int:pk>/excluir/",
+        RegisterDeleteView.as_view(),
+        name="register-delete",
+    ),
+    # payment methods
     path(
         "formas-pagamento/", PaymentMethodListView.as_view(), name="paymentmethod-list"
     ),
@@ -50,5 +76,23 @@ urlpatterns = [
         "formas-pagamento/<int:pk>/excluir/",
         PaymentMethodDeleteView.as_view(),
         name="paymentmethod-delete",
+    ),
+    # frequencies
+    path("frequencias/", FrequencyListView.as_view(), name="frequency-list"),
+    path(
+        "frequencias/inserir/", FrequencyCreateView.as_view(), name="frequency-create"
+    ),
+    path(
+        "frequencias/<int:pk>/", FrequencyDetailView.as_view(), name="frequency-detail"
+    ),
+    path(
+        "frequencias/<int:pk>/editar/",
+        FrequencyUpdateView.as_view(),
+        name="frequency-update",
+    ),
+    path(
+        "frequencias/<int:pk>/excluir/",
+        FrequencyDeleteView.as_view(),
+        name="frequency-delete",
     ),
 ]

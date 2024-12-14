@@ -1,0 +1,10 @@
+{% extends "registers.html" %} {% block 'content' %}
+<h1>Detalhes do Caixa</h1>
+<p><strong>Data Abertura:</strong> {{ register.data_abertura }}</p>
+<p><strong>Valor Abertura:</strong> {{ register.valor_abertura }}</p>
+<p><strong>Usuário Abertura:</strong> {{ register.usuario_abertura }}</p>
+<p><strong>Obs:</strong> {{ register.obs }}</p>
+<a href="{% url 'register-update' register.pk %}">Editar</a>
+<a href="{% url 'register-delete' register.pk %}">Excluir</a>
+<a href="{% url 'register-list' %}">Voltar à Lista</a>
+{% endblock %}

@@ -42,9 +42,9 @@ class PaymentMethods(models.Model):
     taxa = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     class Meta:
-        db_table = "formas_pgto"
-        verbose_name = "Forma de Pagamento"
-        verbose_name_plural = "Formas de Pagamento"
+        db_table = "payment_methods"
+        verbose_name = "Payment Method"
+        verbose_name_plural = "Payment Methods"
 
 
 class Registers(models.Model):
@@ -56,15 +56,30 @@ class Registers(models.Model):
     )
     usuario_abertura = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
         related_name="usuario_abertura",
     )
 
     usuario_fechamento = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
+        on_delete=models.DO_NOTHING,
         related_name="usuario_fechamento",
         blank=True,
         null=True,
     )
     obs = models.TextField(blank=True, null=True, verbose_name="Observações")
+
+    class Meta:
+        db_table = "registers"
+        verbose_name = "Register"
+        verbose_name_plural = "Registers"
+
+
+class Frequencies(models.Model):
+    frequency = models.CharField(max_length=255)
+    days = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "frequencies"
+        verbose_name = "Frequency"
+        verbose_name_plural = "Frequencies"
