@@ -61,4 +61,65 @@ $(document).ready(function () {
   }
 });
 
+function CloseModal(element) {
+  const target = document.getElementById(element.attributes.getNamedItem("data-modal-target").value);
+
+  let event = new KeyboardEvent('keydown', {
+    key: 'Escape', // A tecla que você quer simular
+    code: 'Escape',
+    keyCode: 27, // Código da tecla
+    charCode: 0,
+    bubbles: true
+  });
+
+  // Dispara o evento no elemento selecionado
+  target.dispatchEvent(event);
+}
+
+function LoadPageInModal(element) {
+  const modalContentTarget = document.getElementById(element.attributes.getNamedItem("data-modal-target").value + '-content');
+  // modalContentTarget.innerHTML = '<div class="transition-opacity duration-1000 opacity-0 group-hover:opacity-100 animate-bounce"><div class="m-auto h-20 w-20 border-8 border-gray-50 rounded-full border-t-[var(--main-color)] animate-spin "></div></div>';
+
+  $.ajax({
+    url: element.attributes.getNamedItem("data-url").value,
+    method: "GET",
+    success: function (response) {
+      modalContentTarget.innerHTML = response;
+      // initModals();
+    },
+    error: function (response) {
+      console.log("Erro carregando pagina no modal" + response.message);
+    },
+  });
+}
+
+function SendForm(event, element) {
+  event.preventDefault();
+  const form = $(element);
+  const url = form.attr("action");
+  const method = form.attr("method");
+  const data = new FormData(form.get(0));
+
+  $.ajax({
+    url: url,
+    method: method,
+    data: data,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      if (!response.status) {
+        console.log(response.message);
+        form.html(response);
+      } else {
+        console.log(response.message)
+        location.reload();
+      }
+    },
+    error: function (response) {
+      console.log(response.message);
+      alert("Erro ao tentar enviar o o formulário");
+    },
+  });
+}
+
 

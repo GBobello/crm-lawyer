@@ -1,181 +1,113 @@
+{% extends 'list_table_base.html' %}
 {%load static %}
-<div id="table-list" class="relative shadow-sm overflow-hidden shadow-gray-600 md:rounded-lg">
-    <div class=" flex items-center justify-center lg:justify-between flex-column lg:flex-row flex-wrap gap-y-4 p-4 
-           backdrop-blur-sm bg-white/5">
-        
-        <!-- Lado esquerdo -->
-        <div class="flex gap-4 md:gap-2">
-            <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center border text-sm px-3 py-1.5 pl-6 font-medium rounded-lg 
-                  hover:bg-gray-700 hover:border-gray-600 
-                  focus:ring-4 focus:outline-none focus:ring-gray-700 
-                  bg-gray-800 text-gray-400 border-gray-600" type="button">
-                Ação
-                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                </svg>
-            </button>
 
-            <button class="block text-white font-medium rounded-lg text-sm px-12 md:px-5 py-1.5 text-center
-                focus:ring-4 focus:outline-none   
-                bg-green-600 hover:bg-green-700 focus:ring-green-800" type="button" onclick="LoadPageInModal(this)"
-                data-modal-target="view-modal" data-modal-show="view-modal" data-url="{% url 'user-create'%}">
-                Criar novo {{name_model|lower}}
-            </button>
+{% comment %} URL para o form de create {% endcomment %}
+{% block 'url-model-create' %}{% url 'user-create'%}{% endblock %}
+{% comment %} URL da exportação PDF {% endcomment %}
+{% block 'url-model-export-pdf' %}{% endblock %}
+{% comment %} URL da exportação CSV {% endcomment %}
+{% block 'url-model-export-csv' %}{% url 'user-export-csv'%}{% endblock %}
 
-            <!-- Dropdown menu -->
-            <div id="dropdownAction" class="z-10 hidden divide-y rounded-lg shadow w-44 bg-gray-700 divide-gray-600">
-                <ul class="py-1 text-sm text-gray-300" aria-labelledby="dropdownActionButton">
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Ativar
-                            usuário</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Desativar
-                            usuário</a>
-                    </li>
-                </ul>
-                <div class="py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white">Deletar
-                        usuário</a>
-                </div>
-            </div>
+
+{% block 'dropdown-actions' %}
+    <!-- Dropdown menu -->
+    <div id="dropdownAction" class="z-10 hidden divide-y rounded-lg shadow w-44 bg-gray-700 divide-gray-600">
+        <ul class="py-1 text-sm text-gray-300" aria-labelledby="dropdownActionButton">
+            <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Ativar
+                    usuário</a>
+            </li>
+            <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Desativar
+                    usuário</a>
+            </li>
+        </ul>
+        <div class="py-1">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white">Deletar
+                usuário</a>
         </div>
-
-
-        <!-- Lado direito -->
-        <div name="right-side" class="ml-2 relative flex gap-4">
-            <button id="dropdownExportBtn" data-dropdown-toggle="dropdownExport" 
-            class="relative flex items-center w-24 gap-2 rounded-lg bg-blue-600 px-3 py-2 hover:bg-blue-700">
-                <i class="fa fa-file text-white" aria-hidden="true"></i>
-                <p class="text-sm text-white">Exportar</p>
-            </button>
-
-            <div id="dropdownExport" class="absolute hidden w-24">
-                <ul>
-                <li>
-                    <button class="flex items-center gap-2 place-self-stretch rounded-t-lg bg-red-600 px-3 py-2 hover:bg-red-700">
-                    <i class="fa fa-file-pdf text-white" aria-hidden="true"></i>
-                    <p class="text-sm text-white">PDF</p>
-                    </button>
-                </li>
-                <li>
-                    <button data-url="{% url 'user-export-csv'%}" onclick="SendExport(this)" class="jus flex items-center gap-2 place-self-stretch rounded-b-lg bg-green-600 px-3 py-2 hover:bg-green-700">
-                    <i class="fa fa-file-text text-white" aria-hidden="true"></i>
-                    <p class="text-sm text-white">CSV</p>
-                    </button>
-                </li>
-                </ul>
-            </div>
-
-            <label for="table-search" class="sr-only">Buscar</label>
-            <div class="relative">
-                <div class="rtl:inset-r-0 pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-                    <svg class="h-4 w-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
-                    </svg>
-                </div>
-                <input type="text" id="table-search" onkeyup="FiltrarTabela(this)" 
-                       class="block w-[22em] rounded-lg border border-gray-600 bg-gray-700 ps-10 pt-2 text-sm 
-                            text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" 
-                        data-url-page="" onsubmit="ReloadList(this)" placeholder="Buscar" 
-                        {%if request.GET.search %} value="{{request.GET.search }}" {% endif %}
-                        onkeydown="Search(event,this)" />
-
-                <div class="absolute inset-y-0 end-1 flex items-center ps-3">
-                    <button id="table-search-x" class="rounded px-2 py-1 backdrop-blur-sm hover:bg-red-500 hover:text-red-200">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-
-
-        </div>
-
     </div>
-    <div class="overflow-x-auto">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-400 overflow-x-auto">
-        <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-            <tr>
-                <th scope="col" class="p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-all-search" type="checkbox"
-                            class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
-                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                    </div>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nome
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Telefone
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nível
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Ações
-                </th>
-            </tr>
-        </thead>
-        <tbody id="table-body" >
-            {% for user in users %}
-            <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 group">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-user-{{user.id}}" type="checkbox"
-                            class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
-                        <label for="checkbox-user-{{user.id}}" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <!-- Nome -->
-                <td scope="row" class="flex items-center px-6 py-4 whitespace-nowrap text-white">
+{% endblock %}
 
-                    <img class="w-10 h-10 rounded-full ring-4 {% if user.is_active %} ring-green-500 {% else %} ring-red-500 {% endif %}"
-                        src="{% if user.foto == '' %}{% static 'general/img/perfil.png' %}{% else %}/media/{{ user.foto }}{% endif %}"
-                        alt="{{ user.username }}" />
+{% comment %} Tabela {% endcomment %}
+{% block 'table-model-head' %}
+    <th scope="col" class="p-4">
+        <div class="flex items-center">
+            <input id="checkbox-all-search" type="checkbox"
+                class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+        </div>
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Nome
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Telefone
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Nível
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Ações
+    </th>
+{% endblock %}
+
+{% block 'table-model-body' %}
+    {% for user in users %}
+    <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 group">
+        <td class="w-4 p-4">
+            <div class="flex items-center">
+                <input id="checkbox-user-{{user.id}}" type="checkbox"
+                    class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                <label for="checkbox-user-{{user.id}}" class="sr-only">checkbox</label>
+            </div>
+        </td>
+        <!-- Nome -->
+        <td scope="row" class="flex items-center px-6 py-4 whitespace-nowrap text-white">
+
+            <img class="w-10 h-10 rounded-full ring-4 {% if user.is_active %} ring-green-500 {% else %} ring-red-500 {% endif %}"
+                src="{% if user.foto == '' %}{% static 'general/img/perfil.png' %}{% else %}/media/{{ user.foto }}{% endif %}"
+                alt="{{ user.username }}" />
 
 
-                    <div class="ps-3">
-                        <div class="text-base font-semibold">{{user.username}}</div>
-                        <div class="font-normal text-gray-400 group-hover:text-gray-300">{{user.email}}</div>
-                    </div>
-                </td>
-                <!-- Telefone -->
-                <td class="px-6 py-4 group-hover:text-gray-300">
-                    {{user.telefone_formatado}}
-                </td>
-                <!-- Nível -->
-                <td class="px-6 py-4">
-                    <div class="flex items-center">
-                        {% if user.is_superuser %}
-                        <span
-                            class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-red-900 text-red-300">Admin</span>
-                        {% else %}
-                        <span
-                            class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-blue-900 text-blue-300">Escritório</span>
-                        {% endif %}
-                    </div>
-                </td>
-                <!-- Ações -->
-                <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                        <button type="button" class="text-base font-medium text-yellow-50 px-2 py-1 rounded-md  bg-yellow-500 hover:bg-yellow-600 hover:text-white placeholder-shown:border-gray-500 " onclick="LoadPageInModal(this)"
-                            data-modal-target="view-modal" data-modal-toggle="view-modal"
-                            data-url="{% url 'user-update' pk=user.pk%}" placeholder="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
-                        <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
-                            data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
-                            data-url="{% url 'user-detail' pk=user.pk%}"><i class="fa-solid fa-circle-info"></i></button>
-                        <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <p class="bg-red-500">{{user.username_max}}</p>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+            <div class="ps-3">
+                <div class="text-base font-semibold">{{user.username}}</div>
+                <div class="font-normal text-gray-400 group-hover:text-gray-300">{{user.email}}</div>
+            </div>
+        </td>
+        <!-- Telefone -->
+        <td class="px-6 py-4 group-hover:text-gray-300">
+            {{user.telefone_formatado}}
+        </td>
+        <!-- Nível -->
+        <td class="px-6 py-4">
+            <div class="flex items-center">
+                {% if user.is_superuser %}
+                <span
+                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-red-900 text-red-300">Admin</span>
+                {% else %}
+                <span
+                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-blue-900 text-blue-300">Escritório</span>
+                {% endif %}
+            </div>
+        </td>
+        <!-- Ações -->
+        <td class="px-6 py-4">
+            <div class="flex gap-2">
+                <button type="button" class="text-base font-medium text-yellow-50 px-2 py-1 rounded-md  bg-yellow-500 hover:bg-yellow-600 hover:text-white placeholder-shown:border-gray-500 " onclick="LoadPageInModal(this)"
+                    data-modal-target="view-modal" data-modal-toggle="view-modal"
+                    data-url="{% url 'user-update' pk=user.pk%}" placeholder="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
+                    data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
+                    data-url="{% url 'user-detail' pk=user.pk%}"><i class="fa-solid fa-circle-info"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}    
+
+{% block 'table-model-msg-empty' %}     
     {% if users.count == 0 %}     
         <div class=" bg-blue-500 justify-center items-center text-center flex py-0.5">
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -184,69 +116,4 @@
             <p class="text-white text-md ml-2">Nenhum {{name_model|lower}} encontrado...</p>
         </div>   
     {% endif %}
-    </div>
-</div>
-
-<footer class="flex-row sm:flex sm:justify-between">
-
-<div>
-<div class="flex justify-center w-full mt-4 sm:mt-8 ">
-    <div class="h-10 justify-center items-center inline-flex rounded-lg border border-gray-700 bg-gray-800 text-white">
-    <div class="border-r border-slate-600 py-1.5 px-3">Ordenar por</div>
-    <select name="orderby" id="orderby" class="w-32 bg-gray-800 py-1.5 pl-3 border-0 rounded-r-lg" data-url-page="" onChange="ReloadList(this)">
-        {% for key, value in fields.items %}
-        <option value="{{ key }}" {%if request.GET.orderby == key %} selected {% endif %}  >{{ value }}</option>
-        {% endfor %}
-    </select>
-    </div>
-</div>
-</div>
-
-<nav class="flex justify-center md:justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
-    <div>
-        <div class="flex justify-between py-2">
-            <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
-            <span class="text-sm justify-end">{{users.count}} de {{page_obj.paginator.count}} {{plural_name_model|lower}}</span>
-        </div>
-        <div class="flex items-center h-10 text-md ">
-
-            <button {% if page_obj.has_previous %}data-url-page="?page=1" onclick="ReloadList(this)" {%endif%}
-                class=" bg-gray-800 px-4 py-2 rounded-s-lg border border-e-0 border-gray-700 text-center disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
-                {% if not page_obj.has_previous %}disabled{% endif %}>&laquo</button>
-            <button {% if page_obj.has_previous %}data-url-page="?page={{ page_obj.previous_page_number }}"
-                onclick="ReloadList(this)" {%endif%}
-                class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
-                {% if not page_obj.has_previous %}disabled{% endif %}>
-                < </button>
-
-                    {% for page_number in page_obj.paginator.page_range %}
-                    {% if page_number == page_obj.number %}
-                    <button data-url-page="?page={{ page_number }}"
-                        class=" bg-gray-600 px-4 py-2  border border-e-0 border-gray-700 text-center text-white ">{{page_number}}</button>
-                    {% elif page_obj.previous_page_number|add:-1 == page_number or page_obj.next_page_number|add:1 == page_number %}
-                     <button disabled
-                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center hover:text-white hover:bg-gray-700 ">...</button>
-                    {% elif  page_obj.previous_page_number == page_number or page_obj.next_page_number == page_number %}
-                    <button data-url-page="?page={{ page_number }}" onclick="ReloadList(this)"
-                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center hover:text-white hover:bg-gray-700 ">{{page_number}}</button>
-                    {% endif %}
-                    {% endfor %}
-
-
-                    <button {% if page_obj.has_next %} data-url-page="?page={{ page_obj.next_page_number }}"
-                        onclick="ReloadList(this)" {%endif%}
-                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
-                        {% if not page_obj.has_next %}disabled{%endif%}>></button>
-
-                    <button {% if page_obj.has_next %}data-url-page="?page={{ page_obj.paginator.num_pages }}"
-                        onclick="ReloadList(this)" {%endif%}
-                        class=" bg-gray-800 px-4 py-2  border rounded-e-lg border-gray-700 text-center  disabled:cursor-not-allowed enabled:hover:text-white enabled:hover:bg-gray-700 disabled:opacity-70"
-                        {% if not page_obj.has_next %}disabled{%endif%}>&raquo;</button>
-
-
-        </div>
-
-    </div>
-</nav>
-
-</footer>
+{% endblock %}        
