@@ -5,6 +5,8 @@ from .views import (
     CustomerUpdateView,
     CustomerDeleteView,
     CustomerDetailView,
+    CustomerMessageView,
+    CustomerExportCsvView,
 )
 
 urlpatterns = [
@@ -13,4 +15,6 @@ urlpatterns = [
     path("<int:pk>/", CustomerDetailView.as_view(), name="customer-detail"),
     path("<int:pk>/editar/", CustomerUpdateView.as_view(), name="customer-update"),
     path("<int:pk>/excluir/", CustomerDeleteView.as_view(), name="customer-delete"),
+    path("message/", CustomerMessageView.as_view(), name="customer-message"),
+    path("exportcsv/", CustomerExportCsvView.as_view(), name="customer-export-csv"),
 ]

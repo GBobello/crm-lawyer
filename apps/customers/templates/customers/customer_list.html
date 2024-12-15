@@ -1,6 +1,23 @@
 {% extends "customers.html" %} 
+{%load static %}
+
+{%block 'title-body'%}Consulta de clientes{%endblock%}
+{%block 'title'%}Clientes - Consulta{%endblock%}
 
 {% block 'content' %}
+
+
+{%include 'customers/customer_list_table.html'%}
+
+
+{% endblock %}
+
+{% block 'modals' %}
+
+{% endblock %}
+
+
+{% comment %} {% block 'content' %}
 <h1>Clientes</h1>
 <a href="{% url 'customer-create' %}">Criar Novo Cliente</a>
 <ul>
@@ -12,4 +29,4 @@
   </li>
   {% endfor %}
 </ul>
-{% endblock %}
+{% endblock %} {% endcomment %}

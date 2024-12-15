@@ -1,5 +1,8 @@
-{% extends 'base.html' %}
-
-{% block 'title' %}
-    Clientes
+{% extends 'base.html' %} {%load static%} {% block 'head' %}
+<link rel="stylesheet" href="{% static 'customers/css/customers.css' %}" />
+{% endblock %} {% block 'title' %} Clientes {% endblock %} 
+{% block 'scripts' %}
+<script src="{% static 'customers/js/customers.js' %}"></script>
+<script src="{% static 'general/js/list_table.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 {% endblock %}

@@ -73,6 +73,9 @@ class Customer(models.Model):
         max_length=255, choices=OPTIONS_ESTADO_CIVIL, null=True, blank=True
     )
 
+    def telefone_formatado(self):
+        return utils.telefone_formatado(self.telefone)
+
     def save(self, *args, **kwargs):
         self.documento = utils.remove_special_characters(self.documento)
         self.telefone = utils.remove_special_characters(self.telefone)

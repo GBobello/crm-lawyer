@@ -114,7 +114,7 @@
             <div>
                 <div class="flex justify-between py-2">
                     <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
-                    <span class="text-sm justify-end">{{users.count}} de {{page_obj.paginator.count}} {{plural_name_model|lower}}</span>
+                    <span class="text-sm justify-end">{% block 'table-model-count-footer' %}{% endblock %} de {{page_obj.paginator.count}} {{plural_name_model|lower}}</span>
                 </div>
                 <div class="flex items-center h-10 text-md ">
 
