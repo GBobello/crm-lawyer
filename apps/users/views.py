@@ -2,9 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import Users
 from .forms import UserCreateForm, UserEditForm
+import csv
+import datetime
 
 
 # Mixin para restringir ações apenas para superusuários
@@ -13,8 +15,34 @@ class SuperUserRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_superuser
 
 
+class UserExportCsvView(LoginRequiredMixin, View):
+    model = Users
+    context_object_name = "users"
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = (
+            "attachment; filename=Usuarios" + str(datetime.datetime.now()) + ".csv"
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["Nome", "Email", "Telefone", "Nível", "Ativo"])
+        Users2 = Users.objects.all()
+        for user in Users2:
+            writer.writerow(
+                [
+                    user.username,
+                    user.email,
+                    user.telefone,
+                    "Admin" if user.is_superuser else "Escritorio",
+                    "Sim" if user.is_active else "Não",
+                ]
+            )
+
+        return response
+
+
 class UserMessageView(LoginRequiredMixin, View):
-    template_name = "users/user_message.html"
     context_object_name = "message"
 
     def get(self, request, *args, **kwargs):
@@ -37,12 +65,16 @@ class UserListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             search = self.request.GET.get("search")
+            orderby = self.request.GET.get("orderby")
+            if not orderby:
+                orderby = "id"
             if search:
-                return Users.objects.filter(username__contains=search)
+                return Users.objects.filter(username__contains=search).order_by(orderby)
 
-            return Users.objects.all()  # Superusuários veem todos os registros
-        return Users.objects.filter(
-            id=self.request.user.id
+            return Users.objects.all().order_by(orderby)
+            # Superusuários veem todos os registros
+        return Users.objects.filter(id=self.request.user.id).order_by(
+            orderby
         )  # Usuários comuns veem apenas seus próprios registros
 
     def get_template_names(self):
@@ -51,6 +83,21 @@ class UserListView(LoginRequiredMixin, ListView):
             return ["users/user_list_table.html"]
         else:
             return [self.template_name]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Adiciona a lista de campos ao contexto
+        context["fields"] = {
+            "id": "Código",
+            "username": "Nome",
+            "email": "Email",
+            "telefone": "Telefone",
+            "is_superuser": "Nível",
+            "is_active": "Ativo",
+        }
+        context["name_model"] = "Usuário"
+        context["plural_name_model"] = "Usuários"
+        return context
 
 
 # Criar usuários: Apenas superusuários podem acessar

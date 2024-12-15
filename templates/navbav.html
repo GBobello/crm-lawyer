@@ -1,0 +1,67 @@
+{% load static %}
+<header id="header" class="fixed top-0 z-50 
+            flex items-center justify-between 
+            backdrop-blur-sm bg-white/5 border-b border-zinc-600
+            h-14 w-[100%]">
+    <button class="mx-4 hover:text-gray-100 text-gray-400" onclick="toggleSidebar()">
+    <div id="toggle-x" class="hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </div>
+
+    <div id="toggle-hambuguer" class="flex">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </div>
+    </button>
+
+    <div class="flex items-center text-white">
+    <div class="flex items-center ms-3">
+        <div>
+        <button type="button"
+            class="flex text-sm bg-gray-800 mr-8 rounded-full focus:ring-4 focus:ring-[var(--main-color)]"
+            aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleHidden('dropdown-user')">
+            <span class="sr-only">Abrir menu do usuário</span>
+            <img class="w-8 h-8 rounded-full"
+            src="{% if user.foto == '' %}{% static 'general/img/perfil.png' %}{% else %}/media/{{ user.foto }}{% endif %}"
+            alt="{{ user.username }}">
+        </button>
+        </div>
+        <div class="hidden my-2 text-base divide-y rounded border border-zinc-600 bg-zinc-700/70" id="dropdown-user">
+        <div class="px-4 py-3" role="none">
+            <p class="text-sm  " role="none">
+            {{user.username}}
+            </p>
+            <p class="text-sm font-medium text-gray-300 truncate" role="none">
+            {{user.email}}
+            </p>
+        </div>
+        <ul class="py-1" role="none">
+            <li>
+            <a href="#"
+                class="no-underline block px-4 py-2 text-sm  hover:bg-gray-600 hover:text-white"
+                role="menuitem"><i class="fa fa-user mr-2" aria-hidden="true"></i>Perfil</a>
+            </li>
+            <li>
+            <a href="#"
+                class="no-underline block px-4 py-2  text-sm hover:bg-gray-600 hover:text-white"
+                role="menuitem"><i class="fa fa-cog mr-2" aria-hidden="true"></i>Configurações</a>
+            </li>
+            <li>
+            <form action="{% url 'logout' %}" method="post"
+                class=" hover:bg-gray-600 hover:text-white ">
+                {% csrf_token %}
+                <button type="submit">
+                <a class="no-underline block px-4 py-2 text-sm" role="menuitem"><i class="fa fa-sign-out mr-2"
+                    aria-hidden="true"></i>Logout</a>
+                </button>
+            </form>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </div>
+
+</header>

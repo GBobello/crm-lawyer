@@ -6,6 +6,7 @@ from .views import (
     UserDeleteView,
     UserDetailView,
     UserMessageView,
+    UserExportCsvView,
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("<int:pk>/editar/", UserUpdateView.as_view(), name="user-update"),
     path("<int:pk>/excluir/", UserDeleteView.as_view(), name="user-delete"),
+    path("exportcsv/", UserExportCsvView.as_view(), name="user-export-csv"),
 ]

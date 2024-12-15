@@ -2,11 +2,13 @@
 <div id="table-list" class="relative shadow-sm overflow-hidden shadow-gray-600 sm:rounded-lg">
     <div class=" flex items-center justify-center sm:justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 p-4 
            backdrop-blur-sm bg-white/5">
+        
+        <!-- Lado esquerdo -->
         <div class="flex gap-4 sm:gap-2">
             <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center border text-sm px-3 py-1.5 pl-6 font-medium rounded-lg 
                   hover:bg-gray-700 hover:border-gray-600 
                   focus:ring-4 focus:outline-none focus:ring-gray-700 
-                  bg-gray-800 text-gray-400 border-gray-600 " type="button">
+                  bg-gray-800 text-gray-400 border-gray-600" type="button">
                 Ação
                 <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 10 6">
@@ -19,7 +21,7 @@
                 focus:ring-4 focus:outline-none   
                 bg-green-600 hover:bg-green-700 focus:ring-green-800" type="button" onclick="LoadPageInModal(this)"
                 data-modal-target="view-modal" data-modal-show="view-modal" data-url="{% url 'user-create'%}">
-                Criar novo usuário
+                Criar novo {{name_model}}
             </button>
 
             <!-- Dropdown menu -->
@@ -40,20 +42,57 @@
                 </div>
             </div>
         </div>
-        <label for="table-search" class="sr-only">Buscar</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
+
+
+        <!-- Lado direito -->
+        <div name="right-side" class="relative flex gap-4">
+            <button id="dropdownExportBtn" data-dropdown-toggle="dropdownExport" 
+            class="relative flex items-center w-24 gap-2 rounded-lg bg-blue-600 px-3 py-2 hover:bg-blue-700">
+                <i class="fa fa-file text-white" aria-hidden="true"></i>
+                <p class="text-sm text-white">Exportar</p>
+            </button>
+
+            <div id="dropdownExport" class="absolute hidden w-24">
+                <ul>
+                <li>
+                    <button class="flex items-center gap-2 place-self-stretch rounded-t-lg bg-red-600 px-3 py-2 hover:bg-red-700">
+                    <i class="fa fa-file-pdf text-white" aria-hidden="true"></i>
+                    <p class="text-sm text-white">PDF</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="jus flex items-center gap-2 place-self-stretch rounded-b-lg bg-green-600 px-3 py-2 hover:bg-green-700">
+                    <i class="fa fa-file-text text-white" aria-hidden="true"></i>
+                    <p class="text-sm text-white">CSV</p>
+                    </button>
+                </li>
+                </ul>
             </div>
-            <input type="text" id="table-search" onkeyup="FiltrarTabela(this)" class="block pt-2 ps-10 text-sm border rounded-lg w-80   
-                 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                data-url-page="" onsubmit="ReloadList(this)" placeholder="Buscar" {%if request.GET.search %}
-                value="{{request.GET.search }}" {% endif %} onkeydown="Search(event,this)">
+
+            <label for="table-search" class="sr-only">Buscar</label>
+            <div class="relative">
+                <div class="rtl:inset-r-0 pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                    <svg class="h-4 w-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                    </svg>
+                </div>
+                <input type="text" id="table-search" onkeyup="FiltrarTabela(this)" 
+                       class="block w-80 rounded-lg border border-gray-600 bg-gray-700 ps-10 pt-2 text-sm 
+                            text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" 
+                        data-url-page="" onsubmit="ReloadList(this)" placeholder="Buscar" 
+                        {%if request.GET.search %} value="{{request.GET.search }}" {% endif %}
+                        onkeydown="Search(event,this)" />
+
+                <div class="absolute inset-y-0 end-1 flex items-center ps-3">
+                    <button id="table-search-x" class="rounded px-2 py-1 backdrop-blur-sm hover:bg-red-500 hover:text-red-200">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+
         </div>
+
     </div>
     <div class="overflow-x-auto">
     <table class="w-full text-sm text-left rtl:text-right text-gray-400 overflow-x-auto">
@@ -132,15 +171,41 @@
                     </div>
                 </td>
             </tr>
+            <p class="bg-red-500">{{user.username_max}}</p>
             {% endfor %}
         </tbody>
     </table>
+    
+    {% if users.count == 0 %}     
+        <div class=" bg-blue-500 justify-center items-center text-center flex py-0.5">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+            </svg>
+            <p class="text-white text-md ml-2">Nenhum {{name_model}} encontrado...</p>
+        </div>   
+    {% endif %}
     </div>
+</div>
+
+<footer class="flex justify-between">
+
+
+
+<div class="h-10 mt-8 items-center inline-flex rounded-lg border border-gray-700 bg-gray-800 text-white">
+  <div class="border-r border-slate-600 py-1.5 px-3">Ordenar por</div>
+  <select name="orderby" id="orderby" class="w-32 bg-gray-800 py-1.5 pl-3 border-0 rounded-r-lg" data-url-page="" onChange="ReloadList(this)">
+    {% for key, value in fields.items %}
+    <option value="{{ key }}" {%if request.GET.orderby == key %} selected {% endif %}  >{{ value }}</option>
+    {% endfor %}
+  </select>
 </div>
 
 <nav class="flex justify-center sm:justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
     <div>
-        <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+        <div class="flex justify-between py-2">
+            <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+            <span class="text-sm justify-end">{{users.count}} de {{page_obj.paginator.count}} {{plural_name_model|lower}}</span>
+        </div>
         <div class="flex items-center h-10 text-md ">
 
             <button {% if page_obj.has_previous %}data-url-page="?page=1" onclick="ReloadList(this)" {%endif%}
@@ -178,3 +243,5 @@
 
     </div>
 </nav>
+
+</footer>
