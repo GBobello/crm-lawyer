@@ -1,10 +1,10 @@
 {%load static %}
-<div id="table-list" class="relative shadow-sm overflow-hidden shadow-gray-600 sm:rounded-lg">
-    <div class=" flex items-center justify-center sm:justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 p-4 
+<div id="table-list" class="relative shadow-sm overflow-hidden shadow-gray-600 md:rounded-lg">
+    <div class=" flex items-center justify-center lg:justify-between flex-column lg:flex-row flex-wrap gap-y-4 p-4 
            backdrop-blur-sm bg-white/5">
         
         <!-- Lado esquerdo -->
-        <div class="flex gap-4 sm:gap-2">
+        <div class="flex gap-4 md:gap-2">
             <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center border text-sm px-3 py-1.5 pl-6 font-medium rounded-lg 
                   hover:bg-gray-700 hover:border-gray-600 
                   focus:ring-4 focus:outline-none focus:ring-gray-700 
@@ -17,11 +17,11 @@
                 </svg>
             </button>
 
-            <button class="block text-white font-medium rounded-lg text-sm px-12 sm:px-5 py-1.5 text-center
+            <button class="block text-white font-medium rounded-lg text-sm px-12 md:px-5 py-1.5 text-center
                 focus:ring-4 focus:outline-none   
                 bg-green-600 hover:bg-green-700 focus:ring-green-800" type="button" onclick="LoadPageInModal(this)"
                 data-modal-target="view-modal" data-modal-show="view-modal" data-url="{% url 'user-create'%}">
-                Criar novo {{name_model}}
+                Criar novo {{name_model|lower}}
             </button>
 
             <!-- Dropdown menu -->
@@ -45,7 +45,7 @@
 
 
         <!-- Lado direito -->
-        <div name="right-side" class="relative flex gap-4">
+        <div name="right-side" class="ml-2 relative flex gap-4">
             <button id="dropdownExportBtn" data-dropdown-toggle="dropdownExport" 
             class="relative flex items-center w-24 gap-2 rounded-lg bg-blue-600 px-3 py-2 hover:bg-blue-700">
                 <i class="fa fa-file text-white" aria-hidden="true"></i>
@@ -181,7 +181,7 @@
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
             </svg>
-            <p class="text-white text-md ml-2">Nenhum {{name_model}} encontrado...</p>
+            <p class="text-white text-md ml-2">Nenhum {{name_model|lower}} encontrado...</p>
         </div>   
     {% endif %}
     </div>
@@ -200,7 +200,7 @@
   </select>
 </div>
 
-<nav class="flex justify-center sm:justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
+<nav class="flex justify-center md:justify-end text-gray-300 justify enabled:font-bold" id="nav-paginate">
     <div>
         <div class="flex justify-between py-2">
             <span class="text-sm justify-end">Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>

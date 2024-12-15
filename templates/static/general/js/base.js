@@ -14,23 +14,23 @@ function toggleSidebar() {
     //Mobile
     sidebar.classList.add("translate-x-0");
     //Pc
-    sidebar.classList.add("sm:w-16");
-    conteudo.classList.add("sm:ml-16");
+    sidebar.classList.add("md:w-16");
+    conteudo.classList.add("md:ml-16");
   } else {
     toggle_x.classList.add("hidden");
     toggle_hambuguer.classList.remove("hidden");
     //Mobile
     sidebar.classList.remove("translate-x-0");
     //Pc
-    sidebar.classList.remove("sm:w-16");
-    conteudo.classList.remove("sm:ml-16");
+    sidebar.classList.remove("md:w-16");
+    conteudo.classList.remove("md:ml-16");
   }
 
   nav_item_name_list.forEach(nav_item_name => {
-    nav_item_name.classList.toggle("sm:hidden");
+    nav_item_name.classList.toggle("md:hidden");
   });
   toggleIcons.forEach(toggleIcon => {
-    toggleIcon.classList.toggle("sm:hidden");
+    toggleIcon.classList.toggle("md:hidden");
   });
 
 

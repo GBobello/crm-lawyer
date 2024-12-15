@@ -29,13 +29,13 @@
 
     <div id="conteudo" class="mt-14 p-4
                backdrop-blur-sm   
-               sm:ml-64">
+               md:ml-64">
+       
+      <div class="container py-8 px-2">
+        <h1 class="text-3xl font-semibold"> {% block 'title-body' %}{% endblock %}</h1>
+      </div>     
 
       <div id="block-content">
-       
-        <div class="container py-8 px-2">
-          <h1 class="text-3xl font-semibold"> {% block 'title-body' %}{% endblock %}</h1>
-        </div>     
         
         {% block 'content' %}{% endblock %}
       </div>
