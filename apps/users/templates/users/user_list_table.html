@@ -61,7 +61,7 @@
                     </button>
                 </li>
                 <li>
-                    <button class="jus flex items-center gap-2 place-self-stretch rounded-b-lg bg-green-600 px-3 py-2 hover:bg-green-700">
+                    <button data-url="{% url 'user-export-csv'%}" onclick="SendExport(this)" class="jus flex items-center gap-2 place-self-stretch rounded-b-lg bg-green-600 px-3 py-2 hover:bg-green-700">
                     <i class="fa fa-file-text text-white" aria-hidden="true"></i>
                     <p class="text-sm text-white">CSV</p>
                     </button>
@@ -223,7 +223,10 @@
                     {% if page_number == page_obj.number %}
                     <button data-url-page="?page={{ page_number }}"
                         class=" bg-gray-600 px-4 py-2  border border-e-0 border-gray-700 text-center text-white ">{{page_number}}</button>
-                    {% else %}
+                    {% elif page_obj.previous_page_number|add:-1 == page_number or page_obj.next_page_number|add:1 == page_number %}
+                     <button disabled
+                        class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center hover:text-white hover:bg-gray-700 ">...</button>
+                    {% elif  page_obj.previous_page_number == page_number or page_obj.next_page_number == page_number %}
                     <button data-url-page="?page={{ page_number }}" onclick="ReloadList(this)"
                         class=" bg-gray-800 px-4 py-2  border border-e-0 border-gray-700 text-center hover:text-white hover:bg-gray-700 ">{{page_number}}</button>
                     {% endif %}

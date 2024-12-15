@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse, HttpResponse
 from .models import Users
 from .forms import UserCreateForm, UserEditForm
+from django.db.models import Q
 import csv
 import datetime
 
@@ -27,13 +28,25 @@ class UserExportCsvView(LoginRequiredMixin, View):
 
         writer = csv.writer(response)
         writer.writerow(["Nome", "Email", "Telefone", "Nível", "Ativo"])
-        Users2 = Users.objects.all()
+        search = self.request.GET.get("search")
+        orderby = self.request.GET.get("orderby")
+        if not orderby:
+            orderby = "id"
+        if search:
+            Users2 = Users.objects.filter(
+                Q(username__icontains=search)
+                | Q(email__icontains=search)
+                | Q(telefone__icontains=search)
+            ).order_by(orderby)
+        else:
+            Users2 = Users.objects.all().order_by(orderby)
+
         for user in Users2:
             writer.writerow(
                 [
                     user.username,
                     user.email,
-                    user.telefone,
+                    user.telefone_formatado(),
                     "Admin" if user.is_superuser else "Escritorio",
                     "Sim" if user.is_active else "Não",
                 ]
@@ -69,7 +82,11 @@ class UserListView(LoginRequiredMixin, ListView):
             if not orderby:
                 orderby = "id"
             if search:
-                return Users.objects.filter(username__contains=search).order_by(orderby)
+                return Users.objects.filter(
+                    Q(username__icontains=search)
+                    | Q(email__icontains=search)
+                    | Q(telefone__icontains=search)
+                ).order_by(orderby)
 
             return Users.objects.all().order_by(orderby)
             # Superusuários veem todos os registros

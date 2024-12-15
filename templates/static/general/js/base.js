@@ -9,6 +9,8 @@ function toggleSidebar() {
   sidebar.classList.toggle("sidebar-switch");
 
   if (sidebar.classList.contains("sidebar-switch")) {
+    localStorage.setItem('django.crm.navSidebarIsOpen', true);
+
     toggle_x.classList.remove("hidden");
     toggle_hambuguer.classList.add("hidden");
     //Mobile
@@ -17,6 +19,7 @@ function toggleSidebar() {
     sidebar.classList.add("md:w-16");
     conteudo.classList.add("md:ml-16");
   } else {
+    localStorage.setItem('django.crm.navSidebarIsOpen', false);
     toggle_x.classList.add("hidden");
     toggle_hambuguer.classList.remove("hidden");
     //Mobile
@@ -28,6 +31,7 @@ function toggleSidebar() {
 
   nav_item_name_list.forEach(nav_item_name => {
     nav_item_name.classList.toggle("md:hidden");
+    $(nav_item_name).parent().toggleClass("md:justify-center");
   });
   toggleIcons.forEach(toggleIcon => {
     toggleIcon.classList.toggle("md:hidden");
@@ -50,9 +54,11 @@ function toggleSubMenu(element) {
   }
 }
 
-// function toggleHidden(id) {
-//   const element = document.getElementById(id);
-//   element.classList.toggle("hidden");
-// }
+$(document).ready(function () {
+  const navSidebarIsOpen = localStorage.getItem('django.crm.navSidebarIsOpen');
+  if (navSidebarIsOpen === 'true') {
+    toggleSidebar();
+  }
+});
 
 

@@ -64,6 +64,18 @@ function SendForm(event, element) {
   });
 }
 
+function SendExport(element) {
+  const option = $(element);
+  const url = option.attr("data-url");
+  const method = 'GET';
+
+  let urlParms = '';
+  urlParms = MountUrl(urlParms);
+  console.log(url + urlParms);
+
+  window.location.href = url + urlParms;
+}
+
 function LoadPageInModal(element) {
   const modalContentTarget = document.getElementById(element.attributes.getNamedItem("data-modal-target").value + '-content');
   // modalContentTarget.innerHTML = '<div class="transition-opacity duration-1000 opacity-0 group-hover:opacity-100 animate-bounce"><div class="m-auto h-20 w-20 border-8 border-gray-50 rounded-full border-t-[var(--main-color)] animate-spin "></div></div>';
@@ -81,18 +93,10 @@ function LoadPageInModal(element) {
   });
 }
 
-function ReloadList(element) {
-  const block_content = document.getElementById("block-content");
+function MountUrl(url) {
   const search_input = document.getElementById("table-search");
   const orderby_input = document.getElementById("orderby");
 
-  if (!element.attributes.getNamedItem("data-url-page")) {
-    console.log("Falta definir o atributo data-url-page no elemento " + element.id);
-    return;
-  }
-
-  let url = element.attributes.getNamedItem("data-url-page").value;
-  //Carrega na url os params para a consulta dos dados
   if (search_input.value.trim() !== '') {
     if (url.trim() !== '') {
       url += '&search=' + search_input.value;
@@ -109,6 +113,19 @@ function ReloadList(element) {
     }
   }
 
+  return url;
+}
+
+function ReloadList(element) {
+  const block_content = document.getElementById("block-content");
+
+  if (!element.attributes.getNamedItem("data-url-page")) {
+    console.log("Falta definir o atributo data-url-page no elemento " + element.id);
+    return;
+  }
+
+  let url = element.attributes.getNamedItem("data-url-page").value;
+  url = MountUrl(url);
 
   $.ajax({
     url: url,
