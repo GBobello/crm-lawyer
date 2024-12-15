@@ -29,7 +29,7 @@
             class="slide-menu text-sm overflow-hidden whitespace-nowrap border-solid border-s-4 h-0 group-hover:block">
             <li class="slide-item">
               <a class="slide-item-link w-full block" href="{% url 'customer-list' %}">
-                Constituintes
+                Clientes
 
               </a>
             </li>
@@ -38,13 +38,13 @@
                 Usuários
               </a>
             </li>
-            <li class="slide-item">
+            {% comment %} <li class="slide-item">
               <a class="slide-item-link w-full block" href>
                 Profissionais
               </a>
-            </li>
+            </li> {% endcomment %}
             <li class="slide-item">
-              <a class="slide-item-link w-full block" href>
+              <a class="slide-item-link w-full block" href="{% url 'supplier-list'%}">
                 Fornecedores
               </a>
             </li>

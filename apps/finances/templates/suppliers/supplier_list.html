@@ -1,15 +1,17 @@
-{% extends "suppliers.html" %}
+{% extends "suppliers.html" %} 
+{%load static %}
+
+{%block 'title-body'%}Consulta de fornecedores{%endblock%}
+{%block 'title'%}Fornecedores - Consulta{%endblock%}
 
 {% block 'content' %}
-<h1>Fornecedores</h1>
-<a href="{% url 'supplier-create' %}">Criar Novo Fornecedor</a>
-<ul>
-    {% for supplier in suppliers %}
-    <li>
-        <a href="{% url 'supplier-detail' supplier.pk %}"> {{ supplier.nome }} </a>
-        <a href="{% url 'supplier-update' supplier.pk %}">Editar</a>
-        <a href="{% url 'supplier-delete' supplier.pk %}">Excluir</a>
-    </li>
-    {% endfor %}
-</ul>
+
+
+{%include 'suppliers/supplier_list_table.html'%}
+
+
+{% endblock %}
+
+{% block 'modals' %}
+
 {% endblock %}

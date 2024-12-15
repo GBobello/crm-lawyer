@@ -1,3 +1,4 @@
+import datetime
 import re
 
 from django.core import validators
@@ -63,3 +64,7 @@ def telefone_formatado(value: str) -> str:
     # Usando uma expressão regular para formatar o telefone
     value = re.sub(r"(\d{2})(\d{5})(\d{4})", r"(\1) \2-\3", value)
     return value
+
+
+def get_data_formatada(value: datetime):
+    return value.strftime("%d/%m/%Y") if value else ""  # 01/01/2022

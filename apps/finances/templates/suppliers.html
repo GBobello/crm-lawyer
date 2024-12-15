@@ -1,5 +1,7 @@
-{% extends 'base.html' %}
-
-{% block 'title' %}
-Fornecedores
+{% extends 'base.html' %} {%load static%} {% block 'head' %}
+<link rel="stylesheet" href="{% static 'suppliers/css/suppliers.css' %}" />
+{% endblock %} {% block 'title' %} Fornecedores {% endblock %} 
+{% block 'scripts' %}
+<script src="{% static 'suppliers/js/suppliers.js' %}"></script>
+<script src="{% static 'general/js/list_table.js' %}"></script>
 {% endblock %}

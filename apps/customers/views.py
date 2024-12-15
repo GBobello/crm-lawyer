@@ -10,6 +10,8 @@ from django.views.generic import (
     DetailView,
     View,
 )
+
+from apps.utils import utils
 from .models import Customer
 from .forms import CustomerForm
 from django.db.models import Q
@@ -68,6 +70,7 @@ class CustomerExportCsvView(LoginRequiredMixin, View):
             Customers = Customer.objects.all().order_by(orderby)
 
         for customer in Customers:
+            print(customer.data_nascimento)
             writer.writerow(
                 [
                     customer.nome,
@@ -75,7 +78,7 @@ class CustomerExportCsvView(LoginRequiredMixin, View):
                     customer.telefone_formatado(),
                     customer.documento,
                     customer.get_tipo_pessoa_display(),
-                    customer.data_nascimento,
+                    utils.get_data_formatada(customer.data_nascimento),
                     customer.cidade,
                     customer.estado,
                 ]

@@ -20,6 +20,9 @@ class Suppliers(models.Model):
     data_cadastro = models.DateTimeField(auto_now_add=True)
     endereco = models.CharField(max_length=255, null=True, blank=True)
 
+    def telefone_formatado(self):
+        return utils.telefone_formatado(self.telefone)
+
     def save(self, *args, **kwargs):
         self.documento = utils.remove_special_characters(self.documento)
         self.telefone = utils.remove_special_characters(self.telefone)
