@@ -116,12 +116,18 @@ class CustomerListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["fields"] = {
-            "id": "Código",
-            "nome": "Nome",
-            "email": "E-mail",
-            "telefone": "Telefone",
-            "tipo_pessoa": "Tipo Pessoa",
-            "data_cad": "Data de cadastro",
+            "id": "Código 🔺",
+            "nome": "Nome 🔺",
+            "email": "E-mail 🔺",
+            "telefone": "Telefone 🔺",
+            "tipo_pessoa": "Tipo Pessoa 🔺",
+            "data_cad": "Data de cadastro 🔺",
+            "-id": "Código 🔻",
+            "-nome": "Nome 🔻",
+            "-email": "E-mail 🔻",
+            "-telefone": "Telefone 🔻",
+            "-tipo_pessoa": "Tipo Pessoa 🔻",
+            "-data_cad": "Data de cadastro 🔻",
         }
         context["name_model"] = "Cliente"
         context["plural_name_model"] = "Clientes"

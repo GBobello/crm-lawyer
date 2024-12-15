@@ -8,10 +8,14 @@ class CustomerForm(forms.ModelForm):
         fields = [
             "nome",
             "documento",
+            "rg",
             "telefone",
             "email",
             "tipo_pessoa",
             "data_nascimento",
+            "nacionalidade",
+            "estado_civil",
+            "profissao",
             "cep",
             "endereco",
             "numero",
@@ -19,12 +23,8 @@ class CustomerForm(forms.ModelForm):
             "bairro",
             "cidade",
             "estado",
-            "rg",
             "genitor",
             "genitora",
-            "profissao",
-            "nacionalidade",
-            "estado_civil",
         ]
         widgets = {
             "documento": forms.TextInput(attrs={"id": "documento"}),

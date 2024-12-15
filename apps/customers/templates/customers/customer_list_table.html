@@ -109,7 +109,12 @@
                 <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
                     data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
                     data-url="{% url 'customer-detail' pk=customer.pk%}"><i class="fa-solid fa-circle-info"></i></button>
-                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa fa-trash-can"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-cyan-500 hover:bg-cyan-600 hover:text-white"><i class="fa fa-file"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 hover:text-white"><i class="fa-solid fa-money-bill"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-green-500 hover:bg-green-600 hover:text-white"><i class="fa-brands fa-whatsapp"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-sky-500 hover:bg-sky-600 hover:text-white"><i class="fa fa-clipboard"></i></button>
+                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-orange-500 hover:bg-orange-600 hover:text-white"><i class="fa fa-unlock-alt"></i></button>
             </div>
         </td>
     </tr>
@@ -117,7 +122,7 @@
 {% endblock %}    
 
 {% block 'table-model-msg-empty' %}     
-    {% if users.count == 0 %}     
+    {% if customers.count == 0 %}     
         <div class=" bg-blue-500 justify-center items-center text-center flex py-0.5">
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
