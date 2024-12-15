@@ -19,10 +19,9 @@
 
     <div class="p-6 space-y-6">
         <div class="grid grid-cols-2 gap-6">
-            <h1>Detalhes do Cliente</h1>
             <p><strong>Nome:</strong> {{ customer.nome }}</p>
             <p><strong>Email:</strong> {{ customer.email }}</p>
-            <p><strong>Telefone:</strong> {{ customer.telefone }}</p>
+            <p><strong>Telefone:</strong> {{ customer.telefone_formatado }}</p>
             <p><strong>Endereço:</strong> {{ customer.endereco }}</p>
             <p><strong>Documento:</strong> {{ customer.documento }}</p>
             <p><strong>Tipo de Pessoa:</strong> {{ customer.get_tipo_pessoa_display }}</p>
@@ -34,7 +33,6 @@
     <!-- Modal footer -->
     <div
         class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-        <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salvar</button>
+       
     </div>
 </div>

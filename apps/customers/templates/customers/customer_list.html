@@ -15,18 +15,3 @@
 {% block 'modals' %}
 
 {% endblock %}
-
-
-{% comment %} {% block 'content' %}
-<h1>Clientes</h1>
-<a href="{% url 'customer-create' %}">Criar Novo Cliente</a>
-<ul>
-  {% for customer in customers %}
-  <li>
-    <a href="{% url 'customer-detail' customer.pk %}"> {{ customer.nome }} </a>
-    <a href="{% url 'customer-update' customer.pk %}">Editar</a>
-    <a href="{% url 'customer-delete' customer.pk %}">Excluir</a>
-  </li>
-  {% endfor %}
-</ul>
-{% endblock %} {% endcomment %}

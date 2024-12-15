@@ -41,28 +41,43 @@ class CustomerExportCsvView(LoginRequiredMixin, View):
         )
 
         writer = csv.writer(response)
-        # writer.writerow(["Nome", "Email", "Telefone", "Nível", "Ativo"])
+        writer.writerow(
+            [
+                "Nome",
+                "Email",
+                "Telefone",
+                "Documento",
+                "Tipo Pessoa",
+                "Data Nascimento",
+                "Cidade",
+                "Estado",
+            ]
+        )
         search = self.request.GET.get("search")
         orderby = self.request.GET.get("orderby")
         if not orderby:
             orderby = "id"
         if search:
-            Clientes = Customer.objects.filter(
-                Q(username__icontains=search)
+            Customers = Customer.objects.filter(
+                Q(nome__icontains=search)
                 | Q(email__icontains=search)
                 | Q(telefone__icontains=search)
+                | Q(tipo_pessoa__icontains=search)
             ).order_by(orderby)
         else:
-            Clientes = Customer.objects.all().order_by(orderby)
+            Customers = Customer.objects.all().order_by(orderby)
 
-        for cliente in Clientes:
+        for customer in Customers:
             writer.writerow(
                 [
-                    # user.username,
-                    # user.email,
-                    # user.telefone_formatado(),
-                    # "Admin" if user.is_superuser else "Escritorio",
-                    # "Sim" if user.is_active else "Não",
+                    customer.nome,
+                    customer.email,
+                    customer.telefone_formatado(),
+                    customer.documento,
+                    customer.get_tipo_pessoa_display(),
+                    customer.data_nascimento,
+                    customer.cidade,
+                    customer.estado,
                 ]
             )
 
@@ -75,6 +90,21 @@ class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = "customers/customer_list.html"
     context_object_name = "customers"
+
+    def get_queryset(self):
+        search = self.request.GET.get("search")
+        orderby = self.request.GET.get("orderby")
+        if not orderby:
+            orderby = "id"
+        if search:
+            return Customer.objects.filter(
+                Q(nome__icontains=search)
+                | Q(email__icontains=search)
+                | Q(telefone__icontains=search)
+                | Q(tipo_pessoa__icontains=search)
+            ).order_by(orderby)
+
+        return Customer.objects.all().order_by(orderby)
 
     def get_template_names(self):
         content = self.request.META.get("CONTENT_TYPE")

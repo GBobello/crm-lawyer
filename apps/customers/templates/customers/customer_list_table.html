@@ -87,12 +87,12 @@
         <!-- Tipo Pessoa -->
         <td class="px-6 py-4">
             <div class="flex items-center">
-                {% if customer.tipo_pessoa == 'Física' %}
+                {% if customer.tipo_pessoa|title == 'Fisica' %}
                 <span
-                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-red-900 text-red-300">{{customer.tipo_pessoa|title}}</span>
+                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-cyan-900 text-cyan-300">{{customer.tipo_pessoa|title}}</span>
                 {% else %}
                 <span
-                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-blue-900 text-blue-300">{{customer.tipo_pessoa|title}}</span>
+                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-emerald-700 -800 text-emerald-300">{{customer.tipo_pessoa|title}}</span>
                 {% endif %}
             </div>
         </td>
