@@ -1,5 +1,9 @@
 console.log("Cliente.js loaded")
 
+function posLoadPageInModal() {
+    initFormFields();
+}
+
 async function buscarCep() {
     const cep = document.getElementById("cep").value.replace(/\D/g, ""); // Remove caracteres não numéricos
 
@@ -29,8 +33,7 @@ async function buscarCep() {
     }
 }
 
-
-$(document).ready(function () {
+function initFormFields() {
     // Máscara para Documento
     $("#documento").keyup(function () {
         var tamanho = $("#documento").val().length;
@@ -44,4 +47,8 @@ $(document).ready(function () {
 
     // Máscara para Telefone (com ou sem DDD)
     $("#telefone").mask("(00) 00000-0000");
+}
+
+$(document).ready(function () {
+    initFormFields();
 });

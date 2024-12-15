@@ -85,7 +85,7 @@ function LoadPageInModal(element) {
     method: "GET",
     success: function (response) {
       modalContentTarget.innerHTML = response;
-      // initModals();
+      posLoadPageInModal();
     },
     error: function (response) {
       console.log("Erro carregando pagina no modal" + response.message);
