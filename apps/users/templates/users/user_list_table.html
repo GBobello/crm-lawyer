@@ -96,13 +96,13 @@
         <!-- Ações -->
         <td class="px-6 py-4">
             <div class="flex gap-2">
-                <button type="button" class="text-base font-medium text-yellow-50 px-2 py-1 rounded-md  bg-yellow-500 hover:bg-yellow-600 hover:text-white placeholder-shown:border-gray-500 " onclick="LoadPageInModal(this)"
+                <button type="button" class="text-sm font-medium text-yellow-50 px-2 py-1 rounded-md  bg-yellow-500 hover:bg-yellow-600 hover:text-white placeholder-shown:border-gray-500 " onclick="LoadPageInModal(this)"
                     data-modal-target="view-modal" data-modal-toggle="view-modal"
                     data-url="{% url 'user-update' pk=user.pk%}" placeholder="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
-                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
+                <button type="button" class="text-sm font-medium text-gray-200 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-600 hover:text-white" data-modal-target="view-modal"
                     data-modal-toggle="view-modal" onclick="LoadPageInModal(this)"
                     data-url="{% url 'user-detail' pk=user.pk%}"><i class="fa-solid fa-circle-info"></i></button>
-                <button type="button" class="text-base font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
+                <button type="button" class="text-sm font-medium text-gray-200 px-2 py-1 rounded-md bg-red-500 hover:bg-red-600 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </td>
     </tr>
