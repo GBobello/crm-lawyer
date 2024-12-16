@@ -81,3 +81,12 @@ p>select {
 .navdropdown-submenu .slide-menu .slide-item-link:hover::after {
     width: 100%;
 }
+
+/* Forms */
+.form-input{
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: #4b5563;
+    border-color: #6b7280;
+    color: #e5e7eb;
+}

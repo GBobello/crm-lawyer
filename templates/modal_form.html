@@ -1,0 +1,47 @@
+{% extends 'modal_base.html'%}
+{% load tailwind_filters %}
+
+{% block 'modal-start' %}
+<form method="post" enctype="multipart/form-data" onsubmit="SendForm(event,this)"
+    class="relative rounded-lg shadow bg-gray-100"
+    action="{% block 'modal-form-action'%}{% endblock %}">
+    {% csrf_token %}
+
+{% endblock %}
+
+{% block 'modal-content'%}
+{% csrf_token %}
+<div class="divide-y divide-gray-600 text-md text-white">    
+    {% for field in form %}
+        {% if forloop.counter0|divisibleby:2 and not forloop.last%}
+            <div class="grid grid-cols-2 gap-x-4">
+        {% endif %}
+        <div class="py-3 overflow-hidden">
+            <label for="{{ field.id_for_label }}" class="block font-bold text-zinc-100 mb-1">{{ field.label }}</label>
+            <div class="rounded-lg {% if field.errors %}border border-red-500{% endif %}">
+                {{ field }}  {# Adiciona classes Tailwind ao campo #}
+            </div>
+            {% comment %} {% if field.help_text %}
+                <small class="text-sky-500 text-xs italic">{{ field.help_text }}</small>
+            {% endif %} {% endcomment %}
+            {% for error in field.errors %}
+                <div class="text-red-400 text-xs font-bold italic mt-1">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% if forloop.counter|divisibleby:2 and not forloop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block 'modal-footer' %}
+<button type="submit" class="text-white focus:ring-4 focus:outline-none  font-medium rounded-lg 
+                             text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+    Salvar
+</button>
+{% endblock %}
+
+{% block 'modal-end' %}
+</form>
+{% endblock %}

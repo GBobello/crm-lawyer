@@ -3,6 +3,7 @@ from .models import Suppliers, PaymentMethods, Registers, Frequencies
 
 
 class SupplierForm(forms.ModelForm):
+
     class Meta:
         model = Suppliers
         fields = [
@@ -13,8 +14,29 @@ class SupplierForm(forms.ModelForm):
             "endereco",
         ]
         widgets = {
-            "documento": forms.TextInput(attrs={"id": "documento"}),
-            "telefone": forms.TextInput(attrs={"id": "telefone"}),
+            "nome": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Nome"}
+            ),
+            "documento": forms.TextInput(
+                attrs={
+                    "id": "documento",
+                    "class": "form-input",
+                    "placeholder": "Documento",
+                }
+            ),
+            "telefone": forms.TextInput(
+                attrs={
+                    "id": "telefone",
+                    "class": "form-input",
+                    "placeholder": "Telefone",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={"class": "form-input ", "placeholder": "Email"}
+            ),
+            "endereco": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Endereço"}
+            ),
         }
 
 

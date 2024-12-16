@@ -78,7 +78,7 @@ function CloseModal(element) {
 
 function LoadPageInModal(element) {
   const modalContentTarget = document.getElementById(element.attributes.getNamedItem("data-modal-target").value + '-content');
-  // modalContentTarget.innerHTML = '<div class="transition-opacity duration-1000 opacity-0 group-hover:opacity-100 animate-bounce"><div class="m-auto h-20 w-20 border-8 border-gray-50 rounded-full border-t-[var(--main-color)] animate-spin "></div></div>';
+  modalContentTarget.innerHTML = '<div class="transition-opacity duration-1000 group-hover:opacity-100 animate-bounce"><div class="m-auto h-20 w-20 border-8 border-gray-50 rounded-full border-t-[var(--main-color)] animate-spin "></div></div>';
 
   $.ajax({
     url: element.attributes.getNamedItem("data-url").value,

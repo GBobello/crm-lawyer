@@ -16,6 +16,8 @@ class CustomerForm(forms.ModelForm):
             "nacionalidade",
             "estado_civil",
             "profissao",
+            "genitor",
+            "genitora",
             "cep",
             "endereco",
             "numero",
@@ -23,16 +25,37 @@ class CustomerForm(forms.ModelForm):
             "bairro",
             "cidade",
             "estado",
-            "genitor",
-            "genitora",
         ]
         widgets = {
-            "documento": forms.TextInput(attrs={"id": "documento"}),
-            "telefone": forms.TextInput(attrs={"id": "telefone"}),
-            "data_nascimento": forms.TextInput(attrs={"id": "data", "type": "date"}),
-            "cep": forms.TextInput(attrs={"id": "cep", "onblur": "buscarCep()"}),
-            "endereco": forms.TextInput(attrs={"id": "endereco"}),
-            "bairro": forms.TextInput(attrs={"id": "bairro"}),
-            "cidade": forms.TextInput(attrs={"id": "cidade"}),
-            "tipo_pessoa": forms.Select(attrs={"id": "tipo_pessoa"}),
+            "nome": forms.TextInput(attrs={"class": "form-input"}),
+            "documento": forms.TextInput(
+                attrs={"id": "documento", "class": "form-input"}
+            ),
+            "rg": forms.TextInput(attrs={"class": "form-input"}),
+            "telefone": forms.TextInput(
+                attrs={"id": "telefone", "class": "form-input"}
+            ),
+            "email": forms.EmailInput(attrs={"class": "form-input"}),
+            "tipo_pessoa": forms.Select(
+                attrs={"id": "tipo_pessoa", "class": "form-input py-2"}
+            ),
+            "data_nascimento": forms.TextInput(
+                attrs={"id": "data", "type": "date", "class": "form-input"}
+            ),
+            "nacionalidade": forms.TextInput(attrs={"class": "form-input"}),
+            "estado_civil": forms.TextInput(attrs={"class": "form-input"}),
+            "profissao": forms.TextInput(attrs={"class": "form-input"}),
+            "genitor": forms.TextInput(attrs={"class": "form-input"}),
+            "genitora": forms.TextInput(attrs={"class": "form-input"}),
+            "cep": forms.TextInput(
+                attrs={"id": "cep", "onblur": "buscarCep()", "class": "form-input"}
+            ),
+            "endereco": forms.TextInput(
+                attrs={"id": "endereco", "class": "form-input"}
+            ),
+            "numero": forms.TextInput(attrs={"class": "form-input"}),
+            "complemento": forms.TextInput(attrs={"class": "form-input"}),
+            "bairro": forms.TextInput(attrs={"id": "bairro", "class": "form-input"}),
+            "cidade": forms.TextInput(attrs={"id": "cidade", "class": "form-input"}),
+            "estado": forms.TextInput(attrs={"class": "form-input"}),
         }
