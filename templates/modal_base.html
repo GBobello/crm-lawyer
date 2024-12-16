@@ -1,5 +1,5 @@
 {%block 'modal-start'%}{%endblock%}
-<!-- Modal content -->
+<!-- Modal -->
 <div class="relative rounded-lg shadow bg-gray-700 border border-gray-800">
 
     <!-- Modal header -->
@@ -17,7 +17,7 @@
             <span class="sr-only">Fechar modal</span>
         </button>
     </div>
-
+    <!-- Modal Content -->
     <div class="py-4 px-4 text-white shadow-inner shadow-gray-800">
         {%block 'modal-content'%}{%endblock%}
     </div>
@@ -25,5 +25,6 @@
     <div class="flex items-center p-4 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
        {%block 'modal-footer'%}{%endblock%}
     </div>
+
 </div>
 {%block 'modal-end'%}{%endblock%}

@@ -26,8 +26,10 @@ class UserCreateForm(UserCreationForm):
             "estado_civil",
             "endereco",
             "especialidade",
-            "foto",
+            "password1",
+            "password2",
             "nacionalidade",
+            "foto",
         ]
 
         widgets = {
@@ -53,7 +55,7 @@ class UserCreateForm(UserCreationForm):
             "especialidade": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Especialidade"}
             ),
-            "foto": forms.ClearableFileInput(attrs={"class": "form-file"}),
+            "foto": forms.FileInput(attrs={"class": "form-file"}),
             "nacionalidade": forms.TextInput(attrs={"class": "form-input"}),
             "is_active": forms.CheckboxInput(attrs={"class": "form-check"}),
             "is_superuser": forms.CheckboxInput(attrs={"class": "form-check"}),
