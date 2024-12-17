@@ -139,7 +139,7 @@ class SupplierListView(LoginRequiredMixin, ListView):
 class SupplierExportPDFView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=Clientes_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        response['Content-Disposition'] = f'attachment; filename=Fornecedor_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
 
         p = canvas.Canvas(response, pagesize=letter)
         width, height = letter
