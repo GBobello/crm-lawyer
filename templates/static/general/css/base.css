@@ -90,3 +90,27 @@ p>select {
     border-color: #6b7280;
     color: #e5e7eb;
 }
+
+input:-webkit-autofill {
+    background-color: #4b5563 !important;
+    color: #e5e7eb !important;
+    -webkit-box-shadow: 0 0 0px 1000px #6b7280 inset !important;
+    box-shadow: 0 0 0px 1000px #4b5563 inset !important;
+    -webkit-text-fill-color: #e5e7eb !important; 
+}
+
+/* Para o Mozilla */
+input:-moz-autofill {
+    background-color: #4b5563 !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 0 0px 1000px #4b5563 inset !important;
+    -moz-text-fill-color: #e5e7eb !important; 
+}
+
+/* Para o Edge/Explorer */
+input:-ms-autofill {
+    background-color: #4b5563 !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 0 0px 1000px #4b5563 inset !important;
+    -ms-text-fill-color: #e5e7eb !important; 
+}
