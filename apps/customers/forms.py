@@ -57,5 +57,5 @@ class CustomerForm(forms.ModelForm):
             "complemento": forms.TextInput(attrs={"class": "form-input"}),
             "bairro": forms.TextInput(attrs={"id": "bairro", "class": "form-input"}),
             "cidade": forms.TextInput(attrs={"id": "cidade", "class": "form-input"}),
-            "estado": forms.TextInput(attrs={"class": "form-input"}),
+            "estado": forms.Select(attrs={"class": "form-input px-4 py-2"}),
         }
