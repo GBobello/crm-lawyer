@@ -18,6 +18,13 @@ from django.db.models import Q
 import csv
 import datetime
 
+# Importações adicionais para gerar PDFs
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from django.utils import timezone
+import textwrap
+
+
 
 class SupplierMessageView(LoginRequiredMixin, View):
     context_object_name = "message"
@@ -127,6 +134,95 @@ class SupplierListView(LoginRequiredMixin, ListView):
         context["plural_name_model"] = "Fornecedores"
 
         return context
+
+
+class SupplierExportPDFView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=Clientes_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+
+        p = canvas.Canvas(response, pagesize=letter)
+        width, height = letter
+
+        p.setFont("Helvetica-Bold", 16)
+        p.drawString(30, height - 50, "Relatório de Fornecedores")
+
+        headers = [
+            "Nome",
+            "Email",
+            "Telefone",
+            "Documento",
+            "Tipo",
+            "Data Cad.",
+            "Endereço",
+        ]
+
+        p.setFont("Helvetica-Bold", 8)
+        x_offsets = [30, 120, 200, 270, 340, 380, 440]
+        y = height - 80
+        for i, header in enumerate(headers):
+            p.drawString(x_offsets[i], y, header)
+
+        # Linha horizontal
+        p.line(30, y - 5, width - 30, y - 5)
+
+        search = self.request.GET.get("search")
+        orderby = self.request.GET.get("orderby")
+        if not orderby:
+            orderby = "id"
+        if search:
+            Suppliers2 = Suppliers.objects.filter(
+                Q(nome__icontains=search)
+                | Q(email__icontains=search)
+                | Q(telefone__icontains=search)
+                | Q(tipo_pessoa__icontains=search)
+            ).order_by(orderby)
+        else:
+            Suppliers2 = Suppliers.objects.all().order_by(orderby)
+
+        p.setFont("Helvetica", 8)
+        y = height - 100
+        line_height = 14
+
+
+        for supplier in Suppliers2:
+            texts = [
+                    supplier.nome,
+                    supplier.email,
+                    supplier.telefone_formatado(),
+                    supplier.documento,
+                    supplier.get_tipo_pessoa_display(),
+                    utils.get_data_formatada(supplier.data_cadastro),
+                    supplier.endereco,
+             ]
+
+
+            max_lines = 1
+            for i, text in enumerate(texts):
+                wrapped_text = p.beginText(x_offsets[i], y)
+                lines = textwrap.wrap(text, width=15)
+                max_lines = max(max_lines, len(lines))
+                for line in lines:
+                    wrapped_text.textLine(line)
+                p.drawText(wrapped_text)
+
+            y -= max_lines * line_height
+
+            if y < 50:
+                p.showPage()
+                y = height - 50
+
+                p.setFont("Helvetica-Bold", 12)
+                for i, header in enumerate(headers):
+                    p.drawString(x_offsets[i], y, header)
+                p.line(30, y - 5, width - 30, y - 5)
+                p.setFont("Helvetica", 10)
+                y = height - 100
+
+        p.showPage()
+        p.save()
+
+        return response
 
 
 class SupplierCreateView(LoginRequiredMixin, CreateView):

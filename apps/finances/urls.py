@@ -7,6 +7,7 @@ from .views import (
     SupplierDetailView,
     SupplierMessageView,
     SupplierExportCsvView,
+    SupplierExportPDFView,
     PaymentMethodListView,
     PaymentMethodCreateView,
     PaymentMethodUpdateView,
@@ -43,6 +44,7 @@ urlpatterns = [
         name="supplier-delete",
     ),
     path("exportcsv/", SupplierExportCsvView.as_view(), name="supplier-export-csv"),
+    path("exportpdf/", SupplierExportPDFView.as_view(), name="supplier-export-pdf"),
     #  registers
     path("caixa/", RegisterListView.as_view(), name="register-list"),
     path("caixa/inserir/", RegisterCreateView.as_view(), name="register-create"),
