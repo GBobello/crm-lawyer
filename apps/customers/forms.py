@@ -37,7 +37,7 @@ class CustomerForm(forms.ModelForm):
             ),
             "email": forms.EmailInput(attrs={"class": "form-input"}),
             "tipo_pessoa": forms.Select(
-                attrs={"id": "tipo_pessoa", "class": "form-input py-2"}
+                attrs={"id": "tipo_pessoa", "class": "form-input px-4 py-2"}
             ),
             "data_nascimento": forms.TextInput(
                 attrs={"id": "data", "type": "date", "class": "form-input"}

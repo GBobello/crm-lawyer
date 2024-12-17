@@ -48,7 +48,7 @@ class UserCreateForm(UserCreationForm):
             "seccional_oab": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Seccional OAB"}
             ),
-            "estado_civil": forms.Select(attrs={"class": "form-input py-2"}),
+            "estado_civil": forms.Select(attrs={"class": "form-input px-4 py-2"}),
             "endereco": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Endereço"}
             ),
@@ -115,7 +115,7 @@ class UserEditForm(UserChangeForm):
             "seccional_oab": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Seccional OAB"}
             ),
-            "estado_civil": forms.Select(attrs={"class": "form-input py-2"}),
+            "estado_civil": forms.Select(attrs={"class": "form-input px-4 py-2"}),
             "endereco": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Endereço"}
             ),
