@@ -43,7 +43,7 @@ class CustomerForm(forms.ModelForm):
                 attrs={"id": "data", "type": "date", "class": "form-input"}
             ),
             "nacionalidade": forms.TextInput(attrs={"class": "form-input"}),
-            "estado_civil": forms.TextInput(attrs={"class": "form-input"}),
+            "estado_civil": forms.Select(attrs={"class": "form-input px-4 py-2"}),
             "profissao": forms.TextInput(attrs={"class": "form-input"}),
             "genitor": forms.TextInput(attrs={"class": "form-input"}),
             "genitora": forms.TextInput(attrs={"class": "form-input"}),
