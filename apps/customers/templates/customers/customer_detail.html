@@ -1,38 +1,42 @@
-<!-- Modal content -->
-<div class="relative rounded-lg shadow bg-gray-100">
+{% extends 'modal_base.html' %}
 
-    <!-- Modal header -->
-    <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
-        <h3 class="text-xl font-semibold text-zinc-700">
-            Detalhes
-        </h3>
-        <button type="button" onclick="CloseModal(this)"
-            class="bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-            data-modal-target="view-modal" data-modal-hide="view-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-            </svg>
-            <span class="sr-only">Fechar modal</span>
-        </button>
+{% block 'modal-header'%}
+Detalhes do Cliente
+{% endblock %}
+
+{% block 'modal-content'%}
+<div class=" divide-y divide-gray-600 text-md">
+    <div class="grid grid-cols-2">
+        <div class="py-3"><strong>Nome</strong> <p class="text-zinc-200"> {{ customer.nome }}</p></div>
+        <div class="py-3"><strong>Email</strong> <p class="text-zinc-200"> {{ customer.email }}</p></div>
     </div>
-
-    <div class="p-6 space-y-6">
-        <div class="grid grid-cols-2 gap-6">
-            <p><strong>Nome:</strong> {{ customer.nome }}</p>
-            <p><strong>Email:</strong> {{ customer.email }}</p>
-            <p><strong>Telefone:</strong> {{ customer.telefone_formatado }}</p>
-            <p><strong>Endereço:</strong> {{ customer.endereco }}</p>
-            <p><strong>Documento:</strong> {{ customer.documento }}</p>
-            <p><strong>Tipo de Pessoa:</strong> {{ customer.get_tipo_pessoa_display }}</p>
-            <p><strong>Data de Nascimento:</strong> {{ customer.data_nascimento }}</p>
-            <p><strong>Cidade:</strong> {{ customer.cidade }}</p>
-            <p><strong>Estado:</strong> {{ customer.estado }}</p>
+    <div class="grid grid-cols-2">
+        <div class="py-3"><strong>Telefone</strong> <p class="text-zinc-200"> {{ customer.telefone_formatado }}</p></div>
+        <div class="py-3"><strong>Documento</strong> <p class="text-zinc-200"> {{ customer.documento }}</p></div>
+    </div>
+    <div class="grid grid-cols-2">
+        <div class="py-3"><strong>Tipo Pessoa</strong>             
+            <p class="mt-1.5"><span class="text-sm font-medium px-2.5 py-0.5 rounded-full border
+                    {% if customer.tipo_pessoa|title == 'Fisica' %}bg-cyan-900 text-cyan-300 border-cyan-700
+                    {% else %} bg-emerald-700 -800 text-emerald-300 border-emerald-500 {% endif %}
+                    ">{{customer.tipo_pessoa|title}}
+            </span></p>      
         </div>
+        <div class="py-3"><strong>Endereço</strong> <p class="text-zinc-200"> {{ customer.endereco }}</p></div>
     </div>
-    <!-- Modal footer -->
-    <div
-        class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-       
+    <div class="grid grid-cols-2">
+        <div class="py-3"><strong>Cidade</strong> <p class="text-zinc-200"> {{ customer.cidade }}</p></div>
+        <div class="py-3"><strong>Estado</strong> <p class="text-zinc-200"> {{ customer.estado }}</p></div>
     </div>
+    {% if customer.data_nascimento %}
+    <div class="grid grid-cols-1">
+        <div class="py-3"><strong>Data de Nascimento</strong> <p class="text-zinc-200"> {{ customer.data_nascimento  }}</p></div>
+    </div>
+    {% endif %}
+
 </div>
+{% endblock %}
+
+{% block 'modal-footer'%}
+<p class="text-zinc-200 text-sm"> Cadastrado em {{ customer.data_cad }} </p>
+{% endblock %}
