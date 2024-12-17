@@ -4,7 +4,7 @@
 {% comment %} URL para o form de create {% endcomment %}
 {% block 'url-model-create' %}{% url 'user-create'%}{% endblock %}
 {% comment %} URL da exportação PDF {% endcomment %}
-{% block 'url-model-export-pdf' %}{% endblock %}
+{% block 'url-model-export-pdf' %}{% url 'user-export-pdf'%}{% endblock %}
 {% comment %} URL da exportação CSV {% endcomment %}
 {% block 'url-model-export-csv' %}{% url 'user-export-csv'%}{% endblock %}
 {% comment %} Contagem de resultados  {% endcomment %}
