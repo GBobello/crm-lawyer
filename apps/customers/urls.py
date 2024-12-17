@@ -7,6 +7,7 @@ from .views import (
     CustomerDetailView,
     CustomerMessageView,
     CustomerExportCsvView,
+    CustomerExportPDFView,
 )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     path("<int:pk>/excluir/", CustomerDeleteView.as_view(), name="customer-delete"),
     path("message/", CustomerMessageView.as_view(), name="customer-message"),
     path("exportcsv/", CustomerExportCsvView.as_view(), name="customer-export-csv"),
+    path("exportpdf/", CustomerExportPDFView.as_view(), name="customer-export-pdf"),
 ]
