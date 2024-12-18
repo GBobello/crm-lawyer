@@ -29,5 +29,5 @@ class Tasks(models.Model):
 
     class Meta:
         db_table = "tasks"
-        verbose_name = "Task"
-        verbose_name_plural = "Tasks"
+        verbose_name = "Tarefa"
+        verbose_name_plural = "Tarefas"

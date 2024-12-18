@@ -36,8 +36,8 @@ class Suppliers(models.Model):
 
     class Meta:
         db_table = "suppliers"
-        verbose_name = "Supplier"
-        verbose_name_plural = "Suppliers"
+        verbose_name = "Fornecedor"
+        verbose_name_plural = "Fornecedores"
 
 
 class PaymentMethods(models.Model):
@@ -46,8 +46,8 @@ class PaymentMethods(models.Model):
 
     class Meta:
         db_table = "payment_methods"
-        verbose_name = "Payment Method"
-        verbose_name_plural = "Payment Methods"
+        verbose_name = "Forma de Pagamento"
+        verbose_name_plural = "Formas de Pagamento"
 
 
 class Registers(models.Model):
@@ -74,8 +74,8 @@ class Registers(models.Model):
 
     class Meta:
         db_table = "registers"
-        verbose_name = "Register"
-        verbose_name_plural = "Registers"
+        verbose_name = "Caixa"
+        verbose_name_plural = "Caixas"
 
 
 class Frequencies(models.Model):
@@ -84,5 +84,5 @@ class Frequencies(models.Model):
 
     class Meta:
         db_table = "frequencies"
-        verbose_name = "Frequency"
-        verbose_name_plural = "Frequencies"
+        verbose_name = "Frequência"
+        verbose_name_plural = "Frequências"

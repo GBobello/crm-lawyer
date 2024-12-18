@@ -57,7 +57,6 @@ class Users(AbstractUser):
         return utils.telefone_formatado(self.telefone)
 
     def save(self, *args, **kwargs):
-        print("Passando aqui")
         print(self.foto)
         self.telefone = utils.remove_special_characters(self.telefone)
 
@@ -65,5 +64,5 @@ class Users(AbstractUser):
 
     class Meta:
         db_table = "users"
-        verbose_name = "User"
-        verbose_name_plural = "Users"
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
