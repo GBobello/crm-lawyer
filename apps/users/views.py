@@ -60,10 +60,13 @@ class UserExportCsvView(LoginRequiredMixin, View):
 
         return response
 
+
 class UserExportPDFView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=Usuarios_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'attachment; filename=Usuarios_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        )
 
         p = canvas.Canvas(response, pagesize=letter)
         width, height = letter
@@ -71,13 +74,7 @@ class UserExportPDFView(LoginRequiredMixin, View):
         p.setFont("Helvetica-Bold", 16)
         p.drawString(30, height - 50, "Relatório de Usuários")
 
-        headers = [
-            "Nome",
-            "Email",
-            "Telefone",
-            "Nível",
-            "Ativo"
-        ]
+        headers = ["Nome", "Email", "Telefone", "Nível", "Ativo"]
 
         p.setFont("Helvetica-Bold", 8)
         x_offsets = [30, 120, 200, 270, 340, 380, 440]
@@ -106,18 +103,17 @@ class UserExportPDFView(LoginRequiredMixin, View):
 
         for user in Users2:
             texts = [
-                    user.username,
-                    user.email,
-                    user.telefone_formatado(),
-                    "Admin" if user.is_superuser else "Escritorio",
-                    "Sim" if user.is_active else "Não",
+                user.username,
+                user.email,
+                user.telefone_formatado(),
+                "Admin" if user.is_superuser else "Escritorio",
+                "Sim" if user.is_active else "Não",
             ]
 
-            
             max_lines = 1
             for i, text in enumerate(texts):
                 wrapped_text = p.beginText(x_offsets[i], y)
-                lines = textwrap.wrap(text, width=15) 
+                lines = textwrap.wrap(text, width=15)
                 max_lines = max(max_lines, len(lines))
                 for line in lines:
                     wrapped_text.textLine(line)
@@ -140,7 +136,6 @@ class UserExportPDFView(LoginRequiredMixin, View):
         p.save()
 
         return response
-
 
 
 class UserMessageView(LoginRequiredMixin, View):
@@ -178,9 +173,9 @@ class UserListView(LoginRequiredMixin, ListView):
 
             return Users.objects.all().order_by(orderby)
             # Superusuários veem todos os registros
-        return Users.objects.filter(id=self.request.user.id).order_by(
-            orderby
-        )  # Usuários comuns veem apenas seus próprios registros
+        return Users.objects.filter(
+            id=self.request.user.id
+        ).order_by()  # Usuários comuns veem apenas seus próprios registros
 
     def get_template_names(self):
         content = self.request.META.get("CONTENT_TYPE")

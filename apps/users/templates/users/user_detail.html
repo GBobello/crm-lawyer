@@ -12,22 +12,23 @@ Detalhes do Usuário
     </div>
     {% comment %} <div> {% endcomment %}
         <div class="grid grid-cols-2">
-            <div class="py-3"><strong>Nome</strong> <p class="text-zinc-200"> {{ user.username }}</p></div>
+            <div class="py-3"><strong>Nome</strong> <p class="text-zinc-200">{{ user.first_name }} {{ user.last_name }}</p></div>
+            <div class="py-3"><strong>Nome de usuário</strong> <p class="text-zinc-200"> {{ user.username }}</p></div>
+        </div>
+        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Email</strong> <p class="text-zinc-200"> {{ user.email }}</p></div>
-        </div>
-        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Telefone</strong> <p class="text-zinc-200"> {{ user.telefone_formatado }}</p></div>
+        </div>
+        <div class="grid grid-cols-2">
             <div class="py-3"><strong>OAB</strong> <p class="text-zinc-200"> {{ user.oab  }}</p></div>
-        </div>
-        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Seccional OAB</strong> <p class="text-zinc-200"> {{ user.seccional_oab }}</p></div>
+        </div>
+        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Estado Civil</strong> <p class="text-zinc-200"> {{  user.estado_civil }}</p></div>
-        </div>
-        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Especialidade</strong> <p class="text-zinc-200"> {{ user.especialidade }}</p></div>
-            <div class="py-3"><strong>Nacionalidade</strong> <p class="text-zinc-200"> {{ user.nacionalidade }}</p></div>
         </div>
         <div class="grid grid-cols-2">
+            <div class="py-3"><strong>Nacionalidade</strong> <p class="text-zinc-200"> {{ user.nacionalidade }}</p></div>
             <div class="py-3"><strong>Nivel</strong>             
                 <p class="mt-1.5"><span class="text-sm font-medium px-2.5 py-0.5 rounded-full border
                         {% if user.is_superuser %}bg-red-900 text-red-300 border-red-700 "> Admin
@@ -35,6 +36,8 @@ Detalhes do Usuário
                         
                 </span></p>      
             </div>
+        </div>
+        <div class="grid grid-cols-2">
             <div class="py-3"><strong>Endereço</strong> <p class="text-zinc-200"> {{ user.endereco }}</p></div>
         </div>
         {% comment %} </div> {% endcomment %}

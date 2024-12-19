@@ -1,7 +1,8 @@
 from utils import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .validators import validate_phone
+from .validators import validate_phone, validate_document
+from utils import utils
 
 
 class Users(AbstractUser):
@@ -44,7 +45,24 @@ class Users(AbstractUser):
         ("uniao estavel", "União Estável"),
     )
 
+    OPTIONS_TIPO_PESSOA = (
+        ("fisica", "Física"),
+        ("juridica", "Jurídica"),
+    )
+
+    first_name = models.CharField(
+        max_length=150, null=False, blank=False, verbose_name="Nome"
+    )
+    last_name = models.CharField(
+        max_length=150, null=False, blank=True, verbose_name="Sobrenome"
+    )
     endereco = models.CharField(max_length=255)
+    documento = models.CharField(
+        max_length=14, null=False, blank=False, validators=[validate_document]
+    )
+    tipo_pessoa = models.CharField(
+        max_length=255, null=False, blank=False, choices=OPTIONS_TIPO_PESSOA
+    )
     telefone = models.CharField(max_length=20, validators=[validate_phone])
     oab = models.CharField(max_length=20)
     especialidade = models.CharField(max_length=255)
@@ -58,7 +76,13 @@ class Users(AbstractUser):
 
     def save(self, *args, **kwargs):
         print(self.foto)
+        self.documento = utils.remove_special_characters(self.documento)
         self.telefone = utils.remove_special_characters(self.telefone)
+
+        if len(self.documento) == 11:
+            self.tipo_pessoa = "fisica"
+        else:
+            self.tipo_pessoa = "juridica"
 
         return super().save(*args, **kwargs)
 

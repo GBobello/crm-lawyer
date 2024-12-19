@@ -18,7 +18,11 @@ class UserCreateForm(UserCreationForm):
     class Meta:
         model = Users
         fields = [
+            "first_name",
+            "last_name",
             "username",
+            "documento",
+            "tipo_pessoa",
             "email",
             "telefone",
             "oab",
@@ -33,20 +37,40 @@ class UserCreateForm(UserCreationForm):
         ]
 
         widgets = {
+            "first_name": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Nome"}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Sobrenome"}
+            ),
             "username": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Nome de Usuário"}
+            ),
+            "documento": forms.TextInput(
+                attrs={
+                    "id": "documento",
+                    "class": "form-input",
+                    "placeholder": "Documento",
+                }
+            ),
+            "tipo_pessoa": forms.Select(
+                attrs={"id": "tipo_pessoa", "class": "form-input px-4 py-2"}
             ),
             "email": forms.EmailInput(
                 attrs={"class": "form-input", "placeholder": "Email"}
             ),
             "telefone": forms.TextInput(
-                attrs={"class": "form-input", "placeholder": "Telefone"}
+                attrs={
+                    "id": "telefone",
+                    "class": "form-input",
+                    "placeholder": "Telefone",
+                }
             ),
             "oab": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Número OAB"}
             ),
-            "seccional_oab": forms.TextInput(
-                attrs={"class": "form-input", "placeholder": "Seccional OAB"}
+            "seccional_oab": forms.Select(
+                attrs={"class": "form-input px-4 py-2", "placeholder": "Seccional OAB"}
             ),
             "estado_civil": forms.Select(attrs={"class": "form-input px-4 py-2"}),
             "endereco": forms.TextInput(
@@ -82,7 +106,11 @@ class UserEditForm(UserChangeForm):
     class Meta:
         model = Users
         fields = [
+            "first_name",
+            "last_name",
             "username",
+            "documento",
+            "tipo_pessoa",
             "email",
             "telefone",
             "oab",
@@ -100,20 +128,40 @@ class UserEditForm(UserChangeForm):
         ]
 
         widgets = {
+            "first_name": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Nome"}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Sobrenome"}
+            ),
             "username": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Nome de Usuário"}
+            ),
+            "documento": forms.TextInput(
+                attrs={
+                    "id": "documento",
+                    "class": "form-input",
+                    "placeholder": "Documento",
+                }
+            ),
+            "tipo_pessoa": forms.Select(
+                attrs={"id": "tipo_pessoa", "class": "form-input px-4 py-2"}
             ),
             "email": forms.EmailInput(
                 attrs={"class": "form-input", "placeholder": "Email"}
             ),
             "telefone": forms.TextInput(
-                attrs={"class": "form-input", "placeholder": "Telefone"}
+                attrs={
+                    "id": "telefone",
+                    "class": "form-input",
+                    "placeholder": "Telefone",
+                }
             ),
             "oab": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Número OAB"}
             ),
-            "seccional_oab": forms.TextInput(
-                attrs={"class": "form-input", "placeholder": "Seccional OAB"}
+            "seccional_oab": forms.Select(
+                attrs={"class": "form-input px-4 py-2", "placeholder": "Seccional OAB"}
             ),
             "estado_civil": forms.Select(attrs={"class": "form-input px-4 py-2"}),
             "endereco": forms.TextInput(

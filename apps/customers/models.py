@@ -48,13 +48,19 @@ class Customer(models.Model):
         ("uniao estavel", "União Estável"),
     )
 
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False,
+    )
     email = models.EmailField(max_length=255, null=True, blank=True)
     telefone = models.CharField(
         max_length=20, null=True, blank=True, validators=[validate_phone]
     )
     data_cad = models.DateTimeField(auto_now_add=True)
-    documento = models.CharField(max_length=14, validators=[validate_document])
+    documento = models.CharField(
+        max_length=14, null=False, blank=False, validators=[validate_document]
+    )
     tipo_pessoa = models.CharField(max_length=255, choices=OPTIONS_TIPO_PESSOA)
     data_nascimento = models.DateField(null=True, blank=True)
     cep = models.CharField(max_length=9, null=True, blank=True)
