@@ -11,7 +11,7 @@ urlpatterns = [
     # Login e Logout
     path(
         "",
-        RedirectView.as_view(url="/login/", permanent=False),
+        RedirectView.as_view(url="/clientes/", permanent=False),
         name="redirect_view",
     ),
     path("financeiro/", include("finances.urls")),
