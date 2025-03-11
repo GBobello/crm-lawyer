@@ -10,7 +10,7 @@ disable=
       W0719, # Broad-Exception-raised
       E0015, # unrecognized-option
       E0401, # import-error
-      C0415, # Import outside toplevel
+      #C0415, # Import outside toplevel
       W0613, # unused-argument
       W0611, # Unused admin imported from django.contrib
       C0301, # Line too long (107/100)

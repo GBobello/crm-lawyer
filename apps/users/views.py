@@ -19,6 +19,7 @@ import textwrap
 # Mixin para restringir ações apenas para superusuários
 class SuperUserRequiredMixin(UserPassesTestMixin):
     def test_func(self):
+
         return self.request.user.is_superuser
 
 
