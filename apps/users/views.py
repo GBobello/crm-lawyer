@@ -1,19 +1,19 @@
+import csv
+import textwrap
+import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import JsonResponse, HttpResponse
-from .models import Users
-from .forms import UserCreateForm, UserEditForm
 from django.db.models import Q
-import csv
-import datetime
+from django.utils import timezone
 
 # Importações adicionais para gerar PDFs
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-from django.utils import timezone
-import textwrap
+from .models import Users
+from .forms import UserCreateForm, UserEditForm
 
 
 # Mixin para restringir ações apenas para superusuários
