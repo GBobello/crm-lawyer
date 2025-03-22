@@ -18,7 +18,7 @@ urlpatterns = [
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("admin/", admin.site.urls),
-    path("usuarios/", include("users.urls")),
+    path("", include("users.urls")),
     path("clientes/", include("customers.urls")),
     path("tarefas/", include("tasks.urls")),
     # Adicionando a rota para o aplicativo de finanças

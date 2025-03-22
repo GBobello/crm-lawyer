@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Users
+from users.models import Users
 
 
 class UserCreateForm(UserCreationForm):
@@ -33,6 +33,7 @@ class UserCreateForm(UserCreationForm):
             "password1",
             "password2",
             "nacionalidade",
+            "groups",
             "foto",
         ]
 
@@ -80,6 +81,7 @@ class UserCreateForm(UserCreationForm):
                 attrs={"class": "form-input", "placeholder": "Especialidade"}
             ),
             "foto": forms.FileInput(attrs={"class": "form-file"}),
+            "groups": forms.CheckboxSelectMultiple(),
             "nacionalidade": forms.TextInput(attrs={"class": "form-input"}),
             "is_active": forms.CheckboxInput(attrs={"class": "form-check"}),
             "is_superuser": forms.CheckboxInput(attrs={"class": "form-check"}),
@@ -124,6 +126,7 @@ class UserEditForm(UserChangeForm):
             "password1",
             "password2",
             "password",
+            "groups",
             "foto",
         ]
 
@@ -170,6 +173,7 @@ class UserEditForm(UserChangeForm):
             "especialidade": forms.TextInput(
                 attrs={"class": "form-input", "placeholder": "Especialidade"}
             ),
+            "groups": forms.CheckboxSelectMultiple(),
             "foto": forms.ClearableFileInput(attrs={"class": "form-file"}),
             "nacionalidade": forms.TextInput(attrs={"class": "form-input"}),
             "is_active": forms.CheckboxInput(attrs={"class": "form-check"}),

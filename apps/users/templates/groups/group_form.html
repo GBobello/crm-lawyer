@@ -1,0 +1,14 @@
+{% extends 'groups.html' %} 
+
+{% block 'content' %}
+<h1>{% if object %}Editar Grupo de usuário{% else %}Nova Grupo de usuário{% endif %}</h1>
+
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">
+    {% if object %}Atualizar{% else %}Salvar{% endif %}
+  </button>
+</form>
+
+<a href="{% url 'groups-list' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

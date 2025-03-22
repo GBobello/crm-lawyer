@@ -1,0 +1,15 @@
+{% extends 'groups.html' %} 
+
+{% block 'content' %}
+<h1>Lista de Grupos de usuários</h1>
+<ul>
+  {% for group in groups %}
+  <li>
+    <a href="{% url 'groups-detail' group.id %}"
+      >{{ group.name }}</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'groups-create' %}" class="btn btn-primary">Novo Grupo de usuários</a>
+{% endblock %}

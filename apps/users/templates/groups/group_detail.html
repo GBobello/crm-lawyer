@@ -1,0 +1,9 @@
+{% extends 'groups.html' %} 
+
+
+{% block 'content' %}
+<h1>Detalhes do Grupo de usuário</h1>
+<p><strong>Nome:</strong> {{ object.name }}</p>
+<a href="{% url 'groups-update' object.id %}" class="btn btn-warning">Editar</a>
+<a href="{% url 'groups-delete' object.id %}" class="btn btn-danger">Deletar</a>
+{% endblock %}

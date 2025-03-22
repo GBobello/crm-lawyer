@@ -1,0 +1,15 @@
+{% extends 'groups.html' %} 
+
+{% block 'content' %}
+<h1>Excluir Grupo de usuário</h1>
+<p>
+  Tem certeza que deseja excluir o grupo de usuário:
+  <strong>{{ object.name }}</strong>?
+</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sim, excluir</button>
+  <a href="{% url 'groups-list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

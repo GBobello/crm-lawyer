@@ -2,6 +2,7 @@ import csv
 import textwrap
 import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import Group
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -12,8 +13,8 @@ from django.utils import timezone
 # Importações adicionais para gerar PDFs
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-from .models import Users
-from .forms import UserCreateForm, UserEditForm
+from users.models import Users
+from users.forms import UserCreateForm, UserEditForm
 
 
 # Mixin para restringir ações apenas para superusuários
@@ -152,7 +153,6 @@ class UserMessageView(LoginRequiredMixin, View):
         return JsonResponse(response_data)
 
 
-# Listar usuários: Superusuários veem todos; usuários comuns veem apenas seus próprios registros
 class UserListView(LoginRequiredMixin, ListView):
     paginate_by = 10
     model = Users
@@ -201,7 +201,6 @@ class UserListView(LoginRequiredMixin, ListView):
         return context
 
 
-# Criar usuários: Apenas superusuários podem acessar
 class UserCreateView(LoginRequiredMixin, SuperUserRequiredMixin, CreateView):
     model = Users
     form_class = UserCreateForm
@@ -219,7 +218,6 @@ class UserCreateView(LoginRequiredMixin, SuperUserRequiredMixin, CreateView):
         return response
 
 
-# Editar usuários: Superusuários podem editar qualquer usuário; usuários comuns só editam seu próprio registro
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Users
     form_class = UserEditForm
@@ -243,14 +241,12 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return response
 
 
-# Excluir usuários: Apenas superusuários podem acessar
 class UserDeleteView(LoginRequiredMixin, SuperUserRequiredMixin, DetailView):
     model = Users
     template_name = "users/user_confirm_delete.html"
     success_url = reverse_lazy("user-message")
 
 
-# Detalhes do usuário: Superusuários podem acessar todos; usuários comuns podem acessar apenas seus próprios registros
 class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Users
     template_name = "users/user_detail.html"
