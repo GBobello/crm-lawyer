@@ -1,7 +1,6 @@
 from utils import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .validators import validate_phone, validate_document
 
 
 class Users(AbstractUser):
@@ -57,12 +56,12 @@ class Users(AbstractUser):
     )
     endereco = models.CharField(max_length=255)
     documento = models.CharField(
-        max_length=14, null=False, blank=False, validators=[validate_document]
+        max_length=14, null=False, blank=False, validators=[utils.validate_document]
     )
     tipo_pessoa = models.CharField(
         max_length=255, null=False, blank=False, choices=OPTIONS_TIPO_PESSOA
     )
-    telefone = models.CharField(max_length=20, validators=[validate_phone])
+    telefone = models.CharField(max_length=20, validators=[utils.validate_phone])
     oab = models.CharField(max_length=20)
     especialidade = models.CharField(max_length=255)
     foto = models.ImageField(upload_to="fotos/", null=True, blank=True)

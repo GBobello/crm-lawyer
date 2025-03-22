@@ -3,8 +3,8 @@
 import django.contrib.auth.models
 import django.contrib.auth.validators
 import django.utils.timezone
-import users.validators
 from django.db import migrations, models
+from apps.utils import utils
 
 
 def create_default_user(apps, schema_editor):
@@ -127,7 +127,7 @@ class Migration(migrations.Migration):
                 (
                     "documento",
                     models.CharField(
-                        max_length=14, validators=[users.validators.validate_document]
+                        max_length=14, validators=[utils.validate_document]
                     ),
                 ),
                 (
@@ -139,9 +139,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "telefone",
-                    models.CharField(
-                        max_length=20, validators=[users.validators.validate_phone]
-                    ),
+                    models.CharField(max_length=20, validators=[utils.validate_phone]),
                 ),
                 ("oab", models.CharField(max_length=20)),
                 ("especialidade", models.CharField(max_length=255)),

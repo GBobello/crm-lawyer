@@ -1,6 +1,5 @@
 from utils import utils
 from django.db import models
-from .validators import validate_document, validate_phone
 
 
 class Customer(models.Model):
@@ -55,11 +54,11 @@ class Customer(models.Model):
     )
     email = models.EmailField(max_length=255, null=True, blank=True)
     telefone = models.CharField(
-        max_length=20, null=True, blank=True, validators=[validate_phone]
+        max_length=20, null=True, blank=True, validators=[utils.validate_phone]
     )
     data_cad = models.DateTimeField(auto_now_add=True)
     documento = models.CharField(
-        max_length=14, null=False, blank=False, validators=[validate_document]
+        max_length=14, null=False, blank=False, validators=[utils.validate_document]
     )
     tipo_pessoa = models.CharField(max_length=255, choices=OPTIONS_TIPO_PESSOA)
     data_nascimento = models.DateField(null=True, blank=True)

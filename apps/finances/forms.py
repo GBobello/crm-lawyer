@@ -1,5 +1,11 @@
 from django import forms
-from .models import Suppliers, PaymentMethods, Registers, Frequencies, ProvidedServices
+from finances.models import (
+    Suppliers,
+    PaymentMethods,
+    Registers,
+    Frequencies,
+    ProvidedServices,
+)
 
 
 class SupplierForm(forms.ModelForm):

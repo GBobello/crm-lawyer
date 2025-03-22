@@ -19,8 +19,14 @@ from django.views.generic import (
     View,
 )
 
+from finances.models import (
+    Suppliers,
+    PaymentMethods,
+    Registers,
+    Frequencies,
+    ProvidedServices,
+)
 from apps.utils import utils
-from .models import Suppliers, PaymentMethods, Registers, Frequencies, ProvidedServices
 from .forms import (
     SupplierForm,
     PaymentMethodForm,
