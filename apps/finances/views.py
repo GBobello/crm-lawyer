@@ -26,14 +26,14 @@ from finances.models import (
     Frequencies,
     ProvidedServices,
 )
-from apps.utils import utils
-from .forms import (
+from finances.forms import (
     SupplierForm,
     PaymentMethodForm,
     RegisterForm,
     FrequencyForm,
     ProvidedServicesForm,
 )
+from apps.utils import utils
 
 
 class SupplierMessageView(LoginRequiredMixin, View):
