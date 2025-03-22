@@ -1,7 +1,15 @@
+import csv
+import datetime
+import textwrap
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.utils import timezone
 from django.views.generic import (
     ListView,
     CreateView,
@@ -20,15 +28,6 @@ from .forms import (
     FrequencyForm,
     ProvidedServicesForm,
 )
-from django.db.models import Q
-import csv
-import datetime
-
-# Importações adicionais para gerar PDFs
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from django.utils import timezone
-import textwrap
 
 
 class SupplierMessageView(LoginRequiredMixin, View):

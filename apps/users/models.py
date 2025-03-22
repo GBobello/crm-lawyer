@@ -2,7 +2,6 @@ from utils import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .validators import validate_phone, validate_document
-from utils import utils
 
 
 class Users(AbstractUser):
