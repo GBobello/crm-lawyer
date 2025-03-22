@@ -12,8 +12,14 @@ from django.views.generic import (
 )
 
 from apps.utils import utils
-from .models import Suppliers, PaymentMethods, Registers, Frequencies
-from .forms import SupplierForm, PaymentMethodForm, RegisterForm, FrequencyForm
+from .models import Suppliers, PaymentMethods, Registers, Frequencies, ProvidedServices
+from .forms import (
+    SupplierForm,
+    PaymentMethodForm,
+    RegisterForm,
+    FrequencyForm,
+    ProvidedServicesForm,
+)
 from django.db.models import Q
 import csv
 import datetime
@@ -23,7 +29,6 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from django.utils import timezone
 import textwrap
-
 
 
 class SupplierMessageView(LoginRequiredMixin, View):
@@ -138,8 +143,10 @@ class SupplierListView(LoginRequiredMixin, ListView):
 
 class SupplierExportPDFView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=Fornecedor_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'attachment; filename=Fornecedor_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        )
 
         p = canvas.Canvas(response, pagesize=letter)
         width, height = letter
@@ -184,18 +191,16 @@ class SupplierExportPDFView(LoginRequiredMixin, View):
         y = height - 100
         line_height = 14
 
-
         for supplier in Suppliers2:
             texts = [
-                    supplier.nome,
-                    supplier.email,
-                    supplier.telefone_formatado(),
-                    supplier.documento,
-                    supplier.get_tipo_pessoa_display(),
-                    utils.get_data_formatada(supplier.data_cadastro),
-                    supplier.endereco,
-             ]
-
+                supplier.nome,
+                supplier.email,
+                supplier.telefone_formatado(),
+                supplier.documento,
+                supplier.get_tipo_pessoa_display(),
+                utils.get_data_formatada(supplier.data_cadastro),
+                supplier.endereco,
+            ]
 
             max_lines = 1
             for i, text in enumerate(texts):
@@ -359,3 +364,35 @@ class FrequencyDetailView(LoginRequiredMixin, DetailView):
     model = Frequencies
     template_name = "frequencies/frequency_detail.html"
     context_object_name = "frequency"
+
+
+class ProvidedServicesListView(LoginRequiredMixin, ListView):
+    model = ProvidedServices
+    template_name = "providedservices/providedservices_list.html"
+    context_object_name = "providedservices"
+
+
+class ProvidedServicesCreateView(LoginRequiredMixin, CreateView):
+    model = ProvidedServices
+    form_class = ProvidedServicesForm
+    template_name = "providedservices/providedservices_form.html"
+    success_url = reverse_lazy("providedservices-list")
+
+
+class ProvidedServicesUpdateView(LoginRequiredMixin, UpdateView):
+    model = ProvidedServices
+    form_class = ProvidedServicesForm
+    template_name = "providedservices/providedservices_form.html"
+    success_url = reverse_lazy("providedservices-list")
+
+
+class ProvidedServicesDeleteView(LoginRequiredMixin, DeleteView):
+    model = ProvidedServices
+    template_name = "providedservices/providedservices_confirm_delete.html"
+    success_url = reverse_lazy("providedservices-list")
+
+
+class ProvidedServicesDetailView(LoginRequiredMixin, DetailView):
+    model = ProvidedServices
+    template_name = "providedservices/providedservices_detail.html"
+    context_object_name = "providedservices"

@@ -23,6 +23,11 @@ from .views import (
     FrequencyUpdateView,
     FrequencyDeleteView,
     FrequencyDetailView,
+    ProvidedServicesListView,
+    ProvidedServicesCreateView,
+    ProvidedServicesDetailView,
+    ProvidedServicesUpdateView,
+    ProvidedServicesDeleteView,
 )
 
 urlpatterns = [
@@ -100,5 +105,31 @@ urlpatterns = [
         "frequencias/<int:pk>/excluir/",
         FrequencyDeleteView.as_view(),
         name="frequency-delete",
+    ),
+    # provided services
+    path(
+        "servicos-prestados/",
+        ProvidedServicesListView.as_view(),
+        name="providedservices-list",
+    ),
+    path(
+        "servicos-prestados/inserir/",
+        ProvidedServicesCreateView.as_view(),
+        name="providedservices-create",
+    ),
+    path(
+        "servicos-prestados/<int:pk>/",
+        ProvidedServicesDetailView.as_view(),
+        name="providedservices-detail",
+    ),
+    path(
+        "servicos-prestados/<int:pk>/editar/",
+        ProvidedServicesUpdateView.as_view(),
+        name="providedservices-update",
+    ),
+    path(
+        "servicos-prestados/<int:pk>/excluir/",
+        ProvidedServicesDeleteView.as_view(),
+        name="providedservices-delete",
     ),
 ]

@@ -1,0 +1,9 @@
+{% extends "providedservices.html" %} {% block 'content' %}
+<h1>Excluir Serviço Prestado</h1>
+<p>Tem certeza de que deseja excluir?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar</button>
+</form>
+<a href="{% url 'providedservices-list' %}">Cancelar</a>
+{% endblock %}

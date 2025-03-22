@@ -1,0 +1,15 @@
+{% extends "providedservices.html" %} {% block 'content' %}
+<h1>Serviços Prestads</h1>
+<a href="{% url 'providedservices-create' %}">Criar Novo Serviço Prestado</a>
+<ul>
+  {% for i in providedservices %}
+  <li>
+    <a href="{% url 'providedservices-detail' i.pk %}">
+      {{ i.nome }}
+    </a>
+    <a href="{% url 'providedservices-update' i.pk %}">Editar</a>
+    <a href="{% url 'providedservices-delete' i.pk %}">Excluir</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

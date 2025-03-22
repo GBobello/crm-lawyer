@@ -1,0 +1,14 @@
+{% extends 'providedservices.html' %} {% block 'content' %}
+<h1>{% if object %} Editar Serviço Prestado {% else %} Novo Serviço Prestado {% endif %}</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">
+    {% if object %}Atualizar{% else %}Salvar{% endif %}
+  </button>
+</form>
+
+<a href="{% url 'providedservices-list' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

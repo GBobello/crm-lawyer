@@ -1,5 +1,5 @@
 from django import forms
-from .models import Suppliers, PaymentMethods, Registers, Frequencies
+from .models import Suppliers, PaymentMethods, Registers, Frequencies, ProvidedServices
 
 
 class SupplierForm(forms.ModelForm):
@@ -71,3 +71,14 @@ class FrequencyForm(forms.ModelForm):
     class Meta:
         model = Frequencies
         fields = ["frequency", "days"]
+
+
+class ProvidedServicesForm(forms.ModelForm):
+    class Meta:
+        model = ProvidedServices
+        fields = ["nome"]
+        widgets = {
+            "nome": forms.TextInput(
+                attrs={"class": "form-input", "placeholder": "Nome"}
+            ),
+        }
