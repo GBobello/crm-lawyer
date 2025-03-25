@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,9 +12,10 @@ from .models import Tasks
 
 
 # Listar Tasks
-class TaskListView(LoginRequiredMixin, ListView):
+class TaskListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Tasks
     template_name = "tasks/task_list.html"
+    permission_required = "tasks.view_tasks"
     context_object_name = "tasks"
 
     def get_queryset(self):
@@ -26,9 +27,10 @@ class TaskListView(LoginRequiredMixin, ListView):
 
 
 # Detalhes de uma Task
-class TaskDetailView(LoginRequiredMixin, DetailView):
+class TaskDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Tasks
     template_name = "tasks/task_detail.html"
+    permission_required = "tasks.view_tasks"
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -37,10 +39,11 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
 
 # Criar Nova Task
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
+    permission_required = "tasks.add_tasks"
     success_url = reverse_lazy("task-list")
 
     def form_valid(self, form):
@@ -50,10 +53,11 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 
 # Editar Task
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Tasks
     form_class = TaskForm
     template_name = "tasks/task_form.html"
+    permission_required = "tasks.change_tasks"
     success_url = reverse_lazy("task-list")
 
     def form_valid(self, form):
@@ -68,9 +72,10 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 
 
 # Deletar Task
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tasks
     template_name = "tasks/task_confirm_delete.html"
+    permission_required = "tasks.delete_tasks"
     success_url = reverse_lazy("task-list")
 
     def get_queryset(self):

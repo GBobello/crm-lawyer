@@ -1,7 +1,11 @@
 import csv
 import textwrap
 import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    PermissionRequiredMixin,
+)
 from django.contrib.auth.models import Group
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, View
 from django.contrib import messages
@@ -153,10 +157,11 @@ class UserMessageView(LoginRequiredMixin, View):
         return JsonResponse(response_data)
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 10
     model = Users
     template_name = "users/user_list.html"
+    permission_required = "users.view_users"
     context_object_name = "users"
 
     def get_queryset(self):
@@ -201,10 +206,13 @@ class UserListView(LoginRequiredMixin, ListView):
         return context
 
 
-class UserCreateView(LoginRequiredMixin, SuperUserRequiredMixin, CreateView):
+class UserCreateView(
+    LoginRequiredMixin, SuperUserRequiredMixin, PermissionRequiredMixin, CreateView
+):
     model = Users
     form_class = UserCreateForm
     template_name = "users/user_form.html"
+    permission_required = "users.add_users"
     success_url = reverse_lazy("user-message")
 
     def form_valid(self, form):
@@ -218,10 +226,13 @@ class UserCreateView(LoginRequiredMixin, SuperUserRequiredMixin, CreateView):
         return response
 
 
-class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class UserUpdateView(
+    LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, UpdateView
+):
     model = Users
     form_class = UserEditForm
     template_name = "users/user_form.html"
+    permission_required = "users.change_users"
     success_url = reverse_lazy("user-message")
 
     def test_func(self):
@@ -241,15 +252,21 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return response
 
 
-class UserDeleteView(LoginRequiredMixin, SuperUserRequiredMixin, DetailView):
+class UserDeleteView(
+    LoginRequiredMixin, SuperUserRequiredMixin, PermissionRequiredMixin, DetailView
+):
     model = Users
     template_name = "users/user_confirm_delete.html"
+    permission_required = "users.delete_users"
     success_url = reverse_lazy("user-message")
 
 
-class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class UserDetailView(
+    LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin, DetailView
+):
     model = Users
     template_name = "users/user_detail.html"
+    permission_required = "users.view_users"
     context_object_name = "user"
 
     def test_func(self):

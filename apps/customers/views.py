@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import (
     ListView,
     CreateView,
@@ -91,11 +91,14 @@ class CustomerExportCsvView(LoginRequiredMixin, View):
 
         return response
 
+
 class CustomerExportPDFView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Criar resposta HTTP com tipo de conteúdo PDF
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=Clientes_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'attachment; filename=Clientes_{timezone.now().strftime("%Y-%m-%d_%H-%M-%S")}.pdf'
+        )
 
         # Criar o objeto canvas do reportlab
         p = canvas.Canvas(response, pagesize=letter)
@@ -150,14 +153,16 @@ class CustomerExportPDFView(LoginRequiredMixin, View):
                 customer.documento,
                 customer.get_tipo_pessoa_display(),
                 utils.get_data_formatada(customer.data_nascimento),
-                customer.cidade + ' - ' + customer.estado,
+                customer.cidade + " - " + customer.estado,
             ]
 
             # Calcular quantas linhas cada campo precisa
             max_lines = 1
             for i, text in enumerate(texts):
                 wrapped_text = p.beginText(x_offsets[i], y)
-                lines = textwrap.wrap(text, width=15) # Ajuste 'width' conforme necessário
+                lines = textwrap.wrap(
+                    text, width=15
+                )  # Ajuste 'width' conforme necessário
                 max_lines = max(max_lines, len(lines))
                 for line in lines:
                     wrapped_text.textLine(line)
@@ -184,13 +189,13 @@ class CustomerExportPDFView(LoginRequiredMixin, View):
         return response
 
 
-
 # Listagem dos clientes
-class CustomerListView(LoginRequiredMixin, ListView):
+class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 10
     model = Customer
     template_name = "customers/customer_list.html"
     context_object_name = "customers"
+    permission_required = "customers.view_customer"
 
     def get_queryset(self):
         search = self.request.GET.get("search")
@@ -237,10 +242,11 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
 
 # Criação de um cliente
-class CustomerCreateView(LoginRequiredMixin, CreateView):
+class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Customer
     form_class = CustomerForm
     template_name = "customers/customer_form.html"
+    permission_required = "customers.add_customer"
     success_url = reverse_lazy("customer-message")
 
     def form_valid(self, form):
@@ -252,10 +258,11 @@ class CustomerCreateView(LoginRequiredMixin, CreateView):
 
 
 # Atualização de um cliente
-class CustomerUpdateView(LoginRequiredMixin, UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = "customers/customer_form.html"
+    permission_required = "customers.change_customer"
     success_url = reverse_lazy("customer-message")
 
     def form_valid(self, form):
@@ -267,14 +274,16 @@ class CustomerUpdateView(LoginRequiredMixin, UpdateView):
 
 
 # Exclusão de um cliente
-class CustomerDeleteView(LoginRequiredMixin, DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Customer
     template_name = "customers/customer_confirm_delete.html"
+    permission_required = "customers.delete_customer"
     success_url = reverse_lazy("customer-message")
 
 
 # Detalhes de um cliente
-class CustomerDetailView(LoginRequiredMixin, DetailView):
+class CustomerDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Customer
     template_name = "customers/customer_detail.html"
+    permission_required = "customers.view_customer"
     context_object_name = "customer"

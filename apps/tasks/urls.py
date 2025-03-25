@@ -10,7 +10,7 @@ from .views import (
 urlpatterns = [
     path("", TaskListView.as_view(), name="task-list"),
     path("<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
-    path("nova/", TaskCreateView.as_view(), name="task-create"),
+    path("inserir/", TaskCreateView.as_view(), name="task-create"),
     path("<int:pk>/editar/", TaskUpdateView.as_view(), name="task-update"),
-    path("<int:pk>/deletar/", TaskDeleteView.as_view(), name="task-delete"),
+    path("<int:pk>/excluir/", TaskDeleteView.as_view(), name="task-delete"),
 ]
