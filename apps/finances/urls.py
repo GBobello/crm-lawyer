@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (
+from finances.views import (
     SupplierListView,
     SupplierCreateView,
     SupplierUpdateView,
