@@ -25,6 +25,7 @@ from finances.models import (
     Registers,
     Frequencies,
     ProvidedServices,
+    Payable,
 )
 from finances.forms import (
     SupplierForm,
@@ -32,6 +33,7 @@ from finances.forms import (
     RegisterForm,
     FrequencyForm,
     ProvidedServicesForm,
+    PayableForm,
 )
 from apps.utils import utils
 
@@ -127,8 +129,8 @@ class SupplierListView(LoginRequiredMixin, ListView):
         content = self.request.META.get("CONTENT_TYPE")
         if content and "application/text" in content:
             return ["suppliers/supplier_list_table.html"]
-        else:
-            return [self.template_name]
+
+        return [self.template_name]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -401,3 +403,36 @@ class ProvidedServicesDetailView(LoginRequiredMixin, DetailView):
     model = ProvidedServices
     template_name = "providedservices/providedservices_detail.html"
     context_object_name = "providedservices"
+
+
+################################################################################################
+class PayableListView(LoginRequiredMixin, ListView):
+    model = Payable
+    template_name = "payable/payable_list.html"
+    context_object_name = "payable"
+
+
+class PayableCreateView(LoginRequiredMixin, CreateView):
+    model = Payable
+    form_class = PayableForm
+    template_name = "payable/payable_form.html"
+    success_url = reverse_lazy("payable-list")
+
+
+class PayableUpdateView(LoginRequiredMixin, UpdateView):
+    model = Payable
+    form_class = PayableForm
+    template_name = "payable/payable_form.html"
+    success_url = reverse_lazy("payable-list")
+
+
+class PayableDeleteView(LoginRequiredMixin, DeleteView):
+    model = Payable
+    template_name = "payable/payable_confirm_delete.html"
+    success_url = reverse_lazy("payable-list")
+
+
+class PayableDetailView(LoginRequiredMixin, DetailView):
+    model = Payable
+    template_name = "payable/payable_detail.html"
+    context_object_name = "payable"

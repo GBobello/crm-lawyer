@@ -25,6 +25,7 @@ class CustomerForm(forms.ModelForm):
             "bairro",
             "cidade",
             "estado",
+            "ativo",
         ]
         widgets = {
             "nome": forms.TextInput(attrs={"class": "form-input"}),
@@ -58,4 +59,5 @@ class CustomerForm(forms.ModelForm):
             "bairro": forms.TextInput(attrs={"id": "bairro", "class": "form-input"}),
             "cidade": forms.TextInput(attrs={"id": "cidade", "class": "form-input"}),
             "estado": forms.Select(attrs={"class": "form-input px-4 py-2"}),
+            "ativo": forms.CheckboxInput(attrs={"class": "form-checkbox"}),
         }

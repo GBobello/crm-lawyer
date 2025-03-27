@@ -1,0 +1,14 @@
+{% extends "payable.html" %} {% block 'content' %}
+<h1>Detalhes da Conta a Pagar</h1>
+<p><strong>Descrição:</strong> {{ payable.description }}</p>
+<p><strong>Valor:</strong> {{ payable.value }}</p>
+<p><strong>Fornecedor:</strong> {{ payable.supplier }}</p>
+<p><strong>Data de Vencimento:</strong> {{ payable.due_date }}</p>
+<p><strong>Data de Pagamento:</strong> {{ payable.payment_date }}</p>
+<p><strong>Forma de pagamento:</strong> {{ payable.payment_method }}</p>
+<p><strong>Frequência:</strong> {{ payable.frenquency }}</p>
+<p><strong>Observações:</strong> {{ payable.obs }}</p>
+<a href="{% url 'payable-update' payable.pk %}">Editar</a>
+<a href="{% url 'payable-delete' payable.pk %}">Excluir</a>
+<a href="{% url 'payable-list' %}">Voltar à Lista</a>
+{% endblock %}

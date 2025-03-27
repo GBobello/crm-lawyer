@@ -27,6 +27,9 @@ class Tasks(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Agendada")
     prioridade = models.CharField(max_length=5, choices=PRIORIDADE_CHOICES)
 
+    def __str__(self):
+        return self.descricao
+
     class Meta:
         db_table = "tasks"
         verbose_name = "Tarefa"

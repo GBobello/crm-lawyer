@@ -72,6 +72,9 @@ class Users(AbstractUser):
     def telefone_formatado(self):
         return utils.telefone_formatado(self.telefone)
 
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
     def save(self, *args, **kwargs):
         print(self.foto)
         self.documento = utils.remove_special_characters(self.documento)

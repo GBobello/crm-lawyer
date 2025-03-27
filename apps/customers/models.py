@@ -74,9 +74,13 @@ class Customer(models.Model):
     genitora = models.CharField(max_length=255, null=True, blank=True)
     profissao = models.CharField(max_length=255, null=True, blank=True)
     nacionalidade = models.CharField(max_length=255, null=True, blank=True)
+    ativo = models.BooleanField(default=True)
     estado_civil = models.CharField(
         max_length=255, choices=OPTIONS_ESTADO_CIVIL, null=True, blank=True
     )
+
+    def __str__(self):
+        return self.nome
 
     def telefone_formatado(self):
         return utils.telefone_formatado(self.telefone)

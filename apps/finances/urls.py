@@ -28,6 +28,11 @@ from .views import (
     ProvidedServicesDetailView,
     ProvidedServicesUpdateView,
     ProvidedServicesDeleteView,
+    PayableListView,
+    PayableCreateView,
+    PayableUpdateView,
+    PayableDeleteView,
+    PayableDetailView,
 )
 
 urlpatterns = [
@@ -131,5 +136,31 @@ urlpatterns = [
         "servicos-prestados/<int:pk>/excluir/",
         ProvidedServicesDeleteView.as_view(),
         name="providedservices-delete",
+    ),
+    # payable
+    path(
+        "contas-a-pagar/",
+        PayableListView.as_view(),
+        name="payable-list",
+    ),
+    path(
+        "contas-a-pagar/inserir/",
+        PayableCreateView.as_view(),
+        name="payable-create",
+    ),
+    path(
+        "contas-a-pagar/<int:pk>/",
+        PayableDetailView.as_view(),
+        name="payable-detail",
+    ),
+    path(
+        "contas-a-pagar/<int:pk>/editar/",
+        PayableUpdateView.as_view(),
+        name="payable-update",
+    ),
+    path(
+        "contas-a-pagar/<int:pk>/excluir/",
+        PayableDeleteView.as_view(),
+        name="payable-delete",
     ),
 ]

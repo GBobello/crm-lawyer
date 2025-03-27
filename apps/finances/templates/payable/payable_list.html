@@ -1,0 +1,15 @@
+{% extends "payable.html" %} {% block 'content' %}
+<h1>Caixas</h1>
+<a href="{% url 'payable-create' %}">Criar Nova Conta a Pagar</a>
+<ul>
+  {% for i in payable %}
+  <li>
+    <a href="{% url 'payable-detail' i.pk %}">
+      {{ i.description }} - {{ i.value }} - {{ i.due_date }}
+    </a>
+    <a href="{% url 'payable-update' i.pk %}">Editar</a>
+    <a href="{% url 'payable-delete' i.pk %}">Excluir</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

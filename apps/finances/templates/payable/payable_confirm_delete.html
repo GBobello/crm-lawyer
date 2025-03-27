@@ -1,0 +1,9 @@
+{% extends "payable.html" %} {% block 'content' %}
+<h1>Excluir Conta a Pagar</h1>
+<p>Tem certeza de que deseja excluir?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar</button>
+</form>
+<a href="{% url 'payable-list' %}">Cancelar</a>
+{% endblock %}
