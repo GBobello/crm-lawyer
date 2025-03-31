@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
 from django.utils import timezone
 from django.views.generic import (
@@ -89,11 +89,12 @@ class SupplierExportCsvView(LoginRequiredMixin, View):
         return response
 
 
-class SupplierListView(LoginRequiredMixin, ListView):
+class SupplierListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 10
     model = Suppliers
     template_name = "suppliers/supplier_list.html"
     context_object_name = "suppliers"
+    permission_required = "finances.view_suppliers"
 
     def get_queryset(self):
         search = self.request.GET.get("search")
@@ -223,11 +224,12 @@ class SupplierExportPDFView(LoginRequiredMixin, View):
         return response
 
 
-class SupplierCreateView(LoginRequiredMixin, CreateView):
+class SupplierCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Suppliers
     form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
     success_url = reverse_lazy("supplier-message")
+    permission_required = "finances.add_suppliers"
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -237,11 +239,12 @@ class SupplierCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
-class SupplierUpdateView(LoginRequiredMixin, UpdateView):
+class SupplierUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Suppliers
     form_class = SupplierForm
     template_name = "suppliers/supplier_form.html"
     success_url = reverse_lazy("supplier-message")
+    permission_required = "finances.change_suppliers"
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -251,13 +254,15 @@ class SupplierUpdateView(LoginRequiredMixin, UpdateView):
         return response
 
 
-class SupplierDeleteView(LoginRequiredMixin, DeleteView):
+class SupplierDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Suppliers
     template_name = "suppliers/supplier_confirm_delete.html"
     success_url = reverse_lazy("supplier-list")
+    permission_required = "finances.delete_suppliers"
 
 
-class SupplierDetailView(LoginRequiredMixin, DetailView):
+class SupplierDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Suppliers
     template_name = "suppliers/supplier_detail.html"
     context_object_name = "supplier"
+    permission_required = "finances.view_suppliers"
